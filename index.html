@@ -99,6 +99,42 @@
   a { color: var(--red-dark); }
   .src { font-size: 11.5px; color: var(--muted); margin-top: 10px; }
   .src a { color: var(--muted); }
+
+  .map-wrap { background: var(--bg); border-radius: 10px; padding: 8px; margin-top: 12px; overflow: hidden; }
+  .map-wrap svg { width: 100%; height: auto; display: block; }
+  #route-line { fill: none; stroke: var(--red); stroke-width: 2.5; stroke-dasharray: 6 4; }
+  .marker circle { stroke: #fff; stroke-width: 1.5; cursor: pointer; }
+  .marker-start circle, .marker-finish circle { fill: var(--red); }
+  .marker-fuel circle { fill: var(--green); }
+  .marker-fuel-tbd circle { fill: #f59e0b; }
+  .marker-border circle { fill: var(--navy); }
+  .marker-city circle { fill: var(--muted); }
+  .marker text { font-size: 9px; fill: var(--slate); font-weight: 700; }
+  .me-marker { fill: #2563eb; stroke: #fff; stroke-width: 2; }
+  .map-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 14px; }
+  .loc-btn {
+    background: var(--red); color: #fff; border: none; border-radius: 999px; padding: 10px 20px;
+    font-size: 14px; font-weight: 700; cursor: pointer;
+  }
+  .loc-btn:hover { background: var(--red-dark); }
+  .loc-result { font-size: 13.5px; color: var(--slate); }
+  .map-legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 14px; font-size: 12px; color: var(--muted); }
+  .map-legend .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; vertical-align: middle; }
+  .dot-start { background: var(--red); }
+  .dot-fuel { background: var(--green); }
+  .dot-tbd { background: #f59e0b; }
+  .dot-border { background: var(--navy); }
+  .dot-city { background: var(--muted); }
+  .dot-me { background: #2563eb; }
+  .stop-info { padding: 12px 0; border-bottom: 1px dashed var(--border); }
+  .stop-info:last-child { border-bottom: none; }
+  .stop-name { font-weight: 800; color: var(--navy); font-size: 14px; }
+  .stop-detail { font-size: 13px; color: var(--slate); margin-top: 3px; }
+  .stop-links { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 14px; font-size: 12.5px; }
+  .offline-tag {
+    display: inline-block; background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0;
+    border-radius: 999px; padding: 3px 12px; font-size: 11.5px; font-weight: 700; margin-left: 8px;
+  }
 </style>
 </head>
 <body>
@@ -182,6 +218,38 @@
   </div>
 
   <div class="card">
+    <h2><span class="ico">🗺️</span> Mapa de la ruta <span class="offline-tag">📴 funciona sin conexión</span></h2>
+    <p>Mapa esquemático de los ~2.190&nbsp;km, de Berazategui a Interlagos. Una vez que cargaste
+    esta página por primera vez queda guardada en el teléfono — no hace falta señal para
+    volver a verla. Tocá <strong>«¿Dónde estoy?»</strong> para ubicarte con el GPS y ver
+    cuál es tu próxima parada.</p>
+    <div class="map-wrap">
+      <svg id="route-map" viewBox="0 0 600 690" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mapa esquemático de la ruta Berazategui–Interlagos">
+        <polyline id="route-line" points=""></polyline>
+      </svg>
+    </div>
+    <div class="map-controls">
+      <button id="locate-btn" class="loc-btn" type="button">📍 ¿Dónde estoy?</button>
+      <div id="locate-result" class="loc-result">Tocá un punto del mapa o el botón para ver info de cada lugar.</div>
+    </div>
+    <div class="map-legend">
+      <span><i class="dot dot-start"></i>Inicio / llegada</span>
+      <span><i class="dot dot-fuel"></i>Carga Shell</span>
+      <span><i class="dot dot-tbd"></i>Carga a confirmar</span>
+      <span><i class="dot dot-border"></i>Frontera</span>
+      <span><i class="dot dot-city"></i>Ciudad de paso</span>
+      <span><i class="dot dot-me"></i>Vos (GPS)</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="ico">🛑</span> Info útil en cada parada <span class="offline-tag">📴 funciona sin conexión</span></h2>
+    <p>Detalle de las 5 cargas de combustible y el cruce de frontera — toda la info clave
+    queda guardada en el teléfono, lista para consultar sin señal.</p>
+    <div id="stops-list"></div>
+  </div>
+
+  <div class="card">
     <h2><span class="ico">🕒</span> Cronograma sugerido</h2>
     <div class="timeline">
       <div class="timeline-item"><div class="when">Mié 4/11, ~05:00</div><div class="what">Salida desde Juan María Gutiérrez, Berazategui</div></div>
@@ -201,12 +269,12 @@
   <div class="card">
     <h2><span class="ico">🧑‍🤝‍🧑</span> Turnos de manejo — 6 conductores</h2>
     <div class="crew">
-      <div class="seat"><span class="ico">🚗</span>Turno 1</div>
-      <div class="seat"><span class="ico">🚗</span>Turno 2</div>
-      <div class="seat"><span class="ico">🚗</span>Turno 3</div>
-      <div class="seat"><span class="ico">🚗</span>Turno 4</div>
-      <div class="seat"><span class="ico">🚗</span>Turno 5</div>
-      <div class="seat"><span class="ico">🚗</span>Turno 6</div>
+      <div class="seat"><span class="ico">🚗</span>Ariel B</div>
+      <div class="seat"><span class="ico">🚗</span>Ariel S</div>
+      <div class="seat"><span class="ico">🚗</span>Charly</div>
+      <div class="seat"><span class="ico">🚗</span>Elias</div>
+      <div class="seat"><span class="ico">🚗</span>Dani</div>
+      <div class="seat"><span class="ico">🚗</span>Gaston</div>
     </div>
     <p style="margin-top:14px;">~25 h de manejo puro ÷ 6 personas ≈ turnos de <strong>~3
     horas</strong> cada uno (2 vueltas completas por persona). Ideal hacer el relevo en cada
@@ -246,6 +314,146 @@
   </div>
 
 </main>
+
+<script>
+(function () {
+  var MAP_W = 600, MAP_H = 690;
+  var BOUNDS = { lonMin: -59.5, lonMax: -46.0, latMin: -35.0, latMax: -23.0 };
+  function project(lat, lon) {
+    var x = (lon - BOUNDS.lonMin) / (BOUNDS.lonMax - BOUNDS.lonMin) * MAP_W;
+    var y = (BOUNDS.latMax - lat) / (BOUNDS.latMax - BOUNDS.latMin) * MAP_H;
+    return [x, y];
+  }
+  var WAYPOINTS = [
+    { id: 'berazategui', name: 'Berazategui (salida)', kind: 'start', lat: -34.7666, lon: -58.2095,
+      info: 'Punto de partida — Juan María Gutiérrez, Berazategui.' },
+    { id: 'zarate', name: 'Zárate', kind: 'city', lat: -34.0973, lon: -59.0278,
+      info: 'Acceso a la RN14, rumbo a Entre Ríos y Corrientes.' },
+    { id: 'chajari', name: 'Shell Chajarí / San José', kind: 'fuel', lat: -30.7565, lon: -58.0078,
+      info: 'Parada 1 — ~480 km. Carga de diésel + comida. Entre Ríos, sobre la RN14.' },
+    { id: 'santotome', name: 'Shell Santo Tomé', kind: 'fuel', lat: -28.5511, lon: -56.0444,
+      info: 'Parada 2 — ~950 km. Conviene cargar acá antes de cruzar (combustible más barato en Argentina). Corrientes, RN14, ~70 km antes del paso.' },
+    { id: 'frontera', name: 'Frontera Paso de los Libres ↔ Uruguaiana', kind: 'border', lat: -29.7283, lon: -57.0896,
+      info: 'Puente "Agustín P. Justo – Getúlio Vargas". Tener lista la documentación (DNI, Carta Verde, VTV) y la premigración con QR. ~20 min + trámite aduanero.' },
+    { id: 'rs-brasil', name: 'Carga BR-290 (RS) — a confirmar', kind: 'fuel-tbd', lat: -29.5, lon: -54.0,
+      info: 'Parada 3 — ~1.430 km. No se confirmó una estación Shell sobre este tramo — revisar el localizador de Shell Brasil antes de salir y, si hace falta, completar en otra estación cercana.' },
+    { id: 'portoalegre', name: 'Porto Alegre', kind: 'city', lat: -30.0346, lon: -51.2177,
+      info: 'Empalme entre la BR-290 y la BR-116, rumbo a Curitiba.' },
+    { id: 'curitiba', name: 'Curitiba', kind: 'city', lat: -25.4284, lon: -49.2733,
+      info: 'BR-116 — empalme hacia la Rodovia Régis Bittencourt y San Pablo.' },
+    { id: 'juquia', name: 'Shell Fase Quattro – Juquiá', kind: 'fuel', lat: -24.3278, lon: -47.6336,
+      info: 'Parada 4 — ~1.900 km. Diésel + Arla 32. BR-116 (Régis Bittencourt) km 413,8.' },
+    { id: 'taboao', name: 'Shell Posto Rota 116 – Taboão da Serra', kind: 'fuel', lat: -23.6028, lon: -46.7572,
+      info: 'Parada 5 — ~2.180 km, última carga del viaje. Conviene dejar el tanque lleno acá para moverse por San Pablo. BR-116 km 16,5.' },
+    { id: 'interlagos', name: 'Interlagos — llegada 🏁', kind: 'finish', lat: -23.7036, lon: -46.6997,
+      info: 'Autódromo José Carlos Pace — destino final del viaje, sede del GP de São Paulo.' }
+  ];
+
+  var ns = 'http://www.w3.org/2000/svg';
+  var svg = document.getElementById('route-map');
+  var resultBox = document.getElementById('locate-result');
+
+  function showInfo(w) {
+    resultBox.innerHTML = '<strong>' + w.name + '</strong><br>' + w.info;
+  }
+
+  if (svg) {
+    var pts = WAYPOINTS.map(function (w) { return project(w.lat, w.lon); });
+    document.getElementById('route-line').setAttribute('points', pts.map(function (p) { return p.join(','); }).join(' '));
+    WAYPOINTS.forEach(function (w, i) {
+      var x = pts[i][0], y = pts[i][1];
+      var g = document.createElementNS(ns, 'g');
+      g.setAttribute('class', 'marker marker-' + w.kind);
+      g.style.cursor = 'pointer';
+      var c = document.createElementNS(ns, 'circle');
+      c.setAttribute('cx', x); c.setAttribute('cy', y);
+      c.setAttribute('r', (w.kind === 'start' || w.kind === 'finish') ? 8 : 6);
+      var t = document.createElementNS(ns, 'text');
+      var flip = x > MAP_W - 160;
+      t.setAttribute('x', flip ? x - 10 : x + 10);
+      t.setAttribute('y', w.kind === 'finish' ? y + 18 : y + 4);
+      if (flip) t.setAttribute('text-anchor', 'end');
+      t.textContent = w.name.replace(/^Shell /, '').replace(/ — a confirmar/, ' 🔍').replace(/ — llegada 🏁/, ' 🏁');
+      g.appendChild(c); g.appendChild(t);
+      g.addEventListener('click', function () { showInfo(w); });
+      svg.appendChild(g);
+    });
+  }
+
+  function haversine(lat1, lon1, lat2, lon2) {
+    var R = 6371, toRad = function (d) { return d * Math.PI / 180; };
+    var dLat = toRad(lat2 - lat1), dLon = toRad(lon2 - lon1);
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    return 2 * R * Math.asin(Math.sqrt(a));
+  }
+
+  var meMarker = null;
+  var locateBtn = document.getElementById('locate-btn');
+  if (locateBtn) {
+    locateBtn.addEventListener('click', function () {
+      if (!('geolocation' in navigator)) {
+        resultBox.textContent = 'Tu navegador no soporta geolocalización.';
+        return;
+      }
+      resultBox.textContent = 'Buscando tu ubicación…';
+      navigator.geolocation.getCurrentPosition(function (pos) {
+        var lat = pos.coords.latitude, lon = pos.coords.longitude;
+        var distances = WAYPOINTS.map(function (w) { return { w: w, d: haversine(lat, lon, w.lat, w.lon) }; });
+        distances.sort(function (a, b) { return a.d - b.d; });
+        var nearest = distances[0];
+        var idx = WAYPOINTS.indexOf(nearest.w);
+        var next = null;
+        for (var i = idx + 1; i < WAYPOINTS.length; i++) {
+          var k = WAYPOINTS[i].kind;
+          if (k === 'fuel' || k === 'fuel-tbd' || k === 'border' || k === 'finish') { next = WAYPOINTS[i]; break; }
+        }
+        var html = '<strong>Estás cerca de:</strong> ' + nearest.w.name + ' (~' + nearest.d.toFixed(0) + ' km)';
+        if (next) {
+          html += '<br><strong>Próxima parada:</strong> ' + next.name + ' — ~' + haversine(lat, lon, next.lat, next.lon).toFixed(0) + ' km';
+        }
+        resultBox.innerHTML = html;
+        if (svg) {
+          var p = project(lat, lon);
+          if (!meMarker) {
+            meMarker = document.createElementNS(ns, 'circle');
+            meMarker.setAttribute('class', 'me-marker');
+            meMarker.setAttribute('r', 7);
+            svg.appendChild(meMarker);
+          }
+          meMarker.setAttribute('cx', p[0]);
+          meMarker.setAttribute('cy', p[1]);
+        }
+      }, function (err) {
+        resultBox.textContent = 'No se pudo obtener tu ubicación (' + err.message + ').';
+      }, { enableHighAccuracy: true, timeout: 15000 });
+    });
+  }
+
+  var stopsList = document.getElementById('stops-list');
+  if (stopsList) {
+    WAYPOINTS.filter(function (w) { return w.kind === 'fuel' || w.kind === 'fuel-tbd' || w.kind === 'border'; })
+      .forEach(function (w) {
+        var icon = w.kind === 'border' ? '🌎' : (w.kind === 'fuel-tbd' ? '🔍' : '⛽');
+        var div = document.createElement('div');
+        div.className = 'stop-info';
+        div.innerHTML = '<div class="stop-name">' + icon + ' ' + w.name + '</div>' +
+          '<div class="stop-detail">' + w.info + '</div>' +
+          '<div class="stop-links">' +
+          '<a href="https://www.google.com/maps?q=' + w.lat + ',' + w.lon + '" target="_blank" rel="noopener">Abrir en Google Maps</a>' +
+          '<a href="geo:' + w.lat + ',' + w.lon + '">Abrir en app de mapas del teléfono</a>' +
+          '</div>';
+        stopsList.appendChild(div);
+      });
+  }
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js').catch(function () {});
+    });
+  }
+})();
+</script>
 
 <footer>
   🏎️ Viaje a la F1 — GP São Paulo 2026 · Berazategui → Interlagos · Última actualización: 2026-06-08<br>

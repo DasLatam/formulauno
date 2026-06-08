@@ -12,7 +12,8 @@ noviembre de 2026**.
 ## El grupo y el vehículo
 
 - **6 amigos**, turnándose para manejar y llegar lo más directo posible (sin
-  paradas para dormir — solo combustible, comida y descanso corto).
+  paradas para dormir — solo combustible, comida y descanso corto):
+  Ariel B, Ariel S, Charly, Elias, Dani y Gaston.
 - **Vehículo:** Chevrolet Trailblazer 2020, 7 asientos, diésel.
 - **Autonomía estimada:** ~600 km por tanque.
 - **Punto de partida:** Juan María Gutiérrez, Berazategui, Buenos Aires,
@@ -26,11 +27,20 @@ noviembre de 2026**.
 formulauno/
 ├── README.md          # este archivo — itinerario completo
 ├── index.html         # página web del viaje — desplegada en Vercel
+├── sw.js              # service worker — cachea la página para uso 100% offline
 └── vercel.json        # config de Vercel (cleanUrls)
 ```
 
 > 🌐 Sitio publicado en **[formulauno-phi.vercel.app](https://formulauno-phi.vercel.app/)**
 > (deploy automático desde [github.com/DasLatam/formulauno](https://github.com/DasLatam/formulauno) — cada push a `main` redespliega).
+
+> 📴 **Funciona sin internet:** la página registra un *service worker* (`sw.js`) que
+> guarda todo en el teléfono la primera vez que se abre. Después de esa primera visita
+> (con conexión), el mapa de la ruta, el cronograma, las paradas de combustible y toda
+> la info de la página quedan disponibles aunque no haya señal — ideal para el tramo
+> sin cobertura entre Argentina y Brasil. El botón **«¿Dónde estoy?»** usa el GPS del
+> teléfono (que tampoco necesita datos móviles) para ubicarte en el mapa y mostrar tu
+> próxima parada.
 
 ---
 
