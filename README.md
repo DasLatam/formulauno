@@ -25,9 +25,12 @@ noviembre de 2026**.
 ```
 formulauno/
 ├── README.md          # este archivo — itinerario completo
-└── web/               # página web del viaje (para publicar en Vercel)
-    └── index.html
+├── index.html         # página web del viaje — desplegada en Vercel
+└── vercel.json        # config de Vercel (cleanUrls)
 ```
+
+> 🌐 Sitio publicado en **[formulauno-phi.vercel.app](https://formulauno-phi.vercel.app/)**
+> (deploy automático desde [github.com/DasLatam/formulauno](https://github.com/DasLatam/formulauno) — cada push a `main` redespliega).
 
 ---
 
