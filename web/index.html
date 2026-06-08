@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Viaje a la F1 — GP São Paulo 2026 🏎️</title>
+<style>
+  :root {
+    --red: #e10600;
+    --red-dark: #b30500;
+    --navy: #15151e;
+    --slate: #38383f;
+    --muted: #6b6b76;
+    --bg: #f5f5f7;
+    --card: #ffffff;
+    --border: #e4e4e9;
+    --green: #16a34a;
+    --radius: 14px;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: var(--font); background: var(--bg); color: var(--slate);
+    line-height: 1.5;
+  }
+  header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--red) 130%);
+    color: #fff; padding: 48px 20px 56px; text-align: center;
+  }
+  header h1 { margin: 0 0 8px; font-size: 32px; font-weight: 800; letter-spacing: -0.02em; }
+  header p { margin: 0; font-size: 16px; opacity: 0.9; }
+  header .badge {
+    display: inline-block; margin-top: 16px; background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3); border-radius: 999px; padding: 6px 18px;
+    font-size: 14px; font-weight: 600; letter-spacing: 0.02em;
+  }
+  main { max-width: 980px; margin: -28px auto 0; padding: 0 16px 60px; }
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 24px; margin-bottom: 20px; box-shadow: 0 6px 24px rgba(20,20,30,0.06);
+  }
+  .card h2 {
+    margin: 0 0 14px; font-size: 20px; font-weight: 800; color: var(--navy);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .card h2 .ico { font-size: 22px; }
+  .card p, .card li { font-size: 14.5px; }
+  .grid-stats {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px; margin-top: -8px;
+  }
+  .stat { background: var(--bg); border-radius: 10px; padding: 14px 16px; }
+  .stat .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); font-weight: 700; }
+  .stat .value { font-size: 20px; font-weight: 800; color: var(--navy); margin-top: 2px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 6px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); font-weight: 700; }
+  tr:last-child td { border-bottom: none; }
+  td.num { font-variant-numeric: tabular-nums; white-space: nowrap; font-weight: 700; color: var(--red-dark); }
+  .route-flow {
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 14px 0 4px;
+  }
+  .route-flow span {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 999px;
+    padding: 6px 14px; font-size: 13px; font-weight: 600; color: var(--navy);
+  }
+  .route-flow .arrow { background: none; border: none; color: var(--muted); padding: 0 2px; font-weight: 400; }
+  .note {
+    background: #fff7ed; border: 1px solid #fed7aa; border-radius: 10px;
+    padding: 12px 16px; font-size: 13px; color: #9a3412; margin-top: 14px;
+  }
+  .checklist { list-style: none; padding: 0; margin: 0; }
+  .checklist li {
+    display: flex; gap: 10px; align-items: flex-start; padding: 7px 0; border-bottom: 1px dashed var(--border);
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist li::before { content: '☐'; color: var(--muted); font-size: 15px; line-height: 1.4; }
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 9px; top: 6px; bottom: 6px; width: 2px; background: var(--border);
+  }
+  .timeline-item { position: relative; padding-bottom: 16px; }
+  .timeline-item:last-child { padding-bottom: 0; }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -23px; top: 4px; width: 12px; height: 12px;
+    border-radius: 50%; background: var(--red); border: 2px solid #fff; box-shadow: 0 0 0 2px var(--red);
+  }
+  .timeline-item .when { font-weight: 800; color: var(--navy); font-size: 13.5px; }
+  .timeline-item .what { font-size: 13.5px; color: var(--slate); margin-top: 1px; }
+  .crew {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(120px,1fr)); gap: 10px; margin-top: 6px;
+  }
+  .crew .seat {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 10px; text-align: center; font-size: 13px; font-weight: 700; color: var(--navy);
+  }
+  .crew .seat .ico { font-size: 22px; display: block; margin-bottom: 4px; }
+  footer { text-align: center; color: var(--muted); font-size: 12.5px; padding: 30px 16px 50px; }
+  a { color: var(--red-dark); }
+  .src { font-size: 11.5px; color: var(--muted); margin-top: 10px; }
+  .src a { color: var(--muted); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">🏁 Ronda 20 · Calendario F1 2026</div>
+  <h1>Viaje a la Fórmula 1 — GP São Paulo 2026</h1>
+  <p>Interlagos (Autódromo José Carlos Pace) · 6, 7 y 8 de noviembre de 2026</p>
+  <p style="margin-top:6px; font-size:14px; opacity:.85;">6 amigos · Chevrolet Trailblazer 2020 · Berazategui → São Paulo</p>
+</header>
+
+<main>
+
+  <div class="card">
+    <h2><span class="ico">📋</span> El plan en números</h2>
+    <div class="grid-stats">
+      <div class="stat"><div class="label">Distancia total</div><div class="value">~2.190 km</div></div>
+      <div class="stat"><div class="label">Manejo puro</div><div class="value">~24-25 h</div></div>
+      <div class="stat"><div class="label">Con paradas</div><div class="value">~28-30 h</div></div>
+      <div class="stat"><div class="label">Autonomía</div><div class="value">~600 km</div></div>
+      <div class="stat"><div class="label">Cargas de diésel</div><div class="value">5 (solo Shell)</div></div>
+      <div class="stat"><div class="label">Tripulación</div><div class="value">6 personas</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="ico">🗺️</span> La ruta más directa</h2>
+    <p>Berazategui → RN14 (la "ruta del Mercosur" por Entre Ríos y Corrientes) → cruce de
+    frontera en Paso de los Libres / Uruguaiana → BR-290 → Porto Alegre → BR-116 → Curitiba →
+    Rodovia Régis Bittencourt (BR-116) → São Paulo → Interlagos.</p>
+    <div class="route-flow">
+      <span>Berazategui</span><span class="arrow">→</span>
+      <span>RN14 (Entre Ríos / Corrientes)</span><span class="arrow">→</span>
+      <span>Paso de los Libres</span><span class="arrow">→</span>
+      <span>🌎 Frontera</span><span class="arrow">→</span>
+      <span>Uruguaiana</span><span class="arrow">→</span>
+      <span>BR-290</span><span class="arrow">→</span>
+      <span>Porto Alegre</span><span class="arrow">→</span>
+      <span>BR-116</span><span class="arrow">→</span>
+      <span>Curitiba</span><span class="arrow">→</span>
+      <span>Régis Bittencourt</span><span class="arrow">→</span>
+      <span>🏁 Interlagos</span>
+    </div>
+    <table>
+      <thead><tr><th>Tramo</th><th>Vía</th><th>Distancia</th><th>Tiempo</th></tr></thead>
+      <tbody>
+        <tr><td>Berazategui → Zárate</td><td>Av. Bs As–La Plata / RN9 / RN12</td><td class="num">~110 km</td><td class="num">~1h30</td></tr>
+        <tr><td>Zárate → Paso de los Libres</td><td>RN14</td><td class="num">~870 km</td><td class="num">~9h30</td></tr>
+        <tr><td>🌎 Cruce de frontera</td><td>Puente Agustín P. Justo – Getúlio Vargas</td><td class="num">~8 km</td><td class="num">~20min + aduana</td></tr>
+        <tr><td>Uruguaiana → Porto Alegre</td><td>BR-290</td><td class="num">~630 km</td><td class="num">~7h</td></tr>
+        <tr><td>Porto Alegre → Curitiba</td><td>BR-116</td><td class="num">~710 km</td><td class="num">~8h</td></tr>
+        <tr><td>Curitiba → Interlagos</td><td>BR-116 (Régis Bittencourt)</td><td class="num">~410 km</td><td class="num">~4h30</td></tr>
+      </tbody>
+    </table>
+    <div class="note">⚠️ La BR-285 vía São Borja sería un atajo entre Uruguaiana y Porto Alegre,
+    pero al planificar este viaje tenía tramos con el asfalto levantado. Conviene re-chequear
+    su estado antes de salir; si sigue mal, mejor mantenerse en la BR-290.</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="ico">⛽</span> Plan de carga — solo Shell</h2>
+    <p>Con ~600 km de autonomía conviene cargar cada ~450-500 km (margen de ~100 km de
+    seguridad). Esto da ~5 paradas en todo el recorrido.</p>
+    <table>
+      <thead><tr><th>#</th><th>Km acum.</th><th>Zona</th><th>Estación Shell sugerida</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td class="num">~480 km</td><td>Entre Ríos (RN14)</td><td>Shell Chajarí o San José</td></tr>
+        <tr><td class="num">2</td><td class="num">~950 km</td><td>Corrientes, antes del cruce</td><td>Shell Santo Tomé (cargar antes de cruzar — más barato en AR)</td></tr>
+        <tr><td class="num">3</td><td class="num">~1.430 km</td><td>RS, Brasil (BR-290)</td><td>🔍 A confirmar con localizador Shell Brasil</td></tr>
+        <tr><td class="num">4</td><td class="num">~1.900 km</td><td>SP — Régis Bittencourt (BR-116)</td><td>Shell Fase Quattro – Juquiá (km 413,8, con Arla 32) o Pariquera-Açu</td></tr>
+        <tr><td class="num">5</td><td class="num">~2.180 km</td><td>Llegando a San Pablo</td><td>Shell Posto Rota 116 – Taboão da Serra (km 16,5)</td></tr>
+      </tbody>
+    </table>
+    <div class="note">🔍 No se encontraron estaciones Shell confirmadas sobre la BR-290
+    (Uruguaiana–Porto Alegre) ni en el tramo Porto Alegre–Curitiba. Usar el localizador
+    oficial antes de salir:
+    <a href="https://www.shell.com.ar/empresas/shell-flota/station-locator.html" target="_blank" rel="noopener">Shell Argentina</a> ·
+    Shell Brasil (buscar "encontre um posto" en shell.com.br).
+    Con ~600 km de autonomía hay margen para resolver sobre la marcha sin bajar de
+    ~150-200 km de reserva.</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="ico">🕒</span> Cronograma sugerido</h2>
+    <div class="timeline">
+      <div class="timeline-item"><div class="when">Mié 4/11, ~05:00</div><div class="what">Salida desde Juan María Gutiérrez, Berazategui</div></div>
+      <div class="timeline-item"><div class="when">Mié 4/11, durante el día</div><div class="what">RN14 por Entre Ríos y Corrientes — parada 1 (combustible + comida)</div></div>
+      <div class="timeline-item"><div class="when">Mié 4/11, tarde-noche</div><div class="what">Llegada a Paso de los Libres — parada 2 y cruce de frontera</div></div>
+      <div class="timeline-item"><div class="when">Mié noche → Jue madrugada</div><div class="what">BR-290 hacia Porto Alegre — turnos nocturnos</div></div>
+      <div class="timeline-item"><div class="when">Jue 5/11, mañana</div><div class="what">Porto Alegre → Curitiba (BR-116) — parada 3</div></div>
+      <div class="timeline-item"><div class="when">Jue 5/11, tarde</div><div class="what">Curitiba → San Pablo (Régis Bittencourt) — parada 4</div></div>
+      <div class="timeline-item"><div class="when">Jue noche / Vie madrugada</div><div class="what">🏁 Llegada estimada a Interlagos / San Pablo — parada 5 y descanso</div></div>
+      <div class="timeline-item"><div class="when">Vie 6 — Dom 8/11</div><div class="what">Gran Premio de São Paulo 2026 en Interlagos</div></div>
+    </div>
+    <p style="margin-top:14px;">Salir el miércoles temprano deja <strong>todo el jueves de
+    colchón</strong> para imprevistos — demoras en frontera, tráfico, o simplemente para
+    descansar de verdad antes de la primera práctica libre del viernes.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="ico">🧑‍🤝‍🧑</span> Turnos de manejo — 6 conductores</h2>
+    <div class="crew">
+      <div class="seat"><span class="ico">🚗</span>Turno 1</div>
+      <div class="seat"><span class="ico">🚗</span>Turno 2</div>
+      <div class="seat"><span class="ico">🚗</span>Turno 3</div>
+      <div class="seat"><span class="ico">🚗</span>Turno 4</div>
+      <div class="seat"><span class="ico">🚗</span>Turno 5</div>
+      <div class="seat"><span class="ico">🚗</span>Turno 6</div>
+    </div>
+    <p style="margin-top:14px;">~25 h de manejo puro ÷ 6 personas ≈ turnos de <strong>~3
+    horas</strong> cada uno (2 vueltas completas por persona). Ideal hacer el relevo en cada
+    parada de combustible — así no se pierde tiempo extra. El que no maneja navega y controla
+    el combustible; el siguiente debería intentar dormir, no quedarse de acompañante toda
+    la noche.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="ico">🛂</span> Documentación para cruzar la frontera</h2>
+    <p>Llevar todo <strong>original y en papel</strong> — las versiones digitales no se aceptan en el paso Paso de los Libres / Uruguaiana.</p>
+    <ul class="checklist">
+      <li>DNI o pasaporte vigente de cada uno de los 6 viajeros</li>
+      <li>Licencia de conducir habilitada para la categoría del vehículo (de cada conductor)</li>
+      <li>Título de propiedad del vehículo (cédula verde / azul)</li>
+      <li>Si el auto no es de quien maneja: autorización correspondiente</li>
+      <li>Seguro Carta Verde (Mercosur) vigente — obligatorio para circular por Brasil</li>
+      <li>VTV vigente</li>
+      <li>Patentes delantera y trasera en buen estado</li>
+      <li>Premigración con código QR antes de llegar al paso (agiliza el trámite)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2><span class="ico">✅</span> Checklist de preparación</h2>
+    <ul class="checklist">
+      <li>Service y chequeo general de la Trailblazer (frenos, neumáticos + auxilio, niveles, batería)</li>
+      <li>Confirmar entradas al GP (prácticas / clasificación / carrera)</li>
+      <li>Reservar alojamiento en San Pablo para las noches del 5, 6, 7 y 8</li>
+      <li>Sacar la Carta Verde (seguro Mercosur) con anticipación</li>
+      <li>Hacer la premigración con QR</li>
+      <li>Cambiar / llevar reales (BRL) para peajes y combustible en Brasil</li>
+      <li>Descargar mapas offline de toda la ruta (Google Maps / Maps.me)</li>
+      <li>Power banks, cargadores de auto, playlists/podcasts para los turnos nocturnos</li>
+      <li>Botiquín, agua y snacks para los tramos largos sin estaciones</li>
+    </ul>
+  </div>
+
+</main>
+
+<footer>
+  🏎️ Viaje a la F1 — GP São Paulo 2026 · Berazategui → Interlagos · Última actualización: 2026-06-08<br>
+  Datos de ruta y combustible a verificar más cerca de la fecha — ver <code>README.md</code> del repo para fuentes y enlaces.
+</footer>
+
+</body>
+</html>
