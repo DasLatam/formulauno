@@ -1,4 +1,4 @@
-const CACHE_SHELL = 'f1-shell-v4';
+const CACHE_SHELL = 'f1-shell-v5';
 const CACHE_TILES = 'f1-tiles-v1';
 
 const SHELL_ASSETS = [
