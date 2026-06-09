@@ -369,7 +369,7 @@ a{color:var(--red-dark)}
   <div class="card" id="fotos-card">
     <h2><span class="ico">📸</span> Fotos del grupo</h2>
     <div class="fotos-grid" id="fotos-grid"></div>
-    <p class="fotos-hint" id="fotos-hint">Para agregar fotos: guardá los archivos en la carpeta <code>fotos/</code> y agregá una entrada en el array <code>FOTOS</code> del script.</p>
+    <p class="fotos-hint" id="fotos-hint">Guardá las fotos en <code>fotos/</code> con los nombres <code>asado-01-junio-2026.jpg</code> y <code>asado-02-junio-2026.jpg</code> y hacé push — aparecen solas.</p>
   </div>
 
   <div class="card">
@@ -637,9 +637,14 @@ if(stopsList){
 /* ── Galería de fotos ── */
 var FOTOS = [
   {
-    src: 'fotos/asado-junio-2026.jpg',
-    caption: 'Asado previo al viaje · Junio 2026',
-    sub: 'Dani · Ariel S · Charly · Gaston · Ariel B'
+    src: 'fotos/asado-01-junio-2026.jpg',
+    caption: 'Asado en el garage · Junio 2026',
+    sub: '🚗 Dani · Ariel S · Charly · Gaston · Ariel B + invitados'
+  },
+  {
+    src: 'fotos/asado-02-junio-2026.jpg',
+    caption: 'El grupo completo · Junio 2026',
+    sub: '🚗 Elias · Charly · Gaston · Dani · Ariel S · Ariel B + Don Carlos · Matias · Andres · Paulo'
   }
   /* Agregar fotos nuevas acá:
   ,{
