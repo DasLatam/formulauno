@@ -2,203 +2,242 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Viaje a la F1 — GP São Paulo 2026 🏎️</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Viaje F1 São Paulo 2026 🏎️</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏎️</text></svg>">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <style>
-  :root {
-    --red: #e10600;
-    --red-dark: #b30500;
-    --navy: #15151e;
-    --slate: #38383f;
-    --muted: #6b6b76;
-    --bg: #f5f5f7;
-    --card: #ffffff;
-    --border: #e4e4e9;
-    --green: #16a34a;
-    --radius: 14px;
-    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  }
-  * { box-sizing: border-box; }
-  body { margin: 0; font-family: var(--font); background: var(--bg); color: var(--slate); line-height: 1.5; }
-  header {
-    background: linear-gradient(135deg, var(--navy) 0%, var(--red) 130%);
-    color: #fff; padding: 48px 20px 56px; text-align: center;
-  }
-  header h1 { margin: 0 0 8px; font-size: 32px; font-weight: 800; letter-spacing: -0.02em; }
-  header p { margin: 0; font-size: 16px; opacity: 0.9; }
-  header .badge {
-    display: inline-block; margin-top: 16px; background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.3); border-radius: 999px; padding: 6px 18px;
-    font-size: 14px; font-weight: 600; letter-spacing: 0.02em;
-  }
-  main { max-width: 980px; margin: -28px auto 0; padding: 0 16px 60px; }
-  .card {
-    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 24px; margin-bottom: 20px; box-shadow: 0 6px 24px rgba(20,20,30,0.06);
-  }
-  .card h2 { margin: 0 0 14px; font-size: 20px; font-weight: 800; color: var(--navy); display: flex; align-items: center; gap: 10px; }
-  .card h2 .ico { font-size: 22px; }
-  .card p, .card li { font-size: 14.5px; }
-  .grid-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin-top: -8px; }
-  .stat { background: var(--bg); border-radius: 10px; padding: 14px 16px; }
-  .stat .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); font-weight: 700; }
-  .stat .value { font-size: 20px; font-weight: 800; color: var(--navy); margin-top: 2px; }
-  table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 6px; }
-  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
-  th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); font-weight: 700; }
-  tr:last-child td { border-bottom: none; }
-  td.num { font-variant-numeric: tabular-nums; white-space: nowrap; font-weight: 700; color: var(--red-dark); }
-  .route-flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 14px 0 4px; }
-  .route-flow span {
-    background: var(--bg); border: 1px solid var(--border); border-radius: 999px;
-    padding: 6px 14px; font-size: 13px; font-weight: 600; color: var(--navy);
-  }
-  .route-flow .arrow { background: none; border: none; color: var(--muted); padding: 0 2px; font-weight: 400; }
-  .note { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 10px; padding: 12px 16px; font-size: 13px; color: #9a3412; margin-top: 14px; }
-  .info-box { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; padding: 12px 16px; font-size: 13px; color: #1e40af; margin-top: 14px; }
-  .checklist { list-style: none; padding: 0; margin: 0; }
-  .checklist li { display: flex; gap: 10px; align-items: flex-start; padding: 7px 0; border-bottom: 1px dashed var(--border); }
-  .checklist li:last-child { border-bottom: none; }
-  .checklist li::before { content: '☐'; color: var(--muted); font-size: 15px; line-height: 1.4; flex-shrink: 0; }
-  .checklist li.done::before { content: '✅'; }
-  .timeline { position: relative; padding-left: 28px; }
-  .timeline::before { content: ''; position: absolute; left: 9px; top: 6px; bottom: 6px; width: 2px; background: var(--border); }
-  .timeline-item { position: relative; padding-bottom: 16px; }
-  .timeline-item:last-child { padding-bottom: 0; }
-  .timeline-item::before {
-    content: ''; position: absolute; left: -23px; top: 4px; width: 12px; height: 12px;
-    border-radius: 50%; background: var(--red); border: 2px solid #fff; box-shadow: 0 0 0 2px var(--red);
-  }
-  .timeline-item .when { font-weight: 800; color: var(--navy); font-size: 13.5px; }
-  .timeline-item .what { font-size: 13.5px; color: var(--slate); margin-top: 1px; }
-  .crew { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px,1fr)); gap: 10px; margin-top: 6px; }
-  .crew .seat { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px 10px; text-align: center; font-size: 13px; font-weight: 700; color: var(--navy); }
-  .crew .seat .ico { font-size: 22px; display: block; margin-bottom: 4px; }
-  footer { text-align: center; color: var(--muted); font-size: 12.5px; padding: 30px 16px 50px; }
-  a { color: var(--red-dark); }
+:root {
+  --red: #e10600; --red-dark: #b30500;
+  --navy: #15151e; --slate: #38383f; --muted: #6b6b76;
+  --bg: #f5f5f7; --card: #fff; --border: #e4e4e9;
+  --green: #16a34a; --radius: 14px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  /* F1 team colors */
+  --mercedes: #00D2BE; --mercedes-dark: #009B8A;
+  --ferrari: #E8002D; --ferrari-dark: #b30024;
+  --redbull: #223971; --redbull-dark: #1a2c58;
+  --williams: #005AFF; --williams-dark: #0044CC;
+  --mclaren: #FF8000; --mclaren-dark: #CC6600;
+  --neutral: #6b6b76;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:var(--font);background:var(--bg);color:var(--slate);line-height:1.5;overflow-x:hidden}
 
-  /* Mapa Leaflet */
-  #map-container { height: 460px; border-radius: 10px; overflow: hidden; margin-top: 12px; }
-  .map-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 14px; }
-  .loc-btn {
-    background: var(--red); color: #fff; border: none; border-radius: 999px; padding: 10px 20px;
-    font-size: 14px; font-weight: 700; cursor: pointer;
-  }
-  .loc-btn:hover { background: var(--red-dark); }
-  .loc-result { font-size: 13.5px; color: var(--slate); }
-  .map-legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 14px; font-size: 12px; color: var(--muted); }
-  .map-legend .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; vertical-align: middle; }
-  .dot-start { background: var(--red); }
-  .dot-fuel { background: var(--green); }
-  .dot-tbd { background: #f59e0b; }
-  .dot-border { background: var(--navy); }
-  .dot-city { background: var(--muted); }
-  .dot-me { background: #2563eb; }
+/* Equipos en header */
+.team-stripe{display:flex;height:5px}
+.team-stripe span{flex:1}
+.ts-mercedes{background:var(--mercedes)}
+.ts-ferrari{background:var(--ferrari)}
+.ts-redbull{background:var(--redbull)}
+.ts-williams{background:var(--williams)}
+.ts-mclaren{background:var(--mclaren)}
+.ts-neutral{background:var(--neutral)}
 
-  /* Paradas */
-  .stop-info { padding: 12px 0; border-bottom: 1px dashed var(--border); }
-  .stop-info:last-child { border-bottom: none; }
-  .stop-name { font-weight: 800; color: var(--navy); font-size: 14px; }
-  .stop-detail { font-size: 13px; color: var(--slate); margin-top: 3px; }
-  .stop-links { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 14px; font-size: 12.5px; }
+header{background:linear-gradient(135deg,var(--navy) 0%,#2d1a3e 60%,var(--red) 130%);color:#fff;padding:40px 20px 52px;text-align:center}
+header h1{margin:0 0 6px;font-size:clamp(22px,5vw,34px);font-weight:800;letter-spacing:-0.02em}
+header p{margin:0;font-size:clamp(13px,3vw,16px);opacity:.9}
+header .badge{display:inline-block;margin-top:14px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:5px 16px;font-size:13px;font-weight:600}
 
-  /* Tags */
-  .offline-tag {
-    display: inline-block; background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0;
-    border-radius: 999px; padding: 3px 12px; font-size: 11.5px; font-weight: 700; margin-left: 8px;
-  }
-  .conf-tag {
-    display: inline-block; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe;
-    border-radius: 999px; padding: 3px 12px; font-size: 11.5px; font-weight: 700; margin-left: 8px;
-  }
+main{max-width:980px;margin:-26px auto 0;padding:0 12px 60px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;box-shadow:0 4px 20px rgba(20,20,30,.06)}
+.card h2{margin:0 0 12px;font-size:18px;font-weight:800;color:var(--navy);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.card h2 .ico{font-size:20px}
+.card p,.card li{font-size:14px}
 
-  /* Paquete */
-  .pkg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 12px; margin-top: 10px; }
-  .pkg-item { background: var(--bg); border-radius: 10px; padding: 12px 14px; font-size: 13.5px; }
-  .pkg-item .pkg-ico { font-size: 20px; display: block; margin-bottom: 4px; }
-  .pkg-item strong { display: block; color: var(--navy); font-size: 13px; font-weight: 800; }
+.grid-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:-4px}
+.stat{background:var(--bg);border-radius:10px;padding:12px 14px}
+.stat .label{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
+.stat .value{font-size:18px;font-weight:800;color:var(--navy);margin-top:2px}
 
-  /* Contactos */
-  .contacts { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
-  .contact-card {
-    background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
-    padding: 12px 16px; font-size: 13px; min-width: 200px;
-  }
-  .contact-card strong { display: block; color: var(--navy); font-weight: 800; margin-bottom: 2px; }
-  .contact-card a { color: var(--slate); text-decoration: none; }
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+th{font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700}
+tr:last-child td{border-bottom:none}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:700;color:var(--red-dark)}
+
+.route-flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:12px 0 4px}
+.route-flow span{background:var(--bg);border:1px solid var(--border);border-radius:999px;padding:5px 12px;font-size:12px;font-weight:600;color:var(--navy)}
+.route-flow .arrow{background:none;border:none;color:var(--muted);padding:0 1px;font-weight:400}
+
+.note{background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:10px 14px;font-size:12.5px;color:#9a3412;margin-top:12px}
+.info-box{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:10px 14px;font-size:12.5px;color:#1e40af;margin-top:12px}
+.beach-box{background:#ecfdf5;border:1px solid #a7f3d0;border-radius:10px;padding:10px 14px;font-size:12.5px;color:#065f46;margin-top:12px}
+
+.checklist{list-style:none;padding:0;margin:0}
+.checklist li{display:flex;gap:10px;align-items:flex-start;padding:6px 0;border-bottom:1px dashed var(--border);font-size:14px}
+.checklist li:last-child{border-bottom:none}
+.checklist li::before{content:'☐';color:var(--muted);font-size:15px;line-height:1.4;flex-shrink:0}
+.checklist li.done::before{content:'✅'}
+
+.timeline{position:relative;padding-left:26px}
+.timeline::before{content:'';position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--border)}
+.timeline-item{position:relative;padding-bottom:14px}
+.timeline-item:last-child{padding-bottom:0}
+.timeline-item::before{content:'';position:absolute;left:-21px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--red);border:2px solid #fff;box-shadow:0 0 0 2px var(--red)}
+.timeline-item .when{font-weight:800;color:var(--navy);font-size:13px}
+.timeline-item .what{font-size:13px;color:var(--slate);margin-top:1px}
+
+/* Mapa fullscreen */
+.map-card{padding:0;overflow:hidden}
+.map-card-head{padding:16px 20px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.map-card-head h2{margin:0}
+#map-container{height:80vh;min-height:340px;width:100%}
+@media(max-width:600px){#map-container{height:calc(100svh - 80px);min-height:300px}}
+.map-controls{padding:12px 20px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.loc-btn{background:var(--red);color:#fff;border:none;border-radius:999px;padding:10px 20px;font-size:14px;font-weight:700;cursor:pointer;min-height:44px}
+.loc-btn:active{background:var(--red-dark)}
+.loc-result{font-size:13px;color:var(--slate)}
+.map-legend{padding:0 20px 16px;display:flex;flex-wrap:wrap;gap:10px;font-size:11.5px;color:var(--muted)}
+.map-legend .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px;vertical-align:middle}
+.dot-start{background:var(--red)}.dot-fuel{background:var(--green)}.dot-tbd{background:#f59e0b}.dot-border{background:var(--navy)}.dot-city{background:var(--muted)}.dot-me{background:#2563eb}.dot-beach{background:#06b6d4}
+.route-toggle{display:flex;gap:6px}
+.rtbtn{border:none;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer;opacity:.5;transition:opacity .2s}
+.rtbtn.active{opacity:1}
+.rtbtn-ida{background:#fce4e4;color:var(--red-dark)}
+.rtbtn-vuelta{background:#dbeafe;color:#1d4ed8}
+
+/* Paradas */
+.stop-info{padding:10px 0;border-bottom:1px dashed var(--border)}
+.stop-info:last-child{border-bottom:none}
+.stop-name{font-weight:800;color:var(--navy);font-size:13.5px}
+.stop-detail{font-size:12.5px;color:var(--slate);margin-top:2px}
+.stop-links{margin-top:5px;display:flex;flex-wrap:wrap;gap:12px;font-size:12px}
+
+/* Tags */
+.offline-tag,.conf-tag,.route-tag{display:inline-flex;align-items:center;border-radius:999px;padding:2px 10px;font-size:11px;font-weight:700;margin-left:6px;white-space:nowrap}
+.offline-tag{background:#ecfdf5;color:#047857;border:1px solid #a7f3d0}
+.conf-tag{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe}
+.route-tag-ida{background:#fce4e4;color:var(--red-dark);border:1px solid #fca5a5}
+.route-tag-vuelta{background:#dbeafe;color:#1d4ed8;border:1px solid #93c5fd}
+
+/* Paquete */
+.pkg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:10px}
+.pkg-item{background:var(--bg);border-radius:10px;padding:11px 13px;font-size:13px}
+.pkg-item .pkg-ico{font-size:18px;display:block;margin-bottom:3px}
+.pkg-item strong{display:block;color:var(--navy);font-size:12.5px;font-weight:800}
+.contacts{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.contact-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-size:13px;min-width:160px}
+.contact-card strong{display:block;color:var(--navy);font-weight:800;margin-bottom:2px;font-size:12.5px}
+.contact-card a{color:var(--slate);text-decoration:none}
+
+/* Tripulantes */
+.crew-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:4px}
+@media(max-width:480px){.crew-grid{grid-template-columns:repeat(2,1fr)}}
+.crew-card{border-radius:12px;padding:16px 12px;text-align:center;position:relative;overflow:hidden;border:2px solid transparent}
+.crew-card .c-name{font-size:16px;font-weight:800;color:#fff;margin:0 0 2px}
+.crew-card .c-full{font-size:10.5px;color:rgba(255,255,255,.8);margin:0 0 10px}
+.crew-card .c-city{font-size:11px;color:rgba(255,255,255,.7);margin:0 0 10px}
+.crew-card .c-age{font-size:11px;color:rgba(255,255,255,.7);margin:0 0 12px}
+.crew-card .c-team{display:inline-block;background:rgba(255,255,255,.2);border-radius:999px;padding:4px 12px;font-size:11px;font-weight:800;color:#fff;border:1px solid rgba(255,255,255,.35)}
+.crew-card .c-colapinto{font-size:10px;color:rgba(255,255,255,.6);margin-top:6px;display:block}
+.crew-card .c-ico{font-size:28px;display:block;margin-bottom:8px}
+.crew-card.cm{background:linear-gradient(135deg,var(--mercedes-dark),var(--mercedes));border-color:var(--mercedes)}
+.crew-card.cf{background:linear-gradient(135deg,var(--ferrari-dark),var(--ferrari));border-color:var(--ferrari)}
+.crew-card.cr{background:linear-gradient(135deg,var(--redbull-dark),var(--redbull));border-color:var(--redbull)}
+.crew-card.cw{background:linear-gradient(135deg,var(--williams-dark),var(--williams));border-color:var(--williams)}
+.crew-card.cn{background:linear-gradient(135deg,#3d3d45,#5a5a65);border-color:#6b6b76}
+
+.org-grid{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.org-card{background:var(--navy);border-radius:12px;padding:14px 16px;color:#fff;min-width:160px}
+.org-card .o-role{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:rgba(255,255,255,.6);font-weight:700;margin-bottom:3px}
+.org-card .o-name{font-size:15px;font-weight:800;margin-bottom:6px}
+.org-card a{color:var(--mercedes);font-size:13px;text-decoration:none;display:block}
+
+/* Colors Franco ribbon */
+.franco-bar{text-align:center;padding:10px 0 6px;font-size:13px;color:var(--muted)}
+.franco-bar strong{color:var(--navy)}
+
+footer{text-align:center;color:var(--muted);font-size:12px;padding:24px 16px 50px}
+a{color:var(--red-dark)}
+@media(max-width:600px){
+  .card{padding:16px}
+  table{font-size:12px}
+  th,td{padding:7px 8px}
+  header{padding:30px 16px 44px}
+}
 </style>
 </head>
 <body>
 
+<div class="team-stripe">
+  <span class="ts-ferrari"></span>
+  <span class="ts-mercedes"></span>
+  <span class="ts-redbull"></span>
+  <span class="ts-williams"></span>
+  <span class="ts-mclaren"></span>
+  <span class="ts-neutral"></span>
+</div>
+
 <header>
   <div class="badge">🏁 Ronda 20 · Calendario F1 2026</div>
   <h1>Viaje a la Fórmula 1 — GP São Paulo 2026</h1>
-  <p>Interlagos (Autódromo José Carlos Pace) · 6, 7 y 8 de noviembre de 2026</p>
-  <p style="margin-top:6px; font-size:14px; opacity:.85;">6 amigos · Chevrolet Trailblazer 2020 · Berazategui → São Paulo</p>
+  <p>Interlagos · 6, 7 y 8 de noviembre de 2026</p>
+  <p style="margin-top:5px;font-size:13px;opacity:.8">6 amigos · Trailblazer 2020 · Berazategui → São Paulo</p>
 </header>
 
 <main>
 
   <div class="card">
-    <h2><span class="ico">📋</span> El plan en números</h2>
+    <h2><span class="ico">📋</span> El plan</h2>
     <div class="grid-stats">
-      <div class="stat"><div class="label">Distancia total</div><div class="value">~2.190 km</div></div>
-      <div class="stat"><div class="label">Manejo puro</div><div class="value">~24-25 h</div></div>
-      <div class="stat"><div class="label">Con paradas</div><div class="value">~28-30 h</div></div>
-      <div class="stat"><div class="label">Autonomía</div><div class="value">~600 km</div></div>
-      <div class="stat"><div class="label">Paradas diésel</div><div class="value">~5</div></div>
-      <div class="stat"><div class="label">Check-in hotel</div><div class="value">5/11 nov</div></div>
+      <div class="stat"><div class="label">Distancia ida</div><div class="value">~2.190 km</div></div>
+      <div class="stat"><div class="label">Tiempo ida</div><div class="value">~28-30 h</div></div>
+      <div class="stat"><div class="label">Conductores</div><div class="value">6 turnos</div></div>
+      <div class="stat"><div class="label">Check-in hotel</div><div class="value">5 nov</div></div>
+      <div class="stat"><div class="label">GP (3 días)</div><div class="value">6–8 nov</div></div>
+      <div class="stat"><div class="label">Vuelta</div><div class="value">9 nov</div></div>
     </div>
   </div>
 
   <div class="card">
-    <h2><span class="ico">🎟️</span> El paquete <span class="conf-tag">✅ reservado y pagado</span></h2>
-    <p>Paquete terrestre "Brasil F1 – Interlagos" contratado a través de <strong>Punto Fans / Tienda Relajate</strong>
-    (File&nbsp;650, agente: Agostina Gonzalez). Pagado el 2/6/2026 en efectivo con descuento del&nbsp;10&nbsp;% —
-    <strong>u$s&nbsp;1.079 por persona (total u$s&nbsp;6.474 por el grupo)</strong>.</p>
+    <h2><span class="ico">🎟️</span> El paquete <span class="conf-tag">✅ pagado — u$s 6.474</span></h2>
+    <p style="margin:0 0 10px">File&nbsp;650 · Punto Fans / Tienda Relajate · Agente: Agostina Gonzalez · u$s&nbsp;1.079/persona (precio base u$s&nbsp;1.199, 10%&nbsp;descuento contado)</p>
     <div class="pkg-grid">
-      <div class="pkg-item"><span class="pkg-ico">🏨</span><strong>4 noches con desayuno</strong>Hotel San Raphael / Columbia (o similar) — check-in 5/11, check-out 9/11</div>
-      <div class="pkg-item"><span class="pkg-ico">🎟️</span><strong>Entradas Sector G</strong>Viernes 6, Sábado 7 y Domingo 8 de noviembre</div>
-      <div class="pkg-item"><span class="pkg-ico">🚌</span><strong>Traslados hotel ↔ circuito</strong>Los 3 días del GP (regulares: horarios y paradas preestablecidos, compartidos)</div>
-      <div class="pkg-item"><span class="pkg-ico">🛍️</span><strong>Kits de bienvenida</strong>Incluidos en el paquete</div>
+      <div class="pkg-item"><span class="pkg-ico">🏨</span><strong>4 noches con desayuno</strong>Hotel San Raphael / Columbia · 5 al 9 de nov</div>
+      <div class="pkg-item"><span class="pkg-ico">🎟️</span><strong>Entradas Sector G</strong>Vie&nbsp;6 + Sáb&nbsp;7 + Dom&nbsp;8 de noviembre</div>
+      <div class="pkg-item"><span class="pkg-ico">🚌</span><strong>Traslados hotel ↔ circuito</strong>3 días del GP · regulares (horarios fijos, compartidos)</div>
+      <div class="pkg-item"><span class="pkg-ico">🛍️</span><strong>Kit de bienvenida</strong>Incluido por pasajero</div>
     </div>
-    <div class="info-box" style="margin-top:14px;">
-      ℹ️ Los traslados al autódromo son <strong>regulares y compartidos</strong> — rutas y horarios fijos;
-      hay que adaptarse al cronograma de la agencia. Conviene confirmar horarios con Agostina antes del viaje.
+    <div class="org-grid">
+      <div class="org-card"><div class="o-role">Agente de venta</div><div class="o-name">Agostina — Punto Fans</div><a href="tel:+5491128465677">+54 9 11 2846-5677</a></div>
+      <div class="org-card"><div class="o-role">Recibió el pago</div><div class="o-name">Gregorio</div><a href="tel:+5491140941919">+54 9 11 4094-1919</a></div>
+      <div class="org-card"><div class="o-role">Post-venta</div><div class="o-name">Punto Fans</div><a href="tel:+5491128647915">+54 9 11 2864-7915</a></div>
     </div>
-    <div class="contacts">
-      <div class="contact-card">
-        <strong>Agostina — Punto Fans (venta)</strong>
-        <a href="tel:+5491128465677">+54 9 11 2846-5677</a>
-      </div>
-      <div class="contact-card">
-        <strong>Gregorio (recibió el pago)</strong>
-        <a href="tel:+5491140941919">+54 9 11 4094-1919</a>
-      </div>
-      <div class="contact-card">
-        <strong>Post-venta Punto Fans</strong>
-        <a href="tel:+5491128647915">+54 9 11 2864-7915</a>
+    <div class="note">⚠️ Cancelación: hasta 5/9 → 15% · hasta 5/10 → 35% · desde 6/10 → sin reembolso.</div>
+  </div>
+
+  <!-- MAPA FULLSCREEN -->
+  <div class="card map-card">
+    <div class="map-card-head">
+      <h2><span class="ico">🗺️</span> Mapa <span class="offline-tag">📴 offline</span></h2>
+      <div class="route-toggle">
+        <button class="rtbtn rtbtn-ida active" id="btn-ida" type="button">🔴 Ida</button>
+        <button class="rtbtn rtbtn-vuelta active" id="btn-vuelta" type="button">🔵 Vuelta</button>
       </div>
     </div>
-    <div class="note" style="margin-top:14px;">
-      ⚠️ <strong>Política de cancelación:</strong> hasta 60 días antes (5/9/2026) → 15% de penalidad ·
-      hasta 30 días (5/10/2026) → 35% · desde 29 días antes (6/10/2026) → sin reembolso (100%).
+    <div id="map-container"></div>
+    <div class="map-controls">
+      <button id="locate-btn" class="loc-btn" type="button">📍 ¿Dónde estoy?</button>
+      <div id="locate-result" class="loc-result">Tocá un marcador o el botón para ver info.</div>
+    </div>
+    <div class="map-legend">
+      <span><i class="dot dot-start"></i>Inicio/llegada</span>
+      <span><i class="dot dot-fuel"></i>Carga diésel</span>
+      <span><i class="dot dot-tbd"></i>Carga (mejor disponible)</span>
+      <span><i class="dot dot-border"></i>Frontera</span>
+      <span><i class="dot dot-beach"></i>⛱️ Playa (vuelta)</span>
+      <span><i class="dot dot-me"></i>Vos (GPS)</span>
     </div>
   </div>
 
   <div class="card">
-    <h2><span class="ico">🗺️</span> La ruta más directa</h2>
-    <p>Berazategui → RN14 (la "ruta del Mercosur" por Entre Ríos y Corrientes) → cruce de
-    frontera en Paso de los Libres / Uruguaiana → BR-290 → Porto Alegre → BR-116 → Curitiba →
-    Rodovia Régis Bittencourt (BR-116) → São Paulo → hotel.</p>
+    <h2><span class="ico">🛣️</span> Ruta IDA <span class="route-tag-ida">Mié 4 → Jue 5 nov</span></h2>
     <div class="route-flow">
       <span>Berazategui</span><span class="arrow">→</span>
-      <span>RN14 (Entre Ríos / Corrientes)</span><span class="arrow">→</span>
-      <span>Paso de los Libres</span><span class="arrow">→</span>
-      <span>🌎 Frontera</span><span class="arrow">→</span>
-      <span>Uruguaiana</span><span class="arrow">→</span>
+      <span>RN14</span><span class="arrow">→</span>
+      <span>🌎 Paso de los Libres</span><span class="arrow">→</span>
       <span>BR-290</span><span class="arrow">→</span>
       <span>Porto Alegre</span><span class="arrow">→</span>
       <span>BR-116</span><span class="arrow">→</span>
@@ -207,263 +246,365 @@
       <span>🏁 São Paulo</span>
     </div>
     <table>
-      <thead><tr><th>Tramo</th><th>Vía</th><th>Distancia</th><th>Tiempo</th></tr></thead>
+      <thead><tr><th>Tramo</th><th>Vía</th><th>Km</th><th>Tiempo</th></tr></thead>
       <tbody>
-        <tr><td>Berazategui → Zárate</td><td>Av. Bs As–La Plata / RN9 / RN12</td><td class="num">~110 km</td><td class="num">~1h30</td></tr>
-        <tr><td>Zárate → Paso de los Libres</td><td>RN14</td><td class="num">~870 km</td><td class="num">~9h30</td></tr>
-        <tr><td>🌎 Cruce de frontera</td><td>Puente Agustín P. Justo – Getúlio Vargas</td><td class="num">~8 km</td><td class="num">~20min + aduana</td></tr>
-        <tr><td>Uruguaiana → Porto Alegre</td><td>BR-290</td><td class="num">~630 km</td><td class="num">~7h</td></tr>
-        <tr><td>Porto Alegre → Curitiba</td><td>BR-116</td><td class="num">~710 km</td><td class="num">~8h</td></tr>
-        <tr><td>Curitiba → São Paulo</td><td>BR-116 (Régis Bittencourt)</td><td class="num">~410 km</td><td class="num">~4h30</td></tr>
+        <tr><td>Berazategui → Zárate</td><td>RN9 / RN12</td><td class="num">~110</td><td class="num">~1h30</td></tr>
+        <tr><td>Zárate → Paso de los Libres</td><td>RN14</td><td class="num">~870</td><td class="num">~9h30</td></tr>
+        <tr><td>🌎 Cruce de frontera</td><td>Puente Justo–Vargas</td><td class="num">~8</td><td class="num">~20min + aduana</td></tr>
+        <tr><td>Uruguaiana → Porto Alegre</td><td>BR-290</td><td class="num">~630</td><td class="num">~7h</td></tr>
+        <tr><td>Porto Alegre → Curitiba</td><td>BR-116</td><td class="num">~710</td><td class="num">~8h</td></tr>
+        <tr><td>Curitiba → São Paulo</td><td>BR-116 Régis Bittencourt</td><td class="num">~410</td><td class="num">~4h30</td></tr>
       </tbody>
     </table>
-    <div class="note">⚠️ La BR-285 vía São Borja sería un atajo entre Uruguaiana y Porto Alegre,
-    pero al planificar este viaje tenía tramos con el asfalto levantado. Conviene re-chequear
-    su estado antes de salir; si sigue mal, mejor mantenerse en la BR-290.</div>
+    <div class="note">⚠️ BR-285 vía São Borja sería un atajo entre Uruguaiana y Porto Alegre, pero tenía tramos con asfalto levantado. Verificar estado antes de salir; si sigue mal, mantenerse en BR-290.</div>
   </div>
 
   <div class="card">
-    <h2><span class="ico">⛽</span> Paradas de combustible</h2>
-    <p>Con ~600 km de autonomía conviene cargar cada ~450-500 km. No nos desviamos a buscar
-    una estación específica — si hay Shell en ruta la preferimos, si no está cargamos en la
-    mejor disponible (Ipiranga, BR Distribuidora, etc.).</p>
+    <h2><span class="ico">🔄</span> Ruta VUELTA <span class="route-tag-vuelta">Dom 9 nov → Lun 10 nov</span></h2>
+    <p>La vuelta va por la costa sur de Brasil (BR-101) en vez de la BR-116 interior — unos 100 km más pero pasa por <strong>Balneário Camboriú</strong>, la mejor playa de arena blanca y agua cálida del sur.</p>
+    <div class="route-flow">
+      <span>São Paulo</span><span class="arrow">→</span>
+      <span>Curitiba</span><span class="arrow">→</span>
+      <span>BR-376 (costa)</span><span class="arrow">→</span>
+      <span>⛱️ Balneário Camboriú</span><span class="arrow">→</span>
+      <span>Florianópolis</span><span class="arrow">→</span>
+      <span>Porto Alegre</span><span class="arrow">→</span>
+      <span>BR-290</span><span class="arrow">→</span>
+      <span>🌎 Uruguaiana</span><span class="arrow">→</span>
+      <span>RN14</span><span class="arrow">→</span>
+      <span>🏁 Berazategui</span>
+    </div>
     <table>
-      <thead><tr><th>#</th><th>Km acum.</th><th>Zona</th><th>Referencia</th></tr></thead>
+      <thead><tr><th>Tramo</th><th>Vía</th><th>Km</th><th>Tiempo</th></tr></thead>
       <tbody>
-        <tr><td class="num">1</td><td class="num">~480 km</td><td>Entre Ríos (RN14)</td><td>Shell Chajarí o San José — aprovechar para comer</td></tr>
-        <tr><td class="num">2</td><td class="num">~950 km</td><td>Corrientes — antes del cruce</td><td>Shell Santo Tomé (RN14, ~70 km antes del paso) — cargar acá: es más barato en Argentina</td></tr>
-        <tr><td class="num">3</td><td class="num">~1.430 km</td><td>RS, Brasil (BR-290)</td><td>Mejor disponible sobre ruta — Ipiranga, BR Distribuidora o Shell si aparece</td></tr>
-        <tr><td class="num">4</td><td class="num">~1.750 km</td><td>PR, Brasil (BR-116)</td><td>Mejor disponible cerca de Curitiba o en el tramo previo</td></tr>
-        <tr><td class="num">5</td><td class="num">~2.180 km</td><td>Llegando a São Paulo</td><td>Cargar antes de entrar a la ciudad — Shell Taboão da Serra (BR-116 km 16,5) si está en ruta</td></tr>
+        <tr><td>São Paulo → Curitiba</td><td>BR-116 Régis Bittencourt</td><td class="num">~410</td><td class="num">~4h30</td></tr>
+        <tr><td>Curitiba → Joinville</td><td>BR-376 (costa)</td><td class="num">~130</td><td class="num">~1h30</td></tr>
+        <tr><td>⛱️ Joinville → <strong>Balneário Camboriú</strong></td><td>BR-101</td><td class="num">~100</td><td class="num">~1h + 2h playa</td></tr>
+        <tr><td>Balneário Camboriú → Porto Alegre</td><td>BR-101</td><td class="num">~510</td><td class="num">~5h30</td></tr>
+        <tr><td>Porto Alegre → Uruguaiana</td><td>BR-290</td><td class="num">~630</td><td class="num">~7h</td></tr>
+        <tr><td>🌎 Cruce de frontera + RN14</td><td>RN14</td><td class="num">~980</td><td class="num">~11h</td></tr>
       </tbody>
     </table>
-    <div class="info-box">💡 En Brasil el Arla&nbsp;32 (AdBlue) es obligatorio para algunos motores diésel — la Trailblazer 2020 necesita AdBlue si tiene sistema SCR. Confirmar y llevar un bidón de reserva o verificar disponibilidad en la parada 4.</div>
+    <div class="beach-box">🏖️ <strong>Balneário Camboriú (SC)</strong> — playa de arena blanca, agua cálida (~24°C en noviembre), sin rocas. La calle principal ("Avenida Atlântica") está a 100m del estacionamiento. Ideal parar en el tramo diurno después de Curitiba, llegar a la playa a la mañana/mediodía. Coordenadas: -26.9906, -48.6348</div>
   </div>
 
   <div class="card">
-    <h2><span class="ico">🗺️</span> Mapa de la ruta <span class="offline-tag">📴 offline</span></h2>
-    <p>Mapa real (OpenStreetMap) con toda la ruta marcada. Cargá la página con conexión una vez
-    y los tiles del área se guardan — después funciona sin señal. Tocá <strong>«¿Dónde estoy?»</strong>
-    para ubicarte con el GPS.</p>
-    <div id="map-container"></div>
-    <div class="map-controls">
-      <button id="locate-btn" class="loc-btn" type="button">📍 ¿Dónde estoy?</button>
-      <div id="locate-result" class="loc-result">Tocá un marcador en el mapa o el botón para ver info.</div>
-    </div>
-    <div class="map-legend">
-      <span><i class="dot dot-start"></i>Inicio / llegada</span>
-      <span><i class="dot dot-fuel"></i>Carga de diésel</span>
-      <span><i class="dot dot-tbd"></i>Carga — mejor disponible</span>
-      <span><i class="dot dot-border"></i>Frontera</span>
-      <span><i class="dot dot-city"></i>Ciudad de paso</span>
-      <span><i class="dot dot-me"></i>Vos (GPS)</span>
-    </div>
+    <h2><span class="ico">⛽</span> Plan de combustible</h2>
+    <p>~450-500 km entre paradas. Sin desvíos a buscar marcas específicas — cargamos en la primera buena estación en ruta.</p>
+    <table>
+      <thead><tr><th>#</th><th>Ruta</th><th>Km acum.</th><th>Zona</th><th>Referencia</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td>IDA</td><td class="num">~480 km</td><td>Entre Ríos (RN14)</td><td>Shell Chajarí o Concordia — diésel + comida</td></tr>
+        <tr><td class="num">2</td><td>IDA</td><td class="num">~970 km</td><td>Paso de los Libres — <strong>última parada en AR</strong></td><td>Cualquier estación antes de cruzar — más barato que en Brasil</td></tr>
+        <tr><td class="num">3</td><td>IDA</td><td class="num">~1.430 km</td><td>RS, Brasil (BR-290)</td><td>Mejor disponible — Ipiranga, BR Distribuidora, Shell</td></tr>
+        <tr><td class="num">4</td><td>IDA</td><td class="num">~1.900 km</td><td>PR/SP (BR-116)</td><td>Mejor disponible cerca de Curitiba o en la Régis Bittencourt</td></tr>
+        <tr><td class="num">5</td><td>IDA</td><td class="num">~2.180 km</td><td>São Paulo entrada</td><td>Shell Taboão da Serra (BR-116 km 16,5) si está en ruta</td></tr>
+      </tbody>
+    </table>
+    <div class="info-box">💡 Arla 32 / AdBlue: verificar si la Trailblazer 2020 con motor diésel lo requiere. En Brasil es obligatorio para vehículos SCR — confirmar y llevar un bidón de reserva para el tramo BR-290.</div>
   </div>
 
   <div class="card">
-    <h2><span class="ico">🛑</span> Info útil en cada parada <span class="offline-tag">📴 offline</span></h2>
-    <p>Detalle de cada parada de combustible y el cruce de frontera — disponible sin conexión
-    una vez que cargaste la página.</p>
+    <h2><span class="ico">🛑</span> Info en cada parada <span class="offline-tag">📴 offline</span></h2>
+    <p>Tocá un marcador en el mapa o consultá acá — todo disponible sin señal.</p>
     <div id="stops-list"></div>
   </div>
 
   <div class="card">
-    <h2><span class="ico">🕒</span> Cronograma sugerido</h2>
+    <h2><span class="ico">🕒</span> Cronograma</h2>
     <div class="timeline">
-      <div class="timeline-item"><div class="when">Mié 4/11, ~05:00</div><div class="what">Salida desde Juan María Gutiérrez, Berazategui</div></div>
-      <div class="timeline-item"><div class="when">Mié 4/11, durante el día</div><div class="what">RN14 por Entre Ríos y Corrientes — parada 1 (diésel + comida)</div></div>
-      <div class="timeline-item"><div class="when">Mié 4/11, tarde-noche</div><div class="what">Llegada a Paso de los Libres — parada 2 y cruce de frontera</div></div>
+      <div class="timeline-item"><div class="when">Mié 4/11 · ~05:00</div><div class="what">Salida desde Juan María Gutiérrez, Berazategui</div></div>
+      <div class="timeline-item"><div class="when">Mié 4/11 · día</div><div class="what">RN14 por Entre Ríos — parada 1 (diésel + comida, ~480 km)</div></div>
+      <div class="timeline-item"><div class="when">Mié 4/11 · noche</div><div class="what">Paso de los Libres — parada 2 (cargar en AR) + cruce de frontera</div></div>
       <div class="timeline-item"><div class="when">Mié noche → Jue madrugada</div><div class="what">BR-290 hacia Porto Alegre — turnos nocturnos, parada 3</div></div>
-      <div class="timeline-item"><div class="when">Jue 5/11, mañana</div><div class="what">Porto Alegre → Curitiba (BR-116) — parada 4</div></div>
-      <div class="timeline-item"><div class="when">Jue 5/11, tarde</div><div class="what">Curitiba → São Paulo (Régis Bittencourt) — parada 5</div></div>
-      <div class="timeline-item"><div class="when">Jue 5/11, noche</div><div class="what">🏨 Check-in en el hotel (San Raphael / Columbia) — primera noche del paquete</div></div>
-      <div class="timeline-item"><div class="when">Vie 6 — Dom 8/11</div><div class="what">🏁 Gran Premio de São Paulo 2026 — traslados hotel ↔ Interlagos incluidos en el paquete</div></div>
-      <div class="timeline-item"><div class="when">Dom 8/11, noche</div><div class="what">Última noche en el hotel (check-out lunes 9/11)</div></div>
+      <div class="timeline-item"><div class="when">Jue 5/11 · mañana</div><div class="what">Porto Alegre → Curitiba (BR-116) — parada 4</div></div>
+      <div class="timeline-item"><div class="when">Jue 5/11 · tarde</div><div class="what">Curitiba → São Paulo (Régis Bittencourt) — parada 5</div></div>
+      <div class="timeline-item"><div class="when">Jue 5/11 · noche</div><div class="what">🏨 Check-in Hotel San Raphael / Columbia — 1ª noche del paquete</div></div>
+      <div class="timeline-item"><div class="when">Vie 6 — Dom 8/11</div><div class="what">🏁 GP de São Paulo · Interlagos — traslados hotel ↔ circuito incluidos</div></div>
+      <div class="timeline-item"><div class="when">Dom 8/11 · noche</div><div class="what">Última noche en el hotel</div></div>
+      <div class="timeline-item"><div class="when">Lun 9/11 · check-out</div><div class="what">Salida de vuelta — São Paulo → Curitiba → coast</div></div>
+      <div class="timeline-item"><div class="when">Lun 9/11 · mañana/mediodía</div><div class="what">⛱️ Parada 2h en Balneário Camboriú — playa de arena blanca y agua cálida</div></div>
+      <div class="timeline-item"><div class="when">Lun 9/11 → Mar 10/11</div><div class="what">BR-101 → Porto Alegre → BR-290 → Uruguaiana → frontera → RN14</div></div>
+      <div class="timeline-item"><div class="when">Mar 10/11 · tarde/noche</div><div class="what">🏠 Llegada a Berazategui</div></div>
     </div>
-    <p style="margin-top:14px;">Salir el miércoles temprano deja <strong>todo el jueves de colchón</strong>
-    para imprevistos — demoras en frontera, tráfico, o simplemente descansar de verdad antes del GP del viernes.</p>
+  </div>
+
+  <!-- FICHAS DE TRIPULANTES -->
+  <div class="card">
+    <h2><span class="ico">🧑‍🤝‍🧑</span> Los 6 del viaje</h2>
+    <div class="franco-bar">Todos hinchas de 🇦🇷 <strong>Franco Colapinto</strong> · y además...</div>
+    <div class="crew-grid" id="crew-grid"></div>
   </div>
 
   <div class="card">
-    <h2><span class="ico">🧑‍🤝‍🧑</span> Turnos de manejo — 6 conductores</h2>
-    <div class="crew">
-      <div class="seat"><span class="ico">🚗</span>Ariel B</div>
-      <div class="seat"><span class="ico">🚗</span>Ariel S</div>
-      <div class="seat"><span class="ico">🚗</span>Charly</div>
-      <div class="seat"><span class="ico">🚗</span>Elias</div>
-      <div class="seat"><span class="ico">🚗</span>Dani</div>
-      <div class="seat"><span class="ico">🚗</span>Gaston</div>
-    </div>
-    <p style="margin-top:14px;">~25 h de manejo puro ÷ 6 personas ≈ turnos de <strong>~3 horas</strong>
-    cada uno (2 vueltas completas por persona). Ideal hacer el relevo en cada parada de combustible —
-    así no se pierde tiempo extra. El que no maneja navega y controla el tanque; el siguiente intenta
-    dormir, no quedarse de acompañante.</p>
-  </div>
-
-  <div class="card">
-    <h2><span class="ico">🛂</span> Documentación para cruzar la frontera</h2>
-    <p>Llevar todo <strong>original y en papel</strong> — las versiones digitales no se aceptan
-    en el paso Paso de los Libres / Uruguaiana.</p>
+    <h2><span class="ico">🛂</span> Documentación para cruzar</h2>
+    <p>Todo <strong>original y en papel</strong> — digitales no se aceptan en Paso de los Libres / Uruguaiana.</p>
     <ul class="checklist">
-      <li>DNI o pasaporte vigente de cada uno de los 6 viajeros</li>
-      <li>Licencia de conducir habilitada para la categoría del vehículo (de cada conductor)</li>
-      <li>Título de propiedad del vehículo (cédula verde / azul)</li>
-      <li>Si el auto no es de quien maneja: autorización correspondiente</li>
-      <li>Seguro Carta Verde (Mercosur) vigente — obligatorio para circular por Brasil</li>
+      <li>DNI o pasaporte vigente de los 6 viajeros</li>
+      <li>Licencia de conducir de cada conductor</li>
+      <li>Título de propiedad del vehículo (cédula verde/azul)</li>
+      <li>Si el auto no es de quien maneja: autorización</li>
+      <li>Seguro Carta Verde (Mercosur) vigente — obligatorio en Brasil</li>
       <li>VTV vigente</li>
       <li>Patentes delantera y trasera en buen estado</li>
-      <li>Premigración con código QR antes de llegar al paso (agiliza el trámite)</li>
+      <li>Premigración con QR antes de llegar al paso</li>
     </ul>
   </div>
 
   <div class="card">
     <h2><span class="ico">✅</span> Checklist de preparación</h2>
     <ul class="checklist">
-      <li class="done">Entradas al GP (Sector G, Vie/Sáb/Dom) — incluidas en el paquete</li>
-      <li class="done">Alojamiento 4 noches con desayuno (Hotel San Raphael / Columbia) — incluido en el paquete</li>
+      <li class="done">Entradas GP Sector G (Vie/Sáb/Dom) — incluidas en el paquete</li>
+      <li class="done">4 noches hotel con desayuno — incluidas en el paquete</li>
       <li class="done">Traslados hotel ↔ Interlagos los 3 días — incluidos en el paquete</li>
-      <li>Service y chequeo general de la Trailblazer (frenos, neumáticos + auxilio, niveles, batería, AdBlue)</li>
+      <li>Service y chequeo de la Trailblazer (frenos, neumáticos, niveles, batería, AdBlue)</li>
       <li>Sacar la Carta Verde (seguro Mercosur) con anticipación</li>
-      <li>Hacer la premigración con QR</li>
-      <li>Cambiar / llevar reales (BRL) para peajes y combustible en Brasil</li>
-      <li>Confirmar horarios de los traslados regulares al circuito con Agostina (Punto Fans)</li>
-      <li>Power banks, cargadores de auto, playlists/podcasts para los turnos nocturnos</li>
-      <li>Botiquín, agua y snacks para los tramos largos sin estaciones</li>
+      <li>Premigración con QR</li>
+      <li>Llevar reales (BRL) para peajes y combustible en Brasil</li>
+      <li>Confirmar horarios traslados regulares al circuito con Agostina</li>
+      <li>Confirmar estado BR-285 / BR-290 y estado de ruta más cerca de la fecha</li>
+      <li>Power banks, cargadores de auto, playlists para los turnos nocturnos</li>
+      <li>Botiquín, agua y snacks</li>
     </ul>
   </div>
 
 </main>
 
+<footer>
+  🏎️ F1 São Paulo 2026 · Berazategui → Interlagos y vuelta · Actualizado: 2026-06-08
+</footer>
+
 <script>
-(function () {
-  var WAYPOINTS = [
-    { id: 'berazategui', name: 'Berazategui (salida)', kind: 'start', lat: -34.7666, lon: -58.2095,
-      info: 'Punto de partida — Juan María Gutiérrez, Berazategui.' },
-    { id: 'zarate', name: 'Zárate', kind: 'city', lat: -34.0973, lon: -59.0278,
-      info: 'Acceso a la RN14, rumbo a Entre Ríos y Corrientes.' },
-    { id: 'chajari', name: 'Carga 1 — Entre Ríos (RN14)', kind: 'fuel', lat: -30.7565, lon: -58.0078,
-      info: 'Parada 1 — ~480 km. Shell Chajarí o San José (RN14). Diésel + comida.' },
-    { id: 'santotome', name: 'Carga 2 — Santo Tomé, Corrientes', kind: 'fuel', lat: -28.5511, lon: -56.0444,
-      info: 'Parada 2 — ~950 km. Shell Santo Tomé (RN14, ~70 km antes del cruce). Cargar acá: más barato en Argentina.' },
-    { id: 'frontera', name: 'Frontera Paso de los Libres ↔ Uruguaiana', kind: 'border', lat: -29.7283, lon: -57.0896,
-      info: 'Puente "Agustín P. Justo – Getúlio Vargas". Tener lista la documentación (DNI, Carta Verde, VTV) y la premigración con QR. ~20 min + trámite aduanero.' },
-    { id: 'rs-brasil', name: 'Carga 3 — BR-290 (RS, Brasil)', kind: 'fuel-tbd', lat: -29.5, lon: -54.0,
-      info: 'Parada 3 — ~1.430 km. Mejor estación disponible sobre la BR-290 (Ipiranga, BR Distribuidora, Shell). No desviarse — cargar en la primera que aparezca en ruta.' },
-    { id: 'portoalegre', name: 'Porto Alegre', kind: 'city', lat: -30.0346, lon: -51.2177,
-      info: 'Empalme entre la BR-290 y la BR-116, rumbo a Curitiba.' },
-    { id: 'curitiba', name: 'Carga 4 — Curitiba (BR-116)', kind: 'fuel', lat: -25.4284, lon: -49.2733,
-      info: 'Parada 4 — ~1.750 km. Mejor estación disponible cerca de Curitiba, antes de entrar en la Régis Bittencourt.' },
-    { id: 'juquia', name: 'Carga 5 — São Paulo (Régis Bittencourt)', kind: 'fuel', lat: -23.6028, lon: -46.7572,
-      info: 'Parada 5 — ~2.180 km. Última carga del viaje. Shell Taboão da Serra (BR-116 km 16,5) si está en ruta. Dejar el tanque lleno para moverse por SP.' },
-    { id: 'interlagos', name: 'São Paulo — hotel y Interlagos 🏁', kind: 'finish', lat: -23.5505, lon: -46.6333,
-      info: 'Destino final. Check-in Hotel San Raphael / Columbia (5/11). Los 3 días del GP los traslados hotel ↔ Interlagos están incluidos en el paquete.' }
-  ];
+(function(){
 
-  function haversine(lat1, lon1, lat2, lon2) {
-    var R = 6371, toRad = function (d) { return d * Math.PI / 180; };
-    var dLat = toRad(lat2 - lat1), dLon = toRad(lon2 - lon1);
-    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-    return 2 * R * Math.asin(Math.sqrt(a));
+var TEAMS = {
+  mercedes:{name:'Mercedes',color:'#00D2BE',dark:'#009B8A',emoji:'⭐'},
+  ferrari:{name:'Ferrari',color:'#E8002D',dark:'#b30024',emoji:'🐎'},
+  redbull:{name:'Red Bull',color:'#3671C6',dark:'#223971',emoji:'🐂'},
+  williams:{name:'Williams',color:'#005AFF',dark:'#0044CC',emoji:'💙'},
+  mclaren:{name:'McLaren',color:'#FF8000',dark:'#CC6600',emoji:'🟠'}
+};
+
+var CREW = [
+  {apodo:'Ariel B',full:'Baudry Ariel Osvaldo',city:'Juan Mª Gutiérrez',age:50,team:'mercedes',ico:'🧑‍✈️'},
+  {apodo:'Ariel S',full:'Sandoval Ariel Gustavo',city:'Berazategui',age:44,team:'ferrari',ico:'🧑‍🔧'},
+  {apodo:'Charly',full:'Gonzalez Jesus Carlos',city:'Juan Mª Gutiérrez',age:55,team:null,ico:'🙂'},
+  {apodo:'Elias',full:'Gonzalez Elias Roman',city:'Juan Mª Gutiérrez',age:30,team:'williams',ico:'🧑‍🔧'},
+  {apodo:'Dani',full:'Castellarin Daniel Horacio',city:'Quilmes',age:59,team:'mercedes',ico:'🧔'},
+  {apodo:'Gaston',full:'Etcheverry Gaston Maximiliano',city:'Berazategui',age:42,team:'redbull',ico:'😎'}
+];
+
+/* Render crew cards */
+var grid = document.getElementById('crew-grid');
+if(grid){
+  CREW.forEach(function(c){
+    var t = c.team ? TEAMS[c.team] : null;
+    var cls = c.team ? ('c'+c.team[0]) : 'cn';
+    if(c.team==='redbull') cls='cr';
+    if(c.team==='williams') cls='cw';
+    var teamBadge = t
+      ? '<span class="c-team">' + t.emoji + ' ' + t.name + '</span>'
+      : '<span class="c-team">🏎️ Sin definir</span>';
+    var el = document.createElement('div');
+    el.className = 'crew-card ' + cls;
+    el.innerHTML =
+      '<span class="c-ico">'+c.ico+'</span>'+
+      '<p class="c-name">'+c.apodo+'</p>'+
+      '<p class="c-full">'+c.full+'</p>'+
+      '<p class="c-city">'+c.city+'</p>'+
+      '<p class="c-age">'+c.age+' años</p>'+
+      teamBadge+
+      '<span class="c-colapinto">+ 🇦🇷 Franco Colapinto</span>';
+    grid.appendChild(el);
+  });
+}
+
+/* Waypoints IDA */
+var WAYPOINTS_IDA = [
+  {id:'berazategui',name:'Berazategui (salida)',kind:'start',lat:-34.7666,lon:-58.2095,
+   info:'Punto de partida — Juan María Gutiérrez, Berazategui.'},
+  {id:'zarate',name:'Zárate',kind:'city',lat:-34.0973,lon:-59.0278,
+   info:'Acceso a la RN14 — ruta del Mercosur.'},
+  {id:'concordia',name:'Carga 1 — Entre Ríos (RN14)',kind:'fuel',lat:-31.3927,lon:-58.0206,
+   info:'Parada 1 — ~480 km. Shell Concordia o Chajarí (RN14). Diésel + comida.'},
+  {id:'pasoslibres',name:'Carga 2 + Frontera — Paso de los Libres',kind:'border',lat:-29.7019,lon:-57.0908,
+   info:'Parada 2 — ~970 km. Última parada en Argentina antes de cruzar — cargar acá porque el combustible es más barato que en Brasil. Documentación: DNI, Carta Verde, VTV, QR de premigración.'},
+  {id:'uruguaiana',name:'Uruguaiana (Brasil)',kind:'city',lat:-29.7547,lon:-57.0883,
+   info:'Primera ciudad en Brasil. Empalme con la BR-290 hacia Porto Alegre.'},
+  {id:'rs-brasil',name:'Carga 3 — BR-290 (Rio Grande do Sul)',kind:'fuel-tbd',lat:-29.5,lon:-54.0,
+   info:'Parada 3 — ~1.430 km. Mejor estación disponible en ruta (Ipiranga, BR Distribuidora, Shell). No desviarse — cargar en la primera que aparezca.'},
+  {id:'portoalegre',name:'Porto Alegre',kind:'city',lat:-30.0346,lon:-51.2177,
+   info:'Empalme BR-290 → BR-116. Seguir hacia Curitiba.'},
+  {id:'curitiba-fuel',name:'Carga 4 — Curitiba (BR-116)',kind:'fuel',lat:-25.4284,lon:-49.2733,
+   info:'Parada 4 — ~1.900 km. Cargar antes o durante Curitiba, antes de la Régis Bittencourt hacia São Paulo.'},
+  {id:'sp-fuel',name:'Carga 5 — entrada São Paulo',kind:'fuel',lat:-23.6028,lon:-46.7572,
+   info:'Parada 5 — ~2.180 km. Última carga. Shell Taboão da Serra (BR-116 km 16,5) si está en ruta. Dejar el tanque lleno.'},
+  {id:'saopaulo',name:'São Paulo — hotel 🏨',kind:'finish',lat:-23.5505,lon:-46.6333,
+   info:'Destino. Check-in Hotel San Raphael / Columbia (5/11). Traslados hotel ↔ Interlagos incluidos en el paquete los 3 días del GP.'}
+];
+
+/* Waypoints VUELTA */
+var WAYPOINTS_VUELTA = [
+  {id:'sp-v',name:'São Paulo (salida vuelta)',kind:'start',lat:-23.5505,lon:-46.6333,
+   info:'Check-out Hotel 9/11. Salida de vuelta por la ruta costera.'},
+  {id:'curitiba-v',name:'Curitiba',kind:'city',lat:-25.4284,lon:-49.2733,
+   info:'Empalme hacia la BR-376 costera.'},
+  {id:'joinville',name:'Joinville (SC)',kind:'city',lat:-26.3005,lon:-48.8462,
+   info:'Empalme BR-376 → BR-101 costera hacia el sur.'},
+  {id:'balneario',name:'⛱️ Balneário Camboriú — parada playa',kind:'beach',lat:-26.9906,lon:-48.6348,
+   info:'Parada obligada de 2h+ — arena blanca, agua cálida (~24°C en noviembre). Avenida Atlântica, a 100m del estacionamiento. Llegar de día.'},
+  {id:'floripa',name:'Florianópolis',kind:'city',lat:-27.5969,lon:-48.5495,
+   info:'Paso por Florianópolis — si hay tiempo se puede dar una vuelta, sino seguir por BR-101 sur.'},
+  {id:'poa-v',name:'Porto Alegre',kind:'city',lat:-30.0346,lon:-51.2177,
+   info:'Empalme BR-101 → BR-290 oeste hacia Uruguaiana.'},
+  {id:'uruguaiana-v',name:'🌎 Frontera Uruguaiana ↔ Paso de los Libres',kind:'border',lat:-29.7283,lon:-57.0896,
+   info:'Cruce de vuelta — documentación igual que a la ida. Cargar combustible en Brasil antes de cruzar si es conveniente.'},
+  {id:'rn14-v',name:'RN14 — vuelta a casa',kind:'city',lat:-30.7565,lon:-58.0078,
+   info:'De vuelta en Argentina. RN14 directo a Berazategui.'},
+  {id:'berazategui-v',name:'Berazategui — llegada 🏠',kind:'finish',lat:-34.7666,lon:-58.2095,
+   info:'¡Llegada! Después de ~4.800 km de ida y vuelta.'}
+];
+
+/* Mapa Leaflet */
+var mapEl = document.getElementById('map-container');
+var leafletMap = null;
+var meLayer = null;
+var layerIda, layerVuelta;
+
+if(mapEl && typeof L !== 'undefined'){
+  leafletMap = L.map('map-container',{zoomControl:true});
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    maxZoom:19
+  }).addTo(leafletMap);
+
+  /* Colores por tipo */
+  var COLORS = {start:'#e10600',finish:'#e10600',fuel:'#16a34a','fuel-tbd':'#f59e0b',border:'#15151e',city:'#6b6b76',beach:'#06b6d4'};
+  var SIZES  = {start:16,finish:16,beach:16};
+
+  function mkIcon(kind){
+    var sz = SIZES[kind]||12;
+    var c = COLORS[kind]||'#6b6b76';
+    return L.divIcon({
+      html:'<div style="background:'+c+';width:'+sz+'px;height:'+sz+'px;border-radius:50%;border:2.5px solid #fff;box-shadow:0 0 0 1.5px '+c+',0 2px 8px rgba(0,0,0,.3)"></div>',
+      className:'',iconSize:[sz,sz],iconAnchor:[sz/2,sz/2],popupAnchor:[0,-sz/2-4]
+    });
   }
 
-  /* --- Mapa Leaflet --- */
-  var mapEl = document.getElementById('map-container');
-  var leafletMap = null;
-  var meLayer = null;
+  function popupHtml(w){
+    return '<strong style="font-size:13px">'+w.name+'</strong><br><span style="font-size:12px;line-height:1.5">'+w.info+'</span>';
+  }
 
-  if (mapEl && typeof L !== 'undefined') {
-    leafletMap = L.map('map-container', { zoomControl: true });
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-      maxZoom: 19
-    }).addTo(leafletMap);
+  /* Capa IDA */
+  var groupIda = L.layerGroup();
+  L.polyline(WAYPOINTS_IDA.map(function(w){return[w.lat,w.lon];}),
+    {color:'#e10600',weight:3,dashArray:'8 4',opacity:.85}).addTo(groupIda);
+  WAYPOINTS_IDA.forEach(function(w){
+    L.marker([w.lat,w.lon],{icon:mkIcon(w.kind)}).bindPopup(popupHtml(w),{maxWidth:240}).addTo(groupIda);
+  });
 
-    L.polyline(WAYPOINTS.map(function (w) { return [w.lat, w.lon]; }), {
-      color: '#e10600', weight: 3, dashArray: '8 4', opacity: 0.9
-    }).addTo(leafletMap);
+  /* Capa VUELTA */
+  var groupVuelta = L.layerGroup();
+  L.polyline(WAYPOINTS_VUELTA.map(function(w){return[w.lat,w.lon];}),
+    {color:'#2563eb',weight:3,opacity:.8}).addTo(groupVuelta);
+  WAYPOINTS_VUELTA.forEach(function(w){
+    L.marker([w.lat,w.lon],{icon:mkIcon(w.kind)}).bindPopup(popupHtml(w),{maxWidth:240}).addTo(groupVuelta);
+  });
 
-    var COLORS = { start: '#e10600', finish: '#e10600', fuel: '#16a34a', 'fuel-tbd': '#f59e0b', border: '#15151e', city: '#6b6b76' };
+  groupIda.addTo(leafletMap);
+  groupVuelta.addTo(leafletMap);
+  layerIda = groupIda;
+  layerVuelta = groupVuelta;
 
-    function makeIcon(kind) {
-      var size = (kind === 'start' || kind === 'finish') ? 16 : 12;
-      var c = COLORS[kind] || '#6b6b76';
-      return L.divIcon({
-        html: '<div style="background:' + c + ';width:' + size + 'px;height:' + size + 'px;border-radius:50%;border:2.5px solid #fff;box-shadow:0 0 0 1.5px ' + c + ',0 2px 6px rgba(0,0,0,0.25)"></div>',
-        className: '', iconSize: [size, size], iconAnchor: [size / 2, size / 2], popupAnchor: [0, -size / 2 - 4]
-      });
+  /* Fit bounds a todos los puntos */
+  var allPts = WAYPOINTS_IDA.concat(WAYPOINTS_VUELTA).map(function(w){return[w.lat,w.lon];});
+  leafletMap.fitBounds(allPts,{padding:[24,24]});
+
+  /* Toggle botones */
+  document.getElementById('btn-ida').addEventListener('click',function(){
+    this.classList.toggle('active');
+    if(leafletMap.hasLayer(groupIda)) leafletMap.removeLayer(groupIda);
+    else groupIda.addTo(leafletMap);
+  });
+  document.getElementById('btn-vuelta').addEventListener('click',function(){
+    this.classList.toggle('active');
+    if(leafletMap.hasLayer(groupVuelta)) leafletMap.removeLayer(groupVuelta);
+    else groupVuelta.addTo(leafletMap);
+  });
+}
+
+/* Geolocalización */
+function haversine(a,b,c,d){
+  var R=6371,r=function(x){return x*Math.PI/180;};
+  var dLat=r(c-a),dLon=r(d-b);
+  var s=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(r(a))*Math.cos(r(c))*Math.sin(dLon/2)*Math.sin(dLon/2);
+  return 2*R*Math.asin(Math.sqrt(s));
+}
+
+var ALL_WPS = WAYPOINTS_IDA.concat(WAYPOINTS_VUELTA.filter(function(w){return w.kind==='fuel'||w.kind==='beach'||w.kind==='border';}));
+var resultBox = document.getElementById('locate-result');
+
+document.getElementById('locate-btn').addEventListener('click',function(){
+  if(!('geolocation' in navigator)){resultBox.textContent='Tu navegador no soporta geolocalización.';return;}
+  resultBox.textContent='Buscando tu ubicación…';
+  navigator.geolocation.getCurrentPosition(function(pos){
+    var lat=pos.coords.latitude,lon=pos.coords.longitude;
+    var dists=WAYPOINTS_IDA.map(function(w){return{w:w,d:haversine(lat,lon,w.lat,w.lon)};});
+    dists.sort(function(a,b){return a.d-b.d;});
+    var nearest=dists[0];
+    var idx=WAYPOINTS_IDA.indexOf(nearest.w);
+    var next=null;
+    for(var i=idx+1;i<WAYPOINTS_IDA.length;i++){
+      var k=WAYPOINTS_IDA[i].kind;
+      if(k==='fuel'||k==='fuel-tbd'||k==='border'||k==='finish'){next=WAYPOINTS_IDA[i];break;}
     }
+    var html='<strong>Estás cerca de:</strong> '+nearest.w.name+' (~'+nearest.d.toFixed(0)+' km)';
+    if(next) html+='<br><strong>Próxima parada:</strong> '+next.name+' — ~'+haversine(lat,lon,next.lat,next.lon).toFixed(0)+' km';
+    resultBox.innerHTML=html;
+    if(leafletMap){
+      leafletMap.setView([lat,lon],10);
+      if(meLayer) leafletMap.removeLayer(meLayer);
+      meLayer=L.circleMarker([lat,lon],{radius:10,fillColor:'#2563eb',fillOpacity:1,color:'#fff',weight:2.5})
+        .bindPopup('📍 Tu ubicación').addTo(leafletMap).openPopup();
+    }
+  },function(err){resultBox.textContent='No se pudo obtener la ubicación ('+err.message+').';},{enableHighAccuracy:true,timeout:15000});
+});
 
-    WAYPOINTS.forEach(function (w) {
-      L.marker([w.lat, w.lon], { icon: makeIcon(w.kind) })
-        .bindPopup('<strong>' + w.name + '</strong><br><span style="font-size:12px;line-height:1.4">' + w.info + '</span>', { maxWidth: 240 })
-        .addTo(leafletMap);
-    });
-
-    leafletMap.fitBounds(WAYPOINTS.map(function (w) { return [w.lat, w.lon]; }), { padding: [24, 24] });
+/* Tarjetas de paradas */
+var stopsList=document.getElementById('stops-list');
+if(stopsList){
+  WAYPOINTS_IDA.filter(function(w){return w.kind==='fuel'||w.kind==='fuel-tbd'||w.kind==='border';}).forEach(function(w){
+    var ico=w.kind==='border'?'🌎':(w.kind==='fuel-tbd'?'🔍':'⛽');
+    var d=document.createElement('div');
+    d.className='stop-info';
+    d.innerHTML='<div class="stop-name">'+ico+' '+w.name+'</div>'+
+      '<div class="stop-detail">'+w.info+'</div>'+
+      '<div class="stop-links">'+
+      '<a href="https://www.google.com/maps?q='+w.lat+','+w.lon+'" target="_blank" rel="noopener">Google Maps</a>'+
+      '<a href="geo:'+w.lat+','+w.lon+'">App de mapas</a></div>';
+    stopsList.appendChild(d);
+  });
+  /* playa vuelta */
+  var beach=WAYPOINTS_VUELTA.find(function(w){return w.kind==='beach';});
+  if(beach){
+    var d2=document.createElement('div');
+    d2.className='stop-info';
+    d2.innerHTML='<div class="stop-name">⛱️ '+beach.name+' <span style="font-size:11px;color:#6b6b76">(vuelta)</span></div>'+
+      '<div class="stop-detail">'+beach.info+'</div>'+
+      '<div class="stop-links">'+
+      '<a href="https://www.google.com/maps?q='+beach.lat+','+beach.lon+'" target="_blank" rel="noopener">Google Maps</a>'+
+      '<a href="geo:'+beach.lat+','+beach.lon+'">App de mapas</a></div>';
+    stopsList.appendChild(d2);
   }
+}
 
-  /* --- Botón ubicarme --- */
-  var resultBox = document.getElementById('locate-result');
-  var locateBtn = document.getElementById('locate-btn');
-  if (locateBtn) {
-    locateBtn.addEventListener('click', function () {
-      if (!('geolocation' in navigator)) { resultBox.textContent = 'Tu navegador no soporta geolocalización.'; return; }
-      resultBox.textContent = 'Buscando tu ubicación…';
-      navigator.geolocation.getCurrentPosition(function (pos) {
-        var lat = pos.coords.latitude, lon = pos.coords.longitude;
-        var distances = WAYPOINTS.map(function (w) { return { w: w, d: haversine(lat, lon, w.lat, w.lon) }; });
-        distances.sort(function (a, b) { return a.d - b.d; });
-        var nearest = distances[0];
-        var idx = WAYPOINTS.indexOf(nearest.w);
-        var next = null;
-        for (var i = idx + 1; i < WAYPOINTS.length; i++) {
-          var k = WAYPOINTS[i].kind;
-          if (k === 'fuel' || k === 'fuel-tbd' || k === 'border' || k === 'finish') { next = WAYPOINTS[i]; break; }
-        }
-        var html = '<strong>Estás cerca de:</strong> ' + nearest.w.name + ' (~' + nearest.d.toFixed(0) + ' km)';
-        if (next) html += '<br><strong>Próxima parada:</strong> ' + next.name + ' — ~' + haversine(lat, lon, next.lat, next.lon).toFixed(0) + ' km';
-        resultBox.innerHTML = html;
-        if (leafletMap) {
-          leafletMap.setView([lat, lon], 10);
-          if (meLayer) leafletMap.removeLayer(meLayer);
-          meLayer = L.circleMarker([lat, lon], { radius: 10, fillColor: '#2563eb', fillOpacity: 1, color: '#fff', weight: 2.5 })
-            .bindPopup('📍 Tu ubicación').addTo(leafletMap).openPopup();
-        }
-      }, function (err) {
-        resultBox.textContent = 'No se pudo obtener tu ubicación (' + err.message + ').';
-      }, { enableHighAccuracy: true, timeout: 15000 });
-    });
-  }
+/* Service Worker */
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});
+}
 
-  /* --- Tarjetas de paradas --- */
-  var stopsList = document.getElementById('stops-list');
-  if (stopsList) {
-    WAYPOINTS.filter(function (w) { return w.kind === 'fuel' || w.kind === 'fuel-tbd' || w.kind === 'border'; })
-      .forEach(function (w) {
-        var icon = w.kind === 'border' ? '🌎' : (w.kind === 'fuel-tbd' ? '🔍' : '⛽');
-        var div = document.createElement('div');
-        div.className = 'stop-info';
-        div.innerHTML = '<div class="stop-name">' + icon + ' ' + w.name + '</div>' +
-          '<div class="stop-detail">' + w.info + '</div>' +
-          '<div class="stop-links">' +
-          '<a href="https://www.google.com/maps?q=' + w.lat + ',' + w.lon + '" target="_blank" rel="noopener">Google Maps</a>' +
-          '<a href="geo:' + w.lat + ',' + w.lon + '">App de mapas</a>' +
-          '</div>';
-        stopsList.appendChild(div);
-      });
-  }
-
-  /* --- Service Worker (offline) --- */
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
-  }
 })();
 </script>
-
-<footer>
-  🏎️ Viaje a la F1 — GP São Paulo 2026 · Berazategui → São Paulo · Actualizado: 2026-06-08
-</footer>
 
 </body>
 </html>
