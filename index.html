@@ -151,6 +151,16 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:700;colo
 
 footer{text-align:center;color:var(--muted);font-size:12px;padding:24px 16px 50px}
 a{color:var(--red-dark)}
+
+/* Galería de fotos */
+.fotos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:4px}
+.foto-item{border-radius:12px;overflow:hidden;background:#f0f0f5;border:1px solid var(--border)}
+.foto-item img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.foto-caption{margin:0;padding:10px 12px 12px;font-size:13px;font-weight:700;color:var(--navy);line-height:1.4}
+.foto-caption .foto-sub{font-size:11px;color:var(--muted);font-weight:600;display:block;margin-top:3px}
+.fotos-hint{margin-top:12px;font-size:12px;color:var(--muted);background:#f8f8fc;border:1px dashed #ddd;border-radius:8px;padding:10px 14px}
+.fotos-hint code{font-size:11px;background:#e8e8f0;padding:1px 5px;border-radius:4px}
+@media(max-width:480px){.fotos-grid{grid-template-columns:1fr}}
 @media(max-width:600px){
   .card{padding:16px}
   table{font-size:12px}
@@ -355,6 +365,13 @@ a{color:var(--red-dark)}
     <div class="crew-grid" id="crew-grid"></div>
   </div>
 
+  <!-- FOTOS DEL GRUPO -->
+  <div class="card" id="fotos-card">
+    <h2><span class="ico">📸</span> Fotos del grupo</h2>
+    <div class="fotos-grid" id="fotos-grid"></div>
+    <p class="fotos-hint" id="fotos-hint">Para agregar fotos: guardá los archivos en la carpeta <code>fotos/</code> y agregá una entrada en el array <code>FOTOS</code> del script.</p>
+  </div>
+
   <div class="card">
     <h2><span class="ico">🛂</span> Documentación para cruzar</h2>
     <p>Todo <strong>original y en papel</strong> — digitales no se aceptan en Paso de los Libres / Uruguaiana.</p>
@@ -405,12 +422,12 @@ var TEAMS = {
 };
 
 var CREW = [
-  {apodo:'Ariel B',full:'Baudry Ariel Osvaldo',city:'Juan Mª Gutiérrez',age:50,team:'mercedes',ico:'🧑‍✈️'},
-  {apodo:'Ariel S',full:'Sandoval Ariel Gustavo',city:'Berazategui',age:44,team:'ferrari',ico:'🧑‍🔧'},
-  {apodo:'Charly',full:'Gonzalez Jesus Carlos',city:'Juan Mª Gutiérrez',age:55,team:null,ico:'🙂'},
-  {apodo:'Elias',full:'Gonzalez Elias Roman',city:'Juan Mª Gutiérrez',age:30,team:'williams',ico:'🧑‍🔧'},
-  {apodo:'Dani',full:'Castellarin Daniel Horacio',city:'Quilmes',age:59,team:'mercedes',ico:'🧔'},
-  {apodo:'Gaston',full:'Etcheverry Gaston Maximiliano',city:'Berazategui',age:42,team:'redbull',ico:'😎'}
+  {apodo:'Ariel B',full:'Baudry Ariel Osvaldo',city:'Juan Mª Gutiérrez',age:50,team:'mercedes',ico:'👨‍🦳'},
+  {apodo:'Ariel S',full:'Sandoval Ariel Gustavo',city:'Berazategui',age:44,team:'ferrari',ico:'🏎️'},
+  {apodo:'Charly',full:'Gonzalez Jesus Carlos',city:'Juan Mª Gutiérrez',age:55,team:null,ico:'🤏'},
+  {apodo:'Elias',full:'Gonzalez Elias Roman',city:'Juan Mª Gutiérrez',age:30,team:'williams',ico:'⚡'},
+  {apodo:'Dani',full:'Castellarin Daniel Horacio',city:'Quilmes',age:59,team:'mercedes',ico:'👨‍🦲'},
+  {apodo:'Gaston',full:'Etcheverry Gaston Maximiliano',city:'Berazategui',age:42,team:'redbull',ico:'🧔‍♂️'}
 ];
 
 /* Render crew cards */
@@ -616,6 +633,45 @@ if(stopsList){
     stopsList.appendChild(d2);
   }
 }
+
+/* ── Galería de fotos ── */
+var FOTOS = [
+  {
+    src: 'fotos/asado-junio-2026.jpg',
+    caption: 'Asado previo al viaje · Junio 2026',
+    sub: 'Dani · Ariel S · Charly · Gaston · Ariel B'
+  }
+  /* Agregar fotos nuevas acá:
+  ,{
+    src: 'fotos/nombre-archivo.jpg',
+    caption: 'Descripción',
+    sub: 'Quiénes salen'
+  }
+  */
+];
+
+(function(){
+  var grid = document.getElementById('fotos-grid');
+  var hint = document.getElementById('fotos-hint');
+  if (!grid) return;
+  grid.innerHTML = '';
+  var loaded = 0;
+  FOTOS.forEach(function(f){
+    var item = document.createElement('div');
+    item.className = 'foto-item';
+    var img = document.createElement('img');
+    img.alt = f.caption;
+    img.src = f.src;
+    img.addEventListener('load',  function(){ loaded++; if(loaded===FOTOS.length && hint) hint.style.display='none'; });
+    img.addEventListener('error', function(){ item.style.display='none'; });
+    var cap = document.createElement('p');
+    cap.className = 'foto-caption';
+    cap.innerHTML = f.caption + (f.sub ? '<span class="foto-sub">'+f.sub+'</span>' : '');
+    item.appendChild(img);
+    item.appendChild(cap);
+    grid.appendChild(item);
+  });
+})();
 
 /* Service Worker */
 if('serviceWorker' in navigator){
