@@ -167,6 +167,17 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:700;colo
 .franco-bar{text-align:center;padding:10px 0 6px;font-size:13px;color:var(--muted)}
 .franco-bar strong{color:var(--navy)}
 
+/* Checklist interactivo */
+.checklist li:not(.done){cursor:pointer;user-select:none;transition:opacity .1s}
+.checklist li:not(.done):hover{opacity:.75}
+.checklist li.f-checked:not(.done)::before{content:'✅';color:initial}
+/* Fichas inputs */
+.ficha-input{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:5px;color:#fff;font-size:12px;padding:3px 7px;width:100%;outline:none;box-sizing:border-box;margin-top:2px;font-family:inherit}
+.ficha-input::placeholder{color:rgba(255,255,255,.35)}
+.ficha-input:focus{border-color:var(--mercedes);background:rgba(255,255,255,.15)}
+/* Contador visitas */
+.visit-counter{margin-top:10px;display:block}
+
 footer{text-align:center;color:var(--muted);font-size:12px;padding:24px 16px 50px}
 a{color:var(--red-dark)}
 
@@ -226,7 +237,7 @@ a{color:var(--red-dark)}
       <div class="route-toggle">
         <button class="rtbtn rtbtn-ida active" id="btn-ida" type="button">🔴 Ida</button>
         <button class="rtbtn rtbtn-vuelta active" id="btn-vuelta" type="button">🔵 Vuelta</button>
-        <button class="rtbtn active" id="btn-gas" type="button" style="background:#dcfce7;color:#15803d">⛽ Est. extra</button>
+        <button class="rtbtn active" id="btn-gas" type="button" style="background:#dcfce7;color:#15803d">⛽ Estaciones</button>
       </div>
     </div>
     <div id="map-container"></div>
@@ -338,60 +349,60 @@ a{color:var(--red-dark)}
   <!-- ESTIMACIÓN DE COSTOS -->
   <div class="card">
     <h2><span class="ico">💰</span> Estimación de costos — nafta y peajes</h2>
-    <p style="font-size:12.5px;color:var(--muted);margin:0 0 14px">Trailblazer 2020 diésel · ~11L/100km · ida+vuelta ~4.600km. <strong style="color:var(--navy)">Verificar precios antes del viaje.</strong> Conversión: 1 BRL = $200 ARS · 1 USD = $1.100 ARS</p>
+    <p style="font-size:12.5px;color:var(--muted);margin:0 0 14px">Trailblazer 2020 diésel · ~11L/100km · ida+vuelta ~4.600km. <strong style="color:var(--navy)">Verificar precios antes del viaje.</strong> Precios jun-2026: diésel AR ~$2.280/L · S-10 BR ~R$6,93/L. Conversión: 1 USD = $1.445 ARS · 1 BRL = $284 ARS</p>
 
     <table>
       <thead><tr><th>Tramo</th><th>Km</th><th>Litros est.</th><th>Precio/L</th><th>Total en ARS</th></tr></thead>
       <tbody>
         <tr>
           <td>IDA — Argentina (diésel)</td><td class="num">~970</td><td class="num">~107 L</td>
-          <td style="font-size:12px;color:var(--muted)">~$1.500/L</td>
-          <td class="num">~$160.500</td>
+          <td style="font-size:12px;color:var(--muted)">~$2.280/L</td>
+          <td class="num">~$244.000</td>
         </tr>
         <tr>
           <td>IDA — Brasil (S-10 diésel)</td><td class="num">~1.276</td><td class="num">~140 L</td>
-          <td style="font-size:12px;color:var(--muted)">R$6,20 (~$1.240)</td>
-          <td class="num">~$173.600</td>
+          <td style="font-size:12px;color:var(--muted)">R$6,93 (~$1.968)</td>
+          <td class="num">~$275.500</td>
         </tr>
         <tr>
           <td>VUELTA — Brasil (S-10 diésel)</td><td class="num">~1.380</td><td class="num">~152 L</td>
-          <td style="font-size:12px;color:var(--muted)">R$6,20 (~$1.240)</td>
-          <td class="num">~$188.400</td>
+          <td style="font-size:12px;color:var(--muted)">R$6,93 (~$1.968)</td>
+          <td class="num">~$299.100</td>
         </tr>
         <tr>
           <td>VUELTA — Argentina (diésel)</td><td class="num">~980</td><td class="num">~108 L</td>
-          <td style="font-size:12px;color:var(--muted)">~$1.500/L</td>
-          <td class="num">~$162.000</td>
+          <td style="font-size:12px;color:var(--muted)">~$2.280/L</td>
+          <td class="num">~$246.200</td>
         </tr>
       </tbody>
     </table>
 
     <div class="grid-stats" style="margin-top:12px">
       <div class="stat"><div class="label">Total litros ida+vuelta</div><div class="value">~507 L</div></div>
-      <div class="stat"><div class="label">Nafta Argentina total</div><div class="value">~$322.500 ARS</div></div>
-      <div class="stat"><div class="label">Nafta Brasil total</div><div class="value">~$362.000 ARS</div></div>
-      <div class="stat"><div class="label">Total nafta</div><div class="value">~$684.500 ARS</div></div>
+      <div class="stat"><div class="label">Nafta Argentina total</div><div class="value">~$490.200 ARS</div></div>
+      <div class="stat"><div class="label">Nafta Brasil total</div><div class="value">~$574.600 ARS</div></div>
+      <div class="stat"><div class="label">Total nafta</div><div class="value">~$1.064.800 ARS</div></div>
     </div>
 
     <h3 style="margin:18px 0 10px;font-size:15px;color:var(--navy);font-weight:800">🛣️ Peajes Brasil — estimado ida + vuelta</h3>
     <table>
       <thead><tr><th>Ruta</th><th>Viaje</th><th>Est. peajes</th><th>Promedio BRL</th><th>Total en ARS</th></tr></thead>
       <tbody>
-        <tr><td>BR-285 RS interior + SC</td><td>Ida</td><td class="num">~5</td><td class="num">R$16</td><td class="num">~$16.000</td></tr>
-        <tr><td>BR-116 Régis Bittencourt (Curitiba→SP)</td><td>Ida</td><td class="num">~8</td><td class="num">R$20</td><td class="num">~$32.000</td></tr>
-        <tr><td>BR-116 SP→Curitiba</td><td>Vuelta</td><td class="num">~8</td><td class="num">R$20</td><td class="num">~$32.000</td></tr>
-        <tr><td>BR-376 Curitiba→Joinville</td><td>Vuelta</td><td class="num">~3</td><td class="num">R$14</td><td class="num">~$8.400</td></tr>
-        <tr><td>BR-101 SC costa (Joinville→RS)</td><td>Vuelta</td><td class="num">~8</td><td class="num">R$12</td><td class="num">~$19.200</td></tr>
-        <tr><td>BR-290 RS (Porto Alegre→Uruguaiana)</td><td>Vuelta</td><td class="num">~6</td><td class="num">R$8</td><td class="num">~$9.600</td></tr>
+        <tr><td>BR-285 RS interior + SC</td><td>Ida</td><td class="num">~5</td><td class="num">R$16</td><td class="num">~$22.700</td></tr>
+        <tr><td>BR-116 Régis Bittencourt (Curitiba→SP)</td><td>Ida</td><td class="num">~8</td><td class="num">R$20</td><td class="num">~$45.400</td></tr>
+        <tr><td>BR-116 SP→Curitiba</td><td>Vuelta</td><td class="num">~8</td><td class="num">R$20</td><td class="num">~$45.400</td></tr>
+        <tr><td>BR-376 Curitiba→Joinville</td><td>Vuelta</td><td class="num">~3</td><td class="num">R$14</td><td class="num">~$11.900</td></tr>
+        <tr><td>BR-101 SC costa (Joinville→RS)</td><td>Vuelta</td><td class="num">~8</td><td class="num">R$12</td><td class="num">~$27.300</td></tr>
+        <tr><td>BR-290 RS (Porto Alegre→Uruguaiana)</td><td>Vuelta</td><td class="num">~6</td><td class="num">R$8</td><td class="num">~$13.600</td></tr>
         <tr><td>Peajes Argentina RN14</td><td>Ida</td><td class="num">~7</td><td class="num">—</td><td class="num">~$100.000</td></tr>
         <tr><td>Peajes Argentina RN14</td><td>Vuelta</td><td class="num">~7</td><td class="num">—</td><td class="num">~$100.000</td></tr>
       </tbody>
     </table>
 
     <div class="grid-stats" style="margin-top:12px">
-      <div class="stat"><div class="label">Peajes Brasil (R$586)</div><div class="value">~$117.200 ARS</div></div>
+      <div class="stat"><div class="label">Peajes Brasil (R$586)</div><div class="value">~$166.400 ARS</div></div>
       <div class="stat"><div class="label">Peajes Argentina (RN14)</div><div class="value">~$200.000 ARS</div></div>
-      <div class="stat"><div class="label">Total peajes</div><div class="value">~$317.200 ARS</div></div>
+      <div class="stat"><div class="label">Total peajes</div><div class="value">~$366.400 ARS</div></div>
     </div>
 
     <div class="note">⚠️ Todo estimado — verificar precios de diésel y peajes antes del viaje. En Brasil los peajes se pagan en BRL efectivo o tarjeta de débito internacional. Algunos tienen sistema SAT/automático. En Argentina llevar pesos para la RN14.</div>
@@ -418,7 +429,7 @@ a{color:var(--red-dark)}
   <!-- CUENTA TOTAL DEL VIAJE -->
   <div class="card">
     <h2><span class="ico">🧾</span> Cuenta total del viaje</h2>
-    <p style="font-size:12.5px;color:var(--muted);margin:0 0 14px">Paquete ya pagado + estimación de costos en ruta. Tipo de cambio: 1 USD = $1.100 ARS · 1 BRL = $200 ARS.</p>
+    <p style="font-size:12.5px;color:var(--muted);margin:0 0 14px">Paquete ya pagado + estimación de costos en ruta. Tipo de cambio: 1 USD = $1.445 ARS · 1 BRL = $284 ARS (junio 2026).</p>
 
     <table>
       <thead><tr><th>Concepto</th><th>Monto original</th><th>Equivalente ARS</th><th>Estado</th></tr></thead>
@@ -426,25 +437,25 @@ a{color:var(--red-dark)}
         <tr>
           <td><strong>Paquete F1</strong> — hotel 4 noches + entradas Sector G + traslados</td>
           <td class="num">u$s 6.474</td>
-          <td class="num">~$7.121.400</td>
+          <td class="num">~$9.355.000</td>
           <td><span style="color:#15803d;font-weight:800;font-size:12px">✅ pagado</span></td>
         </tr>
         <tr>
-          <td>Nafta — Argentina (ida+vuelta, ~215L)</td>
-          <td class="num">$322.500 ARS</td>
-          <td class="num">$322.500</td>
+          <td>Nafta — Argentina (ida+vuelta, ~215L · $2.280/L)</td>
+          <td class="num">~$490.200 ARS</td>
+          <td class="num">~$490.200</td>
           <td><span style="color:var(--muted);font-size:12px">estimado</span></td>
         </tr>
         <tr>
-          <td>Nafta — Brasil (ida+vuelta, ~292L · R$1.810)</td>
-          <td class="num">R$1.810</td>
-          <td class="num">~$362.000</td>
+          <td>Nafta — Brasil (ida+vuelta, ~292L · R$2.024)</td>
+          <td class="num">R$2.024</td>
+          <td class="num">~$574.800</td>
           <td><span style="color:var(--muted);font-size:12px">estimado</span></td>
         </tr>
         <tr>
           <td>Peajes — Brasil (ida+vuelta · R$586)</td>
           <td class="num">R$586</td>
-          <td class="num">~$117.200</td>
+          <td class="num">~$166.400</td>
           <td><span style="color:var(--muted);font-size:12px">estimado</span></td>
         </tr>
         <tr>
@@ -456,7 +467,7 @@ a{color:var(--red-dark)}
         <tr style="background:#eff6ff">
           <td><strong>TOTAL estimado del viaje</strong></td>
           <td class="num" style="color:var(--navy)">u$s&nbsp;6.474 + ruta</td>
-          <td class="num" style="color:var(--red-dark);font-size:16px">~$8.123.100 ARS</td>
+          <td class="num" style="color:var(--red-dark);font-size:16px">~$10.786.400 ARS</td>
           <td></td>
         </tr>
       </tbody>
@@ -464,13 +475,13 @@ a{color:var(--red-dark)}
 
     <div class="grid-stats" style="margin-top:14px">
       <div class="stat"><div class="label">Paquete (✅ pagado)</div><div class="value">u$s 6.474</div></div>
-      <div class="stat"><div class="label">Nafta total en ruta</div><div class="value">~$684.500 ARS</div></div>
-      <div class="stat"><div class="label">Peajes total en ruta</div><div class="value">~$317.200 ARS</div></div>
-      <div class="stat"><div class="label">Solo ruta (sin paquete)</div><div class="value">~$1.001.700 ARS</div></div>
-      <div class="stat"><div class="label">Total viaje completo</div><div class="value">~$8,1M ARS</div></div>
-      <div class="stat"><div class="label">≈ en dólares</div><div class="value">~u$s 7.385</div></div>
+      <div class="stat"><div class="label">Nafta total en ruta</div><div class="value">~$1.064.800 ARS</div></div>
+      <div class="stat"><div class="label">Peajes total en ruta</div><div class="value">~$366.400 ARS</div></div>
+      <div class="stat"><div class="label">Solo ruta (sin paquete)</div><div class="value">~$1.431.200 ARS</div></div>
+      <div class="stat"><div class="label">Total viaje completo</div><div class="value">~$10,8M ARS</div></div>
+      <div class="stat"><div class="label">≈ en dólares</div><div class="value">~u$s 7.460</div></div>
     </div>
-    <div class="info-box">💡 El costo de la ruta (nafta + peajes, sin el paquete) es <strong>~$1.001.700 ARS</strong> para todo el grupo — menos del 13% del total del viaje. El paquete ya está pagado y no se puede cancelar sin cargo desde el 6/10.</div>
+    <div class="info-box">💡 El costo de la ruta (nafta + peajes, sin el paquete) es <strong>~$1.431.200 ARS</strong> para todo el grupo — menos del 14% del total del viaje. El paquete ya está pagado y no se puede cancelar sin cargo desde el 6/10.</div>
   </div>
 
   <div class="card">
@@ -522,7 +533,7 @@ a{color:var(--red-dark)}
   <div class="card">
     <h2><span class="ico">🛂</span> Documentación para cruzar</h2>
     <p>Todo <strong>original y en papel</strong> — digitales no se aceptan en Paso de los Libres / Uruguaiana.</p>
-    <ul class="checklist">
+    <ul class="checklist" id="cl-docs">
       <li>DNI o pasaporte vigente de los 6 viajeros</li>
       <li>Licencia de conducir de cada conductor</li>
       <li>Título de propiedad del vehículo (cédula verde/azul)</li>
@@ -536,7 +547,7 @@ a{color:var(--red-dark)}
 
   <div class="card">
     <h2><span class="ico">✅</span> Checklist de preparación</h2>
-    <ul class="checklist">
+    <ul class="checklist" id="cl-prep">
       <li class="done">Entradas GP Sector G (Vie/Sáb/Dom) — incluidas en el paquete</li>
       <li class="done">4 noches hotel con desayuno — incluidas en el paquete</li>
       <li class="done">Traslados hotel ↔ Interlagos los 3 días — incluidos en el paquete</li>
@@ -554,7 +565,10 @@ a{color:var(--red-dark)}
 </main>
 
 <footer>
-  🏎️ F1 São Paulo 2026 · Juan Mª Gutiérrez → Interlagos y vuelta · Actualizado: 2026-06-08
+  🏎️ F1 São Paulo 2026 · Juan Mª Gutiérrez → Interlagos y vuelta · Actualizado: 2026-06-09
+  <span class="visit-counter">
+    <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=formulauno-phi.vercel.app&count_bg=%23e10600&title_bg=%2315151e&icon=car-side&icon_color=%23FFFFFF&title=visitas&edge_flat=true" alt="visitas" style="height:16px;vertical-align:middle;opacity:.7" loading="lazy"/>
+  </span>
 </footer>
 
 <script>
@@ -646,35 +660,57 @@ if(fichasGrid){
   FICHAS.forEach(function(f){
     var el = document.createElement('div');
     el.className = 'ficha-card';
-    var fields = [
+    var lk = function(k){ return 'f1fch-'+f.apodo.toLowerCase().replace(/\s/g,'')+'-'+k; };
+    var sangre  = localStorage.getItem(lk('sangre'))  !== null ? localStorage.getItem(lk('sangre'))  : f.sangre;
+    var obra    = localStorage.getItem(lk('obra'))    !== null ? localStorage.getItem(lk('obra'))    : f.obraSocial;
+    var meds    = localStorage.getItem(lk('meds'))   !== null ? localStorage.getItem(lk('meds'))    : f.medicamentos;
+    var fixedHtml = [
       {label:'Nacimiento',val:f.nacimiento},
       {label:'Celular',val:f.tel,href:'tel:'+f.telRaw},
       {label:'Emergencia',val:f.emergencia,href:'tel:'+f.emerRaw},
-      {label:'Email',val:f.email,href:'mailto:'+f.email},
-      {label:'Grupo sanguíneo',val:f.sangre||'— por completar',empty:!f.sangre},
-      {label:'Obra social',val:f.obraSocial||'— por completar',empty:!f.obraSocial},
-      {label:'Medicamentos',val:f.medicamentos||'ninguno conocido',empty:!f.medicamentos}
-    ];
-    var fieldsHtml = fields.map(function(r){
+      {label:'Email',val:f.email,href:'mailto:'+f.email}
+    ].map(function(r){
       var v = r.href ? '<a href="'+r.href+'">'+r.val+'</a>' : r.val;
-      return '<div class="ficha-row"><span class="ficha-label">'+r.label+'</span>'+
-             '<span class="ficha-val'+(r.empty?' empty':'')+'">' +v+'</span></div>';
+      return '<div class="ficha-row"><span class="ficha-label">'+r.label+'</span><span class="ficha-val">'+v+'</span></div>';
     }).join('');
-    var alertHtml = f.notas
-      ? (f.notas.indexOf('⚠')===0
-          ? '<div class="ficha-alert">'+f.notas+'</div>'
-          : '<div class="ficha-note">'+f.notas+'</div>')
-      : '';
+    var editHtml = [
+      {label:'Grupo sanguíneo',key:'sangre',val:sangre},
+      {label:'Obra social',key:'obra',val:obra},
+      {label:'Medicamentos',key:'meds',val:meds}
+    ].map(function(r){
+      return '<div class="ficha-row"><span class="ficha-label">'+r.label+'</span>'+
+             '<input class="ficha-input" data-lk="'+lk(r.key)+'" placeholder="— completar" value="'+(r.val||'').replace(/"/g,'&quot;')+'"/></div>';
+    }).join('');
+    var alertHtml = f.notas ? (f.notas.indexOf('⚠')===0
+        ? '<div class="ficha-alert">'+f.notas+'</div>'
+        : '<div class="ficha-note">'+f.notas+'</div>') : '';
     el.innerHTML =
-      '<div class="ficha-head">'+
-        '<span class="ficha-ico">'+f.ico+'</span>'+
-        '<div><div class="ficha-apodo">'+f.apodo+'</div>'+
-        '<div class="ficha-name">'+f.full+'</div></div>'+
-      '</div>'+
-      fieldsHtml+alertHtml;
+      '<div class="ficha-head"><span class="ficha-ico">'+f.ico+'</span>'+
+      '<div><div class="ficha-apodo">'+f.apodo+'</div><div class="ficha-name">'+f.full+'</div></div></div>'+
+      fixedHtml+editHtml+alertHtml;
     fichasGrid.appendChild(el);
+    el.querySelectorAll('.ficha-input').forEach(function(inp){
+      ['change','blur'].forEach(function(ev){
+        inp.addEventListener(ev,function(){ localStorage.setItem(inp.dataset.lk, inp.value); });
+      });
+    });
   });
 }
+
+/* Checklist persistente con localStorage */
+['cl-docs','cl-prep'].forEach(function(ulId){
+  var ul = document.getElementById(ulId);
+  if(!ul) return;
+  ul.querySelectorAll('li:not(.done)').forEach(function(li,i){
+    var key = 'f1chk-'+ulId+'-'+i;
+    if(localStorage.getItem(key)==='1') li.classList.add('f-checked');
+    li.addEventListener('click',function(){
+      var now = !li.classList.contains('f-checked');
+      li.classList.toggle('f-checked',now);
+      localStorage.setItem(key, now?'1':'0');
+    });
+  });
+});
 
 /* Waypoints IDA */
 var WAYPOINTS_IDA = [
@@ -773,49 +809,71 @@ if(mapEl && typeof L !== 'undefined'){
     L.marker([w.lat,w.lon],{icon:mkIcon(w.kind)}).bindPopup(popupHtml(w),{maxWidth:240}).addTo(groupVuelta);
   });
 
-  /* Estaciones de servicio adicionales (más allá de las paradas planificadas) */
-  var STATIONS_EXTRA = [
-    /* IDA — Argentina RN14 */
-    {name:'⛽ Concepción del Uruguay (~280km)',lat:-32.484,lon:-58.232,
-     info:'RN14, Entre Ríos. Ciudad mediana con buena oferta de combustible. Punto cómodo entre Zárate y Concordia.'},
-    {name:'⛽ Monte Caseros (~720km)',lat:-30.253,lon:-57.644,
-     info:'RN14, Corrientes. Último gran centro antes de Paso de los Libres. Cargar si hace falta antes del cruce.'},
-    /* IDA — Brasil interior RS */
-    {name:'⛽ Cruz Alta, RS (~250km de Uruguaiana)',lat:-28.636,lon:-53.602,
-     info:'BR-285, RS. Buen punto de carga — Ipiranga, Posto BR. Alternativa si no llegás cómodo a Passo Fundo.'},
-    {name:'⛽ Carazinho, RS (~360km de Uruguaiana)',lat:-28.29,lon:-52.789,
-     info:'BR-285, RS. Entroncamento importante — puestos en el acceso. Antes de Passo Fundo.'},
-    /* IDA — Brasil SC/PR */
-    {name:'⛽ Chapecó, SC (~500km de Uruguaiana)',lat:-27.101,lon:-52.615,
-     info:'SC, interior. Ciudad grande de Santa Catarina. Buena oferta de S-10 diesel.'},
-    {name:'⛽ Ponta Grossa, PR',lat:-25.095,lon:-50.162,
-     info:'BR-116, PR. Ciudad industrial — múltiples puestos sobre la BR-116.'},
-    {name:'⛽ Curitiba, PR',lat:-25.428,lon:-49.273,
-     info:'Capital de PR. Gran oferta de puestos. Ideal cargar si no se hizo en Palmas/Clevelândia.'},
-    /* VUELTA — costera BR-101 */
-    {name:'⛽ Joinville, SC (BR-101 vuelta)',lat:-26.300,lon:-48.846,
-     info:'BR-101, SC. Primera ciudad grande al bajar de Curitiba. Cargar antes de la playa si es necesario.'},
-    {name:'⛽ Itajaí, SC (BR-101)',lat:-26.907,lon:-48.662,
-     info:'BR-101, SC. A pocos km de Balneário Camboriú. Buen punto antes/después de la parada playa.'},
-    {name:'⛽ Laguna, SC (BR-101)',lat:-28.481,lon:-48.777,
-     info:'BR-101, SC. A mitad del tramo costero. Parada cómoda.'},
-    {name:'⛽ Pelotas, RS (BR-116/BR-101)',lat:-31.764,lon:-52.337,
-     info:'RS. Ciudad grande — buena oferta de combustible. Entrada a RS desde SC por la costera.'},
-    {name:'⛽ Rosário do Sul, RS (BR-290)',lat:-30.259,lon:-54.921,
-     info:'BR-290, RS. A mitad del tramo Porto Alegre–Uruguaiana. Buen punto de carga en la vuelta.'}
+  /* Estaciones de servicio — datos OSM (Overpass) — Argentina RN14 + Brasil */
+  var BRAND_C = {
+    ypf:'#1d4ed8',shell:'#f59e0b',axion:'#ef4444',puma:'#f97316',
+    petrobras:'#16a34a',ipiranga:'#ea580c',dapsa:'#0891b2',oil:'#7c3aed',
+    bb:'#9ca3af',other:'#94a3b8'
+  };
+  var BRAND_N = {
+    ypf:'YPF',shell:'Shell',axion:'Axión',puma:'Puma',
+    petrobras:'Petrobras',ipiranga:'Ipiranga',dapsa:'DAPSA',oil:'Oil',
+    bb:'sin marca',other:''
+  };
+  /* [lat, lon, brand] — 86 estaciones sobre el corredor de la ruta (OSM) */
+  var STATIONS_OSM = [
+    [-34.8405,-58.1879,'axion'],[-34.752,-58.2268,'ypf'],[-34.7711,-58.2005,'bb'],
+    [-34.7685,-58.2039,'bb'],[-34.8682,-58.0385,'ypf'],[-34.8633,-58.0485,'ypf'],
+    [-31.3717,-58.0306,'bb'],[-31.3951,-58.0164,'ypf'],[-29.7186,-57.0879,'shell'],
+    [-33.0422,-58.6204,'bb'],[-31.4262,-57.934,'other'],[-31.3943,-58.0159,'ypf'],
+    [-31.3783,-57.9439,'other'],[-34.199,-58.9385,'ypf'],[-31.3969,-58.0228,'axion'],
+    [-31.4108,-57.941,'axion'],[-29.7753,-57.0866,'petrobras'],[-29.7226,-57.1183,'ypf'],
+    [-29.7225,-57.1465,'shell'],[-29.709,-57.0922,'bb'],[-32.4912,-58.3106,'dapsa'],
+    [-31.385,-57.9456,'other'],[-31.3843,-57.9646,'other'],[-34.1633,-58.9606,'axion'],
+    [-34.1988,-58.938,'ypf'],[-34.1254,-59.0814,'petrobras'],[-34.1065,-59.0297,'ypf'],
+    [-31.3851,-57.9605,'other'],[-31.3869,-57.9502,'axion'],[-31.3888,-57.9515,'other'],
+    [-31.3931,-57.9463,'other'],[-31.3889,-57.963,'other'],[-31.3891,-57.9641,'other'],
+    [-31.2949,-58.006,'ypf'],[-34.7528,-58.2155,'puma'],[-34.7591,-58.2051,'shell'],
+    [-34.8103,-58.2595,'ypf'],[-34.1105,-59.1237,'axion'],[-34.1349,-59.047,'ypf'],
+    [-34.7394,-58.2385,'ypf'],[-34.7935,-58.2487,'bb'],[-34.7879,-58.2547,'shell'],
+    [-34.7922,-58.2499,'ypf'],[-34.7612,-58.2779,'shell'],[-34.8286,-58.2198,'bb'],
+    [-34.864,-58.0471,'axion'],[-32.44,-58.2896,'puma'],[-33.0558,-58.6261,'oil'],
+    [-34.1653,-58.9596,'shell'],[-34.8103,-58.2599,'bb'],[-31.2926,-58.006,'bb'],
+    [-34.8294,-58.2772,'bb'],[-34.7895,-58.2784,'bb'],[-34.7652,-58.1984,'bb'],
+    [-34.1751,-58.9721,'bb'],[-29.717,-57.0851,'dapsa'],[-34.7516,-58.2673,'shell'],
+    [-34.8144,-58.2279,'ypf'],
+    /* Brasil — Porto Alegre (VUELTA BR-290/BR-101) */
+    [-29.9258,-51.1784,'other'],[-29.9231,-51.1734,'ipiranga'],[-29.9172,-51.1741,'other'],
+    [-29.9283,-51.1787,'other'],[-29.9296,-51.1756,'other'],[-29.9205,-51.1776,'ipiranga'],
+    [-29.9109,-51.1872,'other'],[-29.9203,-51.1819,'other'],[-29.9183,-51.1899,'ipiranga'],
+    [-29.9091,-51.1845,'other'],[-29.932,-51.1769,'other'],[-29.9175,-51.1619,'other'],
+    [-29.9918,-51.0866,'ipiranga'],[-29.9505,-51.1772,'other'],[-29.9588,-51.1768,'ipiranga'],
+    [-29.9602,-51.1758,'ipiranga'],[-29.9258,-51.1833,'other'],[-29.9784,-51.1152,'other'],
+    [-29.979,-51.115,'ipiranga'],[-29.9268,-51.1937,'other'],[-29.9246,-51.142,'other'],
+    [-29.9272,-51.1476,'shell'],
+    /* Brasil — Passo Fundo (IDA BR-285) */
+    [-28.2834,-52.3731,'shell'],[-28.2228,-52.4686,'other'],[-28.2737,-52.4467,'ipiranga'],
+    /* Brasil — Chapecó SC (IDA) */
+    [-27.0813,-52.6232,'petrobras'],[-27.0952,-52.627,'petrobras'],[-27.1836,-52.6443,'other'],
+    /* Brasil — ciudades clave sin datos OSM completos */
+    [-28.636,-53.602,'other'],[-25.428,-49.273,'other'],[-26.990,-48.635,'other'],
+    [-27.597,-48.549,'other'],[-25.095,-50.162,'other']
   ];
 
-  function mkGasIcon(){
+  function mkGasIcon(brand){
+    var c = BRAND_C[brand] || '#94a3b8';
     return L.divIcon({
-      html:'<div style="background:#16a34a;width:9px;height:9px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #16a34a,0 2px 5px rgba(0,0,0,.2);opacity:.75"></div>',
-      className:'',iconSize:[9,9],iconAnchor:[4,4],popupAnchor:[0,-7]
+      html:'<div style="background:'+c+';width:8px;height:8px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px '+c+',0 2px 5px rgba(0,0,0,.25);opacity:.85"></div>',
+      className:'',iconSize:[8,8],iconAnchor:[4,4],popupAnchor:[0,-7]
     });
   }
 
   var groupStations = L.layerGroup();
-  STATIONS_EXTRA.forEach(function(s){
-    L.marker([s.lat,s.lon],{icon:mkGasIcon()})
-     .bindPopup('<strong style="font-size:12px">'+s.name+'</strong><br><span style="font-size:11px;line-height:1.5">'+s.info+'</span>',{maxWidth:230})
+  STATIONS_OSM.forEach(function(s){
+    var n = BRAND_N[s[2]];
+    var lbl = n ? '⛽ '+n : '⛽ Estación';
+    L.marker([s[0],s[1]],{icon:mkGasIcon(s[2])})
+     .bindPopup('<span style="font-size:12px;font-weight:700">'+lbl+'</span>',{maxWidth:130})
      .addTo(groupStations);
   });
 
