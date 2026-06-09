@@ -7,6 +7,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏎️</text></svg>">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script src="routes.js"></script>
 <style>
 :root {
   --red: #e10600; --red-dark: #b30500;
@@ -123,8 +124,8 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:700;colo
 .contact-card a{color:var(--slate);text-decoration:none}
 
 /* Tripulantes */
-.crew-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:4px}
-@media(max-width:480px){.crew-grid{grid-template-columns:repeat(2,1fr)}}
+.crew-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:4px}
+@media(max-width:600px){.crew-grid{grid-template-columns:repeat(2,1fr)}}
 .crew-card{border-radius:12px;padding:16px 12px;text-align:center;position:relative;overflow:hidden;border:2px solid transparent}
 .crew-card .c-name{font-size:16px;font-weight:800;color:#fff;margin:0 0 2px}
 .crew-card .c-full{font-size:10.5px;color:rgba(255,255,255,.8);margin:0 0 10px}
@@ -225,6 +226,7 @@ a{color:var(--red-dark)}
       <div class="route-toggle">
         <button class="rtbtn rtbtn-ida active" id="btn-ida" type="button">🔴 Ida</button>
         <button class="rtbtn rtbtn-vuelta active" id="btn-vuelta" type="button">🔵 Vuelta</button>
+        <button class="rtbtn active" id="btn-gas" type="button" style="background:#dcfce7;color:#15803d">⛽ Est. extra</button>
       </div>
     </div>
     <div id="map-container"></div>
@@ -234,10 +236,10 @@ a{color:var(--red-dark)}
     </div>
     <div class="map-legend">
       <span><i class="dot dot-start"></i>Inicio/llegada</span>
-      <span><i class="dot dot-fuel"></i>Carga diésel</span>
-      <span><i class="dot dot-tbd"></i>Carga (mejor disponible)</span>
+      <span><i class="dot dot-fuel"></i>Carga planificada</span>
       <span><i class="dot dot-border"></i>Frontera</span>
       <span><i class="dot dot-beach"></i>⛱️ Playa (vuelta)</span>
+      <span><i class="dot dot-fuel" style="opacity:.55;width:7px;height:7px"></i>Est. adicionales</span>
       <span><i class="dot dot-me"></i>Vos (GPS)</span>
     </div>
   </div>
@@ -331,6 +333,67 @@ a{color:var(--red-dark)}
       </tbody>
     </table>
     <div class="info-box">💡 Arla 32 / AdBlue: verificar si la Trailblazer 2020 con motor diésel lo requiere. En Brasil es obligatorio para vehículos SCR — confirmar y llevar un bidón de reserva para los tramos en Brasil.</div>
+  </div>
+
+  <!-- ESTIMACIÓN DE COSTOS -->
+  <div class="card">
+    <h2><span class="ico">💰</span> Estimación de costos — nafta y peajes</h2>
+    <p style="font-size:12.5px;color:var(--muted);margin:0 0 14px">Trailblazer 2020 diésel · ~11L/100km · ida+vuelta ~4.600km total. <strong style="color:var(--navy)">Verificar precios antes del viaje.</strong></p>
+
+    <table>
+      <thead><tr><th>Tramo</th><th>Km</th><th>Litros est.</th><th>Precio/L</th><th>Total est.</th><th>Por persona</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>IDA — Argentina (diésel)</td><td class="num">~970</td><td class="num">~107 L</td>
+          <td style="font-size:12px;color:var(--muted)">~$1.500 ARS/L</td>
+          <td class="num">~$160.500 ARS</td><td class="num">~$26.750 ARS</td>
+        </tr>
+        <tr>
+          <td>IDA — Brasil (S-10 diésel)</td><td class="num">~1.276</td><td class="num">~140 L</td>
+          <td style="font-size:12px;color:var(--muted)">~R$6,20/L</td>
+          <td class="num">~R$868</td><td class="num">~R$145</td>
+        </tr>
+        <tr>
+          <td>VUELTA — Brasil (S-10 diésel)</td><td class="num">~1.380</td><td class="num">~152 L</td>
+          <td style="font-size:12px;color:var(--muted)">~R$6,20/L</td>
+          <td class="num">~R$942</td><td class="num">~R$157</td>
+        </tr>
+        <tr>
+          <td>VUELTA — Argentina (diésel)</td><td class="num">~980</td><td class="num">~108 L</td>
+          <td style="font-size:12px;color:var(--muted)">~$1.500 ARS/L</td>
+          <td class="num">~$162.000 ARS</td><td class="num">~$27.000 ARS</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="grid-stats" style="margin-top:12px">
+      <div class="stat"><div class="label">Total litros ida+vuelta</div><div class="value">~507 L</div></div>
+      <div class="stat"><div class="label">Nafta Brasil (total)</div><div class="value">~R$1.810</div></div>
+      <div class="stat"><div class="label">Nafta Brasil x persona</div><div class="value">~R$302</div></div>
+      <div class="stat"><div class="label">Nafta Argentina (total)</div><div class="value">~$322.500 ARS</div></div>
+      <div class="stat"><div class="label">Nafta AR x persona</div><div class="value">~$53.750 ARS</div></div>
+    </div>
+
+    <h3 style="margin:18px 0 10px;font-size:15px;color:var(--navy);font-weight:800">🛣️ Peajes Brasil — estimado ida + vuelta</h3>
+    <table>
+      <thead><tr><th>Ruta</th><th>Viaje</th><th>Est. peajes</th><th>Promedio</th><th>Subtotal</th></tr></thead>
+      <tbody>
+        <tr><td>BR-285 RS interior + SC</td><td>Ida</td><td class="num">~5</td><td class="num">R$16</td><td class="num">~R$80</td></tr>
+        <tr><td>BR-116 Régis Bittencourt (Curitiba→SP)</td><td>Ida</td><td class="num">~8</td><td class="num">R$20</td><td class="num">~R$160</td></tr>
+        <tr><td>BR-116 SP→Curitiba</td><td>Vuelta</td><td class="num">~8</td><td class="num">R$20</td><td class="num">~R$160</td></tr>
+        <tr><td>BR-376 Curitiba→Joinville</td><td>Vuelta</td><td class="num">~3</td><td class="num">R$14</td><td class="num">~R$42</td></tr>
+        <tr><td>BR-101 SC costa (Joinville→RS)</td><td>Vuelta</td><td class="num">~8</td><td class="num">R$12</td><td class="num">~R$96</td></tr>
+        <tr><td>BR-290 RS (Porto Alegre→Uruguaiana)</td><td>Vuelta</td><td class="num">~6</td><td class="num">R$8</td><td class="num">~R$48</td></tr>
+      </tbody>
+    </table>
+
+    <div class="grid-stats" style="margin-top:12px">
+      <div class="stat"><div class="label">Peajes Brasil (ida+vuelta)</div><div class="value">~R$586</div></div>
+      <div class="stat"><div class="label">Peajes Brasil x persona</div><div class="value">~R$98</div></div>
+      <div class="stat"><div class="label">Peajes Argentina RN14</div><div class="value">bajo, en ARS</div></div>
+    </div>
+
+    <div class="note">⚠️ Todo estimado — verificar precios de diésel y peajes antes del viaje. En Brasil los peajes se pagan en BRL (efectivo o tarjeta de débito internacional). En Argentina llevar pesos para la RN14. El precio del diésel en AR cambia frecuentemente.</div>
   </div>
 
   <div class="card">
@@ -529,9 +592,14 @@ if(mapEl && typeof L !== 'undefined'){
     return '<strong style="font-size:13px">'+w.name+'</strong><br><span style="font-size:12px;line-height:1.5">'+w.info+'</span>';
   }
 
-  /* Rutas reales obtenidas de OSRM/OpenStreetMap */
-  var ROUTE_IDA = [[-34.7667,-58.20969],[-34.58293,-58.38083],[-34.31757,-58.86727],[-34.09722,-59.02765],[-33.89948,-58.87149],[-33.45113,-58.80245],[-32.78751,-58.51446],[-32.42802,-58.28359],[-32.17773,-58.23457],[-31.73434,-58.30226],[-31.49685,-58.17599],[-31.39277,-58.02061],[-31.34468,-58.09101],[-30.32649,-57.94951],[-30.0773,-58.00363],[-30.05287,-57.79182],[-29.77476,-57.38732],[-29.70183,-57.09057],[-29.75475,-57.0883],[-29.71906,-56.9305],[-29.55589,-56.84729],[-29.50471,-56.70094],[-29.16587,-56.51311],[-29.09943,-56.27331],[-28.68481,-55.99459],[-28.50119,-55.45995],[-28.31933,-53.61185],[-28.42933,-53.13895],[-28.22673,-52.51104],[-28.26307,-52.40596],[-28.02676,-52.23213],[-27.66709,-52.29084],[-27.37942,-51.98513],[-26.97938,-51.86734],[-26.52654,-51.35787],[-26.23723,-51.15567],[-26.18197,-50.92319],[-25.87543,-50.42338],[-25.87985,-49.97969],[-25.54598,-49.30217],[-25.42838,-49.27325],[-25.30268,-48.94189],[-25.10955,-48.84345],[-25.08778,-48.60495],[-24.976,-48.50338],[-24.92377,-48.26226],[-24.78051,-48.20369],[-24.64678,-47.9211],[-24.42338,-47.77853],[-24.26287,-47.3796],[-23.97625,-47.14342],[-23.92943,-46.99617],[-23.60269,-46.75745],[-23.55007,-46.63288]];
-  var ROUTE_VUELTA = [[-23.55007,-46.63288],[-23.59059,-46.81142],[-23.92932,-46.99638],[-23.97597,-47.14336],[-24.26259,-47.37953],[-24.42328,-47.77875],[-24.64668,-47.9213],[-24.7771,-48.21108],[-24.92364,-48.26236],[-24.97095,-48.50026],[-25.08731,-48.60484],[-25.1063,-48.84843],[-25.30389,-48.94444],[-25.42838,-49.27325],[-25.821,-49.12816],[-25.86444,-48.93428],[-26.04107,-48.85966],[-26.2329,-48.91666],[-26.30068,-48.84621],[-26.5226,-48.71667],[-26.86893,-48.73008],[-26.99075,-48.63467],[-27.49652,-48.65708],[-27.59692,-48.54952],[-27.65549,-48.67836],[-27.83172,-48.62986],[-28.34452,-48.73412],[-28.4399,-48.81252],[-28.47818,-49.03278],[-28.66603,-49.11489],[-28.84424,-49.43163],[-29.87853,-50.2605],[-29.89088,-50.71647],[-29.97122,-51.19357],[-30.03466,-51.21766],[-29.98536,-51.25008],[-30.10756,-51.67601],[-30.25008,-53.05998],[-30.37707,-53.41153],[-30.3686,-54.23029],[-30.23117,-54.64981],[-30.23793,-55.01781],[-29.80537,-55.77408],[-30.01297,-56.20993],[-30.01947,-56.41721],[-29.82966,-56.97494],[-29.72622,-57.08802],[-29.74797,-57.32977],[-30.05223,-57.79085],[-30.07602,-58.00499],[-30.32236,-57.94996],[-30.75645,-58.00775],[-31.41981,-58.10324],[-31.79282,-58.31741],[-32.17733,-58.23479],[-32.42836,-58.28391],[-33.44977,-58.80253],[-33.89901,-58.87139],[-34.12174,-59.01834],[-34.46939,-58.68363],[-34.5831,-58.38097],[-34.7667,-58.20969]];
+  /* Rutas reales de OSRM — cargadas desde routes.js (2738+3075 puntos).
+     Fallback sparse si el archivo externo no carga. */
+  var ROUTE_IDA = (window.ROUTE_IDA && window.ROUTE_IDA.length > 100)
+    ? window.ROUTE_IDA
+    : [[-34.7667,-58.20969],[-34.09722,-59.02765],[-31.39277,-58.02061],[-29.70183,-57.09057],[-28.26307,-52.40596],[-26.52654,-51.35787],[-23.55007,-46.63288]];
+  var ROUTE_VUELTA = (window.ROUTE_VUELTA && window.ROUTE_VUELTA.length > 100)
+    ? window.ROUTE_VUELTA
+    : [[-23.55007,-46.63288],[-25.42838,-49.27325],[-26.99075,-48.63467],[-29.72622,-57.08802],[-34.7667,-58.20969]];
 
   /* Capa IDA */
   var groupIda = L.layerGroup();
@@ -547,8 +615,55 @@ if(mapEl && typeof L !== 'undefined'){
     L.marker([w.lat,w.lon],{icon:mkIcon(w.kind)}).bindPopup(popupHtml(w),{maxWidth:240}).addTo(groupVuelta);
   });
 
+  /* Estaciones de servicio adicionales (más allá de las paradas planificadas) */
+  var STATIONS_EXTRA = [
+    /* IDA — Argentina RN14 */
+    {name:'⛽ Concepción del Uruguay (~280km)',lat:-32.484,lon:-58.232,
+     info:'RN14, Entre Ríos. Ciudad mediana con buena oferta de combustible. Punto cómodo entre Zárate y Concordia.'},
+    {name:'⛽ Monte Caseros (~720km)',lat:-30.253,lon:-57.644,
+     info:'RN14, Corrientes. Último gran centro antes de Paso de los Libres. Cargar si hace falta antes del cruce.'},
+    /* IDA — Brasil interior RS */
+    {name:'⛽ Cruz Alta, RS (~250km de Uruguaiana)',lat:-28.636,lon:-53.602,
+     info:'BR-285, RS. Buen punto de carga — Ipiranga, Posto BR. Alternativa si no llegás cómodo a Passo Fundo.'},
+    {name:'⛽ Carazinho, RS (~360km de Uruguaiana)',lat:-28.29,lon:-52.789,
+     info:'BR-285, RS. Entroncamento importante — puestos en el acceso. Antes de Passo Fundo.'},
+    /* IDA — Brasil SC/PR */
+    {name:'⛽ Chapecó, SC (~500km de Uruguaiana)',lat:-27.101,lon:-52.615,
+     info:'SC, interior. Ciudad grande de Santa Catarina. Buena oferta de S-10 diesel.'},
+    {name:'⛽ Ponta Grossa, PR',lat:-25.095,lon:-50.162,
+     info:'BR-116, PR. Ciudad industrial — múltiples puestos sobre la BR-116.'},
+    {name:'⛽ Curitiba, PR',lat:-25.428,lon:-49.273,
+     info:'Capital de PR. Gran oferta de puestos. Ideal cargar si no se hizo en Palmas/Clevelândia.'},
+    /* VUELTA — costera BR-101 */
+    {name:'⛽ Joinville, SC (BR-101 vuelta)',lat:-26.300,lon:-48.846,
+     info:'BR-101, SC. Primera ciudad grande al bajar de Curitiba. Cargar antes de la playa si es necesario.'},
+    {name:'⛽ Itajaí, SC (BR-101)',lat:-26.907,lon:-48.662,
+     info:'BR-101, SC. A pocos km de Balneário Camboriú. Buen punto antes/después de la parada playa.'},
+    {name:'⛽ Laguna, SC (BR-101)',lat:-28.481,lon:-48.777,
+     info:'BR-101, SC. A mitad del tramo costero. Parada cómoda.'},
+    {name:'⛽ Pelotas, RS (BR-116/BR-101)',lat:-31.764,lon:-52.337,
+     info:'RS. Ciudad grande — buena oferta de combustible. Entrada a RS desde SC por la costera.'},
+    {name:'⛽ Rosário do Sul, RS (BR-290)',lat:-30.259,lon:-54.921,
+     info:'BR-290, RS. A mitad del tramo Porto Alegre–Uruguaiana. Buen punto de carga en la vuelta.'}
+  ];
+
+  function mkGasIcon(){
+    return L.divIcon({
+      html:'<div style="background:#16a34a;width:9px;height:9px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #16a34a,0 2px 5px rgba(0,0,0,.2);opacity:.75"></div>',
+      className:'',iconSize:[9,9],iconAnchor:[4,4],popupAnchor:[0,-7]
+    });
+  }
+
+  var groupStations = L.layerGroup();
+  STATIONS_EXTRA.forEach(function(s){
+    L.marker([s.lat,s.lon],{icon:mkGasIcon()})
+     .bindPopup('<strong style="font-size:12px">'+s.name+'</strong><br><span style="font-size:11px;line-height:1.5">'+s.info+'</span>',{maxWidth:230})
+     .addTo(groupStations);
+  });
+
   groupIda.addTo(leafletMap);
   groupVuelta.addTo(leafletMap);
+  groupStations.addTo(leafletMap);
   layerIda = groupIda;
   layerVuelta = groupVuelta;
 
@@ -566,6 +681,11 @@ if(mapEl && typeof L !== 'undefined'){
     this.classList.toggle('active');
     if(leafletMap.hasLayer(groupVuelta)) leafletMap.removeLayer(groupVuelta);
     else groupVuelta.addTo(leafletMap);
+  });
+  document.getElementById('btn-gas').addEventListener('click',function(){
+    this.classList.toggle('active');
+    if(leafletMap.hasLayer(groupStations)) leafletMap.removeLayer(groupStations);
+    else groupStations.addTo(leafletMap);
   });
 }
 
