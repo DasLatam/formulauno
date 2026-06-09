@@ -146,6 +146,23 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:700;colo
 .org-card .o-name{font-size:15px;font-weight:800;margin-bottom:6px}
 .org-card a{color:var(--mercedes);font-size:13px;text-decoration:none;display:block}
 
+/* Fichas de emergencia */
+.fichas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+@media(max-width:700px){.fichas-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:440px){.fichas-grid{grid-template-columns:1fr}}
+.ficha-card{background:var(--navy);border-radius:12px;padding:14px;color:#fff;position:relative}
+.ficha-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.15)}
+.ficha-ico{font-size:22px;flex-shrink:0}
+.ficha-apodo{font-size:15px;font-weight:800}
+.ficha-name{font-size:10px;color:rgba(255,255,255,.6);margin-top:1px}
+.ficha-row{display:flex;flex-direction:column;margin-bottom:6px}
+.ficha-label{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:rgba(255,255,255,.5);font-weight:700;margin-bottom:1px}
+.ficha-val{font-size:12px;color:#e0e0e8}
+.ficha-val a{color:var(--mercedes);text-decoration:none}
+.ficha-val.empty{color:rgba(255,255,255,.3);font-style:italic}
+.ficha-alert{margin-top:8px;background:rgba(220,38,38,.2);border:1px solid rgba(220,38,38,.4);border-radius:6px;padding:5px 8px;font-size:11px;color:#fca5a5}
+.ficha-note{margin-top:6px;background:rgba(255,255,255,.08);border-radius:6px;padding:5px 8px;font-size:11px;color:rgba(255,255,255,.65)}
+
 /* Colors Franco ribbon */
 .franco-bar{text-align:center;padding:10px 0 6px;font-size:13px;color:var(--muted)}
 .franco-bar strong{color:var(--navy)}
@@ -366,14 +383,15 @@ a{color:var(--red-dark)}
         <tr><td>BR-376 Curitiba→Joinville</td><td>Vuelta</td><td class="num">~3</td><td class="num">R$14</td><td class="num">~$8.400</td></tr>
         <tr><td>BR-101 SC costa (Joinville→RS)</td><td>Vuelta</td><td class="num">~8</td><td class="num">R$12</td><td class="num">~$19.200</td></tr>
         <tr><td>BR-290 RS (Porto Alegre→Uruguaiana)</td><td>Vuelta</td><td class="num">~6</td><td class="num">R$8</td><td class="num">~$9.600</td></tr>
-        <tr><td>Peajes Argentina (RN14 ida+vuelta)</td><td>Ida+Vuelta</td><td class="num">varios</td><td class="num">—</td><td class="num">~$15.000</td></tr>
+        <tr><td>Peajes Argentina RN14</td><td>Ida</td><td class="num">~7</td><td class="num">—</td><td class="num">~$100.000</td></tr>
+        <tr><td>Peajes Argentina RN14</td><td>Vuelta</td><td class="num">~7</td><td class="num">—</td><td class="num">~$100.000</td></tr>
       </tbody>
     </table>
 
     <div class="grid-stats" style="margin-top:12px">
       <div class="stat"><div class="label">Peajes Brasil (R$586)</div><div class="value">~$117.200 ARS</div></div>
-      <div class="stat"><div class="label">Peajes Argentina (RN14)</div><div class="value">~$15.000 ARS</div></div>
-      <div class="stat"><div class="label">Total peajes</div><div class="value">~$132.200 ARS</div></div>
+      <div class="stat"><div class="label">Peajes Argentina (RN14)</div><div class="value">~$200.000 ARS</div></div>
+      <div class="stat"><div class="label">Total peajes</div><div class="value">~$317.200 ARS</div></div>
     </div>
 
     <div class="note">⚠️ Todo estimado — verificar precios de diésel y peajes antes del viaje. En Brasil los peajes se pagan en BRL efectivo o tarjeta de débito internacional. Algunos tienen sistema SAT/automático. En Argentina llevar pesos para la RN14.</div>
@@ -430,15 +448,15 @@ a{color:var(--red-dark)}
           <td><span style="color:var(--muted);font-size:12px">estimado</span></td>
         </tr>
         <tr>
-          <td>Peajes — Argentina RN14 (ida+vuelta)</td>
-          <td class="num">~$15.000 ARS</td>
-          <td class="num">~$15.000</td>
+          <td>Peajes — Argentina RN14 (ida+vuelta, ~14 plazas)</td>
+          <td class="num">~$200.000 ARS</td>
+          <td class="num">~$200.000</td>
           <td><span style="color:var(--muted);font-size:12px">estimado</span></td>
         </tr>
         <tr style="background:#eff6ff">
           <td><strong>TOTAL estimado del viaje</strong></td>
           <td class="num" style="color:var(--navy)">u$s&nbsp;6.474 + ruta</td>
-          <td class="num" style="color:var(--red-dark);font-size:16px">~$7.938.100 ARS</td>
+          <td class="num" style="color:var(--red-dark);font-size:16px">~$8.123.100 ARS</td>
           <td></td>
         </tr>
       </tbody>
@@ -447,12 +465,12 @@ a{color:var(--red-dark)}
     <div class="grid-stats" style="margin-top:14px">
       <div class="stat"><div class="label">Paquete (✅ pagado)</div><div class="value">u$s 6.474</div></div>
       <div class="stat"><div class="label">Nafta total en ruta</div><div class="value">~$684.500 ARS</div></div>
-      <div class="stat"><div class="label">Peajes total en ruta</div><div class="value">~$132.200 ARS</div></div>
-      <div class="stat"><div class="label">Solo ruta (sin paquete)</div><div class="value">~$816.700 ARS</div></div>
-      <div class="stat"><div class="label">Total viaje completo</div><div class="value">~$7,9M ARS</div></div>
-      <div class="stat"><div class="label">≈ en dólares</div><div class="value">~u$s 7.217</div></div>
+      <div class="stat"><div class="label">Peajes total en ruta</div><div class="value">~$317.200 ARS</div></div>
+      <div class="stat"><div class="label">Solo ruta (sin paquete)</div><div class="value">~$1.001.700 ARS</div></div>
+      <div class="stat"><div class="label">Total viaje completo</div><div class="value">~$8,1M ARS</div></div>
+      <div class="stat"><div class="label">≈ en dólares</div><div class="value">~u$s 7.385</div></div>
     </div>
-    <div class="info-box">💡 El costo de la ruta (nafta + peajes, sin el paquete) es <strong>~$816.700 ARS</strong> para todo el grupo — menos del 12% del total del viaje. El paquete ya está pagado y no se puede cancelar sin cargo desde el 6/10.</div>
+    <div class="info-box">💡 El costo de la ruta (nafta + peajes, sin el paquete) es <strong>~$1.001.700 ARS</strong> para todo el grupo — menos del 13% del total del viaje. El paquete ya está pagado y no se puede cancelar sin cargo desde el 6/10.</div>
   </div>
 
   <div class="card">
@@ -485,6 +503,13 @@ a{color:var(--red-dark)}
     <h2><span class="ico">🧑‍🤝‍🧑</span> Los 6 del viaje</h2>
     <div class="franco-bar">Todos hinchas de 🇦🇷 <strong>Franco Colapinto</strong> · y además...</div>
     <div class="crew-grid" id="crew-grid"></div>
+  </div>
+
+  <!-- FICHAS DE EMERGENCIA -->
+  <div class="card">
+    <h2><span class="ico">🆘</span> Fichas de emergencia</h2>
+    <p style="font-size:12.5px;color:var(--muted);margin:0 0 4px">Contactos del grupo — para tener a mano en la ruta. Completar obra social, grupo sanguíneo y medicamentos antes del viaje.</p>
+    <div class="fichas-grid" id="fichas-grid"></div>
   </div>
 
   <!-- FOTOS DEL GRUPO -->
@@ -574,6 +599,80 @@ if(grid){
       teamBadge+
       '<span class="c-colapinto">+ 🇦🇷 Franco Colapinto</span>';
     grid.appendChild(el);
+  });
+}
+
+var FICHAS = [
+  {apodo:'Ariel B',full:'Baudry Ariel Osvaldo',ico:'🧔🏼',
+   nacimiento:'8/11/1975',
+   tel:'+54 9 11 3900-9550',telRaw:'+5491139009550',
+   emergencia:'+54 9 11 6551-7385',emerRaw:'+5491165517385',
+   email:'ariel@baudry.com.ar',
+   sangre:'',obraSocial:'',medicamentos:'',notas:''},
+  {apodo:'Gaston',full:'Etcheverry Gaston Maximiliano',ico:'🧔🏽',
+   nacimiento:'5/10/1984',
+   tel:'+54 9 11 5835-0898',telRaw:'+5491158350898',
+   emergencia:'+54 9 11 6359-0066',emerRaw:'+5491163590066',
+   email:'dulceespoco2@gmail.com',
+   sangre:'',obraSocial:'',medicamentos:'',notas:''},
+  {apodo:'Ariel S',full:'Sandoval Ariel Gustavo',ico:'🧔🏻',
+   nacimiento:'19/11/1981',
+   tel:'+54 9 11 5840-7165',telRaw:'+5491158407165',
+   emergencia:'+54 9 11 3939-2201',emerRaw:'+5491139392201',
+   email:'negro13131313@gmail.com',
+   sangre:'',obraSocial:'',medicamentos:'',notas:''},
+  {apodo:'Dani',full:'Castellarin Daniel Horacio',ico:'👴',
+   nacimiento:'11/05/1967',
+   tel:'+54 9 11 2290-1470',telRaw:'+5491122901470',
+   emergencia:'+54 9 11 5501-4368',emerRaw:'+5491155014368',
+   email:'castellarinautorepuestos@hotmail.com',
+   sangre:'',obraSocial:'',medicamentos:'',notas:'⚠️ Confirmar DNI vigente al cruzar la frontera'},
+  {apodo:'Charly',full:'Gonzalez Jesus Carlos',ico:'🚴‍♂️',
+   nacimiento:'20/09/1971',
+   tel:'+54 9 11 5967-5466',telRaw:'+5491159675466',
+   emergencia:'+54 9 11 4090-0788',emerRaw:'+5491140900788',
+   email:'petymuerto@gmail.com',
+   sangre:'',obraSocial:'',medicamentos:'',notas:''},
+  {apodo:'Elias',full:'Gonzalez Elias Roman',ico:'🚵‍♂️',
+   nacimiento:'6/03/1996',
+   tel:'+54 9 11 4979-8768',telRaw:'+5491149798768',
+   emergencia:'+54 9 11 4090-0788',emerRaw:'+5491140900788',
+   email:'eliasgonzalezla15@hotmail.com',
+   sangre:'',obraSocial:'',medicamentos:'',notas:'Emergencia = Charly (padre)'}
+];
+
+var fichasGrid = document.getElementById('fichas-grid');
+if(fichasGrid){
+  FICHAS.forEach(function(f){
+    var el = document.createElement('div');
+    el.className = 'ficha-card';
+    var fields = [
+      {label:'Nacimiento',val:f.nacimiento},
+      {label:'Celular',val:f.tel,href:'tel:'+f.telRaw},
+      {label:'Emergencia',val:f.emergencia,href:'tel:'+f.emerRaw},
+      {label:'Email',val:f.email,href:'mailto:'+f.email},
+      {label:'Grupo sanguíneo',val:f.sangre||'— por completar',empty:!f.sangre},
+      {label:'Obra social',val:f.obraSocial||'— por completar',empty:!f.obraSocial},
+      {label:'Medicamentos',val:f.medicamentos||'ninguno conocido',empty:!f.medicamentos}
+    ];
+    var fieldsHtml = fields.map(function(r){
+      var v = r.href ? '<a href="'+r.href+'">'+r.val+'</a>' : r.val;
+      return '<div class="ficha-row"><span class="ficha-label">'+r.label+'</span>'+
+             '<span class="ficha-val'+(r.empty?' empty':'')+'">' +v+'</span></div>';
+    }).join('');
+    var alertHtml = f.notas
+      ? (f.notas.indexOf('⚠')===0
+          ? '<div class="ficha-alert">'+f.notas+'</div>'
+          : '<div class="ficha-note">'+f.notas+'</div>')
+      : '';
+    el.innerHTML =
+      '<div class="ficha-head">'+
+        '<span class="ficha-ico">'+f.ico+'</span>'+
+        '<div><div class="ficha-apodo">'+f.apodo+'</div>'+
+        '<div class="ficha-name">'+f.full+'</div></div>'+
+      '</div>'+
+      fieldsHtml+alertHtml;
+    fichasGrid.appendChild(el);
   });
 }
 
@@ -817,13 +916,13 @@ if(stopsList){
 var FOTOS = [
   {
     src: 'fotos/asado-01-junio-2026.jpg',
-    caption: 'Asado en el garage · Junio 2026',
-    sub: '🚗 Dani · Ariel S · Charly · Gaston · Ariel B + invitados'
+    caption: 'El grupo completo · Junio 2026',
+    sub: '🚗 Elias · Charly · Gaston · Dani · Ariel S · Ariel B + Don Carlos · Matias · Andres · Paulo'
   },
   {
     src: 'fotos/asado-02-junio-2026.jpg',
-    caption: 'El grupo completo · Junio 2026',
-    sub: '🚗 Elias · Charly · Gaston · Dani · Ariel S · Ariel B + Don Carlos · Matias · Andres · Paulo'
+    caption: 'Asado en el garage · Junio 2026',
+    sub: '🚗 Dani · Ariel S · Charly · Gaston · Ariel B + invitados'
   }
   /* Agregar fotos nuevas acá:
   ,{
