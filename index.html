@@ -202,23 +202,6 @@ a{color:var(--red-dark)}
     </div>
   </div>
 
-  <div class="card">
-    <h2><span class="ico">🎟️</span> El paquete <span class="conf-tag">✅ pagado — u$s 6.474</span></h2>
-    <p style="margin:0 0 10px">File&nbsp;650 · Punto Fans / Tienda Relajate · Agente: Agostina Gonzalez · u$s&nbsp;1.079/persona (precio base u$s&nbsp;1.199, 10%&nbsp;descuento contado)</p>
-    <div class="pkg-grid">
-      <div class="pkg-item"><span class="pkg-ico">🏨</span><strong>4 noches con desayuno</strong>Hotel San Raphael / Columbia · 5 al 9 de nov</div>
-      <div class="pkg-item"><span class="pkg-ico">🎟️</span><strong>Entradas Sector G</strong>Vie&nbsp;6 + Sáb&nbsp;7 + Dom&nbsp;8 de noviembre</div>
-      <div class="pkg-item"><span class="pkg-ico">🚌</span><strong>Traslados hotel ↔ circuito</strong>3 días del GP · regulares (horarios fijos, compartidos)</div>
-      <div class="pkg-item"><span class="pkg-ico">🛍️</span><strong>Kit de bienvenida</strong>Incluido por pasajero</div>
-    </div>
-    <div class="org-grid">
-      <div class="org-card"><div class="o-role">Agente de venta</div><div class="o-name">Agostina — Punto Fans</div><a href="tel:+5491128465677">+54 9 11 2846-5677</a></div>
-      <div class="org-card"><div class="o-role">Recibió el pago</div><div class="o-name">Gregorio</div><a href="tel:+5491140941919">+54 9 11 4094-1919</a></div>
-      <div class="org-card"><div class="o-role">Post-venta</div><div class="o-name">Punto Fans</div><a href="tel:+5491128647915">+54 9 11 2864-7915</a></div>
-    </div>
-    <div class="note">⚠️ Cancelación: hasta 5/9 → 15% · hasta 5/10 → 35% · desde 6/10 → sin reembolso.</div>
-  </div>
-
   <!-- MAPA FULLSCREEN -->
   <div class="card map-card">
     <div class="map-card-head">
@@ -338,62 +321,138 @@ a{color:var(--red-dark)}
   <!-- ESTIMACIÓN DE COSTOS -->
   <div class="card">
     <h2><span class="ico">💰</span> Estimación de costos — nafta y peajes</h2>
-    <p style="font-size:12.5px;color:var(--muted);margin:0 0 14px">Trailblazer 2020 diésel · ~11L/100km · ida+vuelta ~4.600km total. <strong style="color:var(--navy)">Verificar precios antes del viaje.</strong></p>
+    <p style="font-size:12.5px;color:var(--muted);margin:0 0 14px">Trailblazer 2020 diésel · ~11L/100km · ida+vuelta ~4.600km. <strong style="color:var(--navy)">Verificar precios antes del viaje.</strong> Conversión: 1 BRL = $200 ARS · 1 USD = $1.100 ARS</p>
 
     <table>
-      <thead><tr><th>Tramo</th><th>Km</th><th>Litros est.</th><th>Precio/L</th><th>Total est.</th><th>Por persona</th></tr></thead>
+      <thead><tr><th>Tramo</th><th>Km</th><th>Litros est.</th><th>Precio/L</th><th>Total en ARS</th></tr></thead>
       <tbody>
         <tr>
           <td>IDA — Argentina (diésel)</td><td class="num">~970</td><td class="num">~107 L</td>
-          <td style="font-size:12px;color:var(--muted)">~$1.500 ARS/L</td>
-          <td class="num">~$160.500 ARS</td><td class="num">~$26.750 ARS</td>
+          <td style="font-size:12px;color:var(--muted)">~$1.500/L</td>
+          <td class="num">~$160.500</td>
         </tr>
         <tr>
           <td>IDA — Brasil (S-10 diésel)</td><td class="num">~1.276</td><td class="num">~140 L</td>
-          <td style="font-size:12px;color:var(--muted)">~R$6,20/L</td>
-          <td class="num">~R$868</td><td class="num">~R$145</td>
+          <td style="font-size:12px;color:var(--muted)">R$6,20 (~$1.240)</td>
+          <td class="num">~$173.600</td>
         </tr>
         <tr>
           <td>VUELTA — Brasil (S-10 diésel)</td><td class="num">~1.380</td><td class="num">~152 L</td>
-          <td style="font-size:12px;color:var(--muted)">~R$6,20/L</td>
-          <td class="num">~R$942</td><td class="num">~R$157</td>
+          <td style="font-size:12px;color:var(--muted)">R$6,20 (~$1.240)</td>
+          <td class="num">~$188.400</td>
         </tr>
         <tr>
           <td>VUELTA — Argentina (diésel)</td><td class="num">~980</td><td class="num">~108 L</td>
-          <td style="font-size:12px;color:var(--muted)">~$1.500 ARS/L</td>
-          <td class="num">~$162.000 ARS</td><td class="num">~$27.000 ARS</td>
+          <td style="font-size:12px;color:var(--muted)">~$1.500/L</td>
+          <td class="num">~$162.000</td>
         </tr>
       </tbody>
     </table>
 
     <div class="grid-stats" style="margin-top:12px">
       <div class="stat"><div class="label">Total litros ida+vuelta</div><div class="value">~507 L</div></div>
-      <div class="stat"><div class="label">Nafta Brasil (total)</div><div class="value">~R$1.810</div></div>
-      <div class="stat"><div class="label">Nafta Brasil x persona</div><div class="value">~R$302</div></div>
-      <div class="stat"><div class="label">Nafta Argentina (total)</div><div class="value">~$322.500 ARS</div></div>
-      <div class="stat"><div class="label">Nafta AR x persona</div><div class="value">~$53.750 ARS</div></div>
+      <div class="stat"><div class="label">Nafta Argentina total</div><div class="value">~$322.500 ARS</div></div>
+      <div class="stat"><div class="label">Nafta Brasil total</div><div class="value">~$362.000 ARS</div></div>
+      <div class="stat"><div class="label">Total nafta</div><div class="value">~$684.500 ARS</div></div>
     </div>
 
     <h3 style="margin:18px 0 10px;font-size:15px;color:var(--navy);font-weight:800">🛣️ Peajes Brasil — estimado ida + vuelta</h3>
     <table>
-      <thead><tr><th>Ruta</th><th>Viaje</th><th>Est. peajes</th><th>Promedio</th><th>Subtotal</th></tr></thead>
+      <thead><tr><th>Ruta</th><th>Viaje</th><th>Est. peajes</th><th>Promedio BRL</th><th>Total en ARS</th></tr></thead>
       <tbody>
-        <tr><td>BR-285 RS interior + SC</td><td>Ida</td><td class="num">~5</td><td class="num">R$16</td><td class="num">~R$80</td></tr>
-        <tr><td>BR-116 Régis Bittencourt (Curitiba→SP)</td><td>Ida</td><td class="num">~8</td><td class="num">R$20</td><td class="num">~R$160</td></tr>
-        <tr><td>BR-116 SP→Curitiba</td><td>Vuelta</td><td class="num">~8</td><td class="num">R$20</td><td class="num">~R$160</td></tr>
-        <tr><td>BR-376 Curitiba→Joinville</td><td>Vuelta</td><td class="num">~3</td><td class="num">R$14</td><td class="num">~R$42</td></tr>
-        <tr><td>BR-101 SC costa (Joinville→RS)</td><td>Vuelta</td><td class="num">~8</td><td class="num">R$12</td><td class="num">~R$96</td></tr>
-        <tr><td>BR-290 RS (Porto Alegre→Uruguaiana)</td><td>Vuelta</td><td class="num">~6</td><td class="num">R$8</td><td class="num">~R$48</td></tr>
+        <tr><td>BR-285 RS interior + SC</td><td>Ida</td><td class="num">~5</td><td class="num">R$16</td><td class="num">~$16.000</td></tr>
+        <tr><td>BR-116 Régis Bittencourt (Curitiba→SP)</td><td>Ida</td><td class="num">~8</td><td class="num">R$20</td><td class="num">~$32.000</td></tr>
+        <tr><td>BR-116 SP→Curitiba</td><td>Vuelta</td><td class="num">~8</td><td class="num">R$20</td><td class="num">~$32.000</td></tr>
+        <tr><td>BR-376 Curitiba→Joinville</td><td>Vuelta</td><td class="num">~3</td><td class="num">R$14</td><td class="num">~$8.400</td></tr>
+        <tr><td>BR-101 SC costa (Joinville→RS)</td><td>Vuelta</td><td class="num">~8</td><td class="num">R$12</td><td class="num">~$19.200</td></tr>
+        <tr><td>BR-290 RS (Porto Alegre→Uruguaiana)</td><td>Vuelta</td><td class="num">~6</td><td class="num">R$8</td><td class="num">~$9.600</td></tr>
+        <tr><td>Peajes Argentina (RN14 ida+vuelta)</td><td>Ida+Vuelta</td><td class="num">varios</td><td class="num">—</td><td class="num">~$15.000</td></tr>
       </tbody>
     </table>
 
     <div class="grid-stats" style="margin-top:12px">
-      <div class="stat"><div class="label">Peajes Brasil (ida+vuelta)</div><div class="value">~R$586</div></div>
-      <div class="stat"><div class="label">Peajes Brasil x persona</div><div class="value">~R$98</div></div>
-      <div class="stat"><div class="label">Peajes Argentina RN14</div><div class="value">bajo, en ARS</div></div>
+      <div class="stat"><div class="label">Peajes Brasil (R$586)</div><div class="value">~$117.200 ARS</div></div>
+      <div class="stat"><div class="label">Peajes Argentina (RN14)</div><div class="value">~$15.000 ARS</div></div>
+      <div class="stat"><div class="label">Total peajes</div><div class="value">~$132.200 ARS</div></div>
     </div>
 
-    <div class="note">⚠️ Todo estimado — verificar precios de diésel y peajes antes del viaje. En Brasil los peajes se pagan en BRL (efectivo o tarjeta de débito internacional). En Argentina llevar pesos para la RN14. El precio del diésel en AR cambia frecuentemente.</div>
+    <div class="note">⚠️ Todo estimado — verificar precios de diésel y peajes antes del viaje. En Brasil los peajes se pagan en BRL efectivo o tarjeta de débito internacional. Algunos tienen sistema SAT/automático. En Argentina llevar pesos para la RN14.</div>
+  </div>
+
+  <!-- EL PAQUETE (hotel + entradas + traslados — ya pagado) -->
+  <div class="card">
+    <h2><span class="ico">🎟️</span> El paquete <span class="conf-tag">✅ pagado — u$s 6.474</span></h2>
+    <p style="margin:0 0 10px">File&nbsp;650 · Punto Fans / Tienda Relajate · Agente: Agostina Gonzalez · u$s&nbsp;1.079/persona (precio base u$s&nbsp;1.199, 10%&nbsp;descuento contado)</p>
+    <div class="pkg-grid">
+      <div class="pkg-item"><span class="pkg-ico">🏨</span><strong>4 noches con desayuno</strong>Hotel San Raphael / Columbia · 5 al 9 de nov</div>
+      <div class="pkg-item"><span class="pkg-ico">🎟️</span><strong>Entradas Sector G</strong>Vie&nbsp;6 + Sáb&nbsp;7 + Dom&nbsp;8 de noviembre</div>
+      <div class="pkg-item"><span class="pkg-ico">🚌</span><strong>Traslados hotel ↔ circuito</strong>3 días del GP · regulares (horarios fijos, compartidos)</div>
+      <div class="pkg-item"><span class="pkg-ico">🛍️</span><strong>Kit de bienvenida</strong>Incluido por pasajero</div>
+    </div>
+    <div class="org-grid">
+      <div class="org-card"><div class="o-role">Agente de venta</div><div class="o-name">Agostina — Punto Fans</div><a href="tel:+5491128465677">+54 9 11 2846-5677</a></div>
+      <div class="org-card"><div class="o-role">Recibió el pago</div><div class="o-name">Gregorio</div><a href="tel:+5491140941919">+54 9 11 4094-1919</a></div>
+      <div class="org-card"><div class="o-role">Post-venta</div><div class="o-name">Punto Fans</div><a href="tel:+5491128647915">+54 9 11 2864-7915</a></div>
+    </div>
+    <div class="note">⚠️ Cancelación: hasta 5/9 → 15% · hasta 5/10 → 35% · desde 6/10 → sin reembolso.</div>
+  </div>
+
+  <!-- CUENTA TOTAL DEL VIAJE -->
+  <div class="card">
+    <h2><span class="ico">🧾</span> Cuenta total del viaje</h2>
+    <p style="font-size:12.5px;color:var(--muted);margin:0 0 14px">Paquete ya pagado + estimación de costos en ruta. Tipo de cambio: 1 USD = $1.100 ARS · 1 BRL = $200 ARS.</p>
+
+    <table>
+      <thead><tr><th>Concepto</th><th>Monto original</th><th>Equivalente ARS</th><th>Estado</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Paquete F1</strong> — hotel 4 noches + entradas Sector G + traslados</td>
+          <td class="num">u$s 6.474</td>
+          <td class="num">~$7.121.400</td>
+          <td><span style="color:#15803d;font-weight:800;font-size:12px">✅ pagado</span></td>
+        </tr>
+        <tr>
+          <td>Nafta — Argentina (ida+vuelta, ~215L)</td>
+          <td class="num">$322.500 ARS</td>
+          <td class="num">$322.500</td>
+          <td><span style="color:var(--muted);font-size:12px">estimado</span></td>
+        </tr>
+        <tr>
+          <td>Nafta — Brasil (ida+vuelta, ~292L · R$1.810)</td>
+          <td class="num">R$1.810</td>
+          <td class="num">~$362.000</td>
+          <td><span style="color:var(--muted);font-size:12px">estimado</span></td>
+        </tr>
+        <tr>
+          <td>Peajes — Brasil (ida+vuelta · R$586)</td>
+          <td class="num">R$586</td>
+          <td class="num">~$117.200</td>
+          <td><span style="color:var(--muted);font-size:12px">estimado</span></td>
+        </tr>
+        <tr>
+          <td>Peajes — Argentina RN14 (ida+vuelta)</td>
+          <td class="num">~$15.000 ARS</td>
+          <td class="num">~$15.000</td>
+          <td><span style="color:var(--muted);font-size:12px">estimado</span></td>
+        </tr>
+        <tr style="background:#eff6ff">
+          <td><strong>TOTAL estimado del viaje</strong></td>
+          <td class="num" style="color:var(--navy)">u$s&nbsp;6.474 + ruta</td>
+          <td class="num" style="color:var(--red-dark);font-size:16px">~$7.938.100 ARS</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="grid-stats" style="margin-top:14px">
+      <div class="stat"><div class="label">Paquete (✅ pagado)</div><div class="value">u$s 6.474</div></div>
+      <div class="stat"><div class="label">Nafta total en ruta</div><div class="value">~$684.500 ARS</div></div>
+      <div class="stat"><div class="label">Peajes total en ruta</div><div class="value">~$132.200 ARS</div></div>
+      <div class="stat"><div class="label">Solo ruta (sin paquete)</div><div class="value">~$816.700 ARS</div></div>
+      <div class="stat"><div class="label">Total viaje completo</div><div class="value">~$7,9M ARS</div></div>
+      <div class="stat"><div class="label">≈ en dólares</div><div class="value">~u$s 7.217</div></div>
+    </div>
+    <div class="info-box">💡 El costo de la ruta (nafta + peajes, sin el paquete) es <strong>~$816.700 ARS</strong> para todo el grupo — menos del 12% del total del viaje. El paquete ya está pagado y no se puede cancelar sin cargo desde el 6/10.</div>
   </div>
 
   <div class="card">
@@ -485,12 +544,12 @@ var TEAMS = {
 };
 
 var CREW = [
-  {apodo:'Ariel B',full:'Baudry Ariel Osvaldo',city:'Juan Mª Gutiérrez',age:50,team:'mercedes',ico:'👨‍🦳'},
-  {apodo:'Ariel S',full:'Sandoval Ariel Gustavo',city:'Berazategui',age:44,team:'ferrari',ico:'🏎️'},
-  {apodo:'Charly',full:'Gonzalez Jesus Carlos',city:'Juan Mª Gutiérrez',age:55,team:null,ico:'🤏'},
-  {apodo:'Elias',full:'Gonzalez Elias Roman',city:'Juan Mª Gutiérrez',age:30,team:'williams',ico:'⚡'},
-  {apodo:'Dani',full:'Castellarin Daniel Horacio',city:'Quilmes',age:59,team:'mercedes',ico:'👨‍🦲'},
-  {apodo:'Gaston',full:'Etcheverry Gaston Maximiliano',city:'Berazategui',age:42,team:'redbull',ico:'🧔‍♂️'}
+  {apodo:'Ariel B',full:'Baudry Ariel Osvaldo',city:'Juan Mª Gutiérrez',age:50,team:'mercedes',ico:'🧔🏼'},
+  {apodo:'Ariel S',full:'Sandoval Ariel Gustavo',city:'Berazategui',age:44,team:'ferrari',ico:'🧔🏻'},
+  {apodo:'Charly',full:'Gonzalez Jesus Carlos',city:'Juan Mª Gutiérrez',age:55,team:null,ico:'🚴‍♂️'},
+  {apodo:'Elias',full:'Gonzalez Elias Roman',city:'Juan Mª Gutiérrez',age:30,team:'williams',ico:'🚵‍♂️'},
+  {apodo:'Dani',full:'Castellarin Daniel Horacio',city:'Quilmes',age:59,team:'mercedes',ico:'👴'},
+  {apodo:'Gaston',full:'Etcheverry Gaston Maximiliano',city:'Berazategui',age:42,team:'redbull',ico:'🧔🏽'}
 ];
 
 /* Render crew cards */
