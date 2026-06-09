@@ -257,6 +257,16 @@ a{color:var(--red-dark)}
       </tbody>
     </table>
     <div class="note">⚠️ BR-285 vía São Borja sería un atajo entre Uruguaiana y Porto Alegre, pero tenía tramos con asfalto levantado. Verificar estado antes de salir; si sigue mal, mantenerse en BR-290.</div>
+    <div style="margin-top:12px">
+      <table>
+        <thead><tr><th>Tramo</th><th>Tipo de ruta</th><th>Estado</th></tr></thead>
+        <tbody>
+          <tr><td>RN14 (Argentina)</td><td>Ruta nacional — doble mano, 2 carriles</td><td>✅ Asfalto en buen estado. Mayoría de tramos es <em>ruta nacional</em> (no autopista dividida), aunque hay sectores en ampliación. Velocidad máx. 110 km/h.</td></tr>
+          <tr><td>BR-290 (Uruguaiana → Porto Alegre)</td><td>Rodovia federal — doble mano, 2 carriles</td><td>✅ Asfaltada. Tramos con obras de duplicación. Peajes (pedágios) — llevar reales. Verificar estado más cerca de la fecha.</td></tr>
+          <tr><td>BR-116 (Porto Alegre → Curitiba → SP)</td><td>Rodovia federal concesionada — en gran parte autopista (pista dupla)</td><td>✅ La sección Curitiba–São Paulo (Rodovia Régis Bittencourt) es autopista completa, bien mantenida. Tramos de PR/RS más básicos. Múltiples peajes — tarjeta o efectivo BRL.</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <div class="card">
@@ -285,6 +295,15 @@ a{color:var(--red-dark)}
         <tr><td>🌎 Cruce de frontera + RN14</td><td>RN14</td><td class="num">~980</td><td class="num">~11h</td></tr>
       </tbody>
     </table>
+    <div style="margin-top:12px">
+      <table>
+        <thead><tr><th>Tramo</th><th>Tipo de ruta</th><th>Estado</th></tr></thead>
+        <tbody>
+          <tr><td>BR-376 (Curitiba → Joinville)</td><td>Rodovia federal — autopista en gran parte</td><td>✅ Asfaltada. Cruza la Serra do Mar — puede haber niebla y lluvia. Ir despacio en esa sección.</td></tr>
+          <tr><td>BR-101 (Joinville → Floripa → Porto Alegre)</td><td>Rodovia federal — doble mano, 2 a 4 carriles según tramo</td><td>✅ Asfaltada. La sección costera de SC está bien mantenida. Peajes frecuentes en SC y RS.</td></tr>
+        </tbody>
+      </table>
+    </div>
     <div class="beach-box">🏖️ <strong>Balneário Camboriú (SC)</strong> — playa de arena blanca, agua cálida (~24°C en noviembre), sin rocas. La calle principal ("Avenida Atlântica") está a 100m del estacionamiento. Ideal parar en el tramo diurno después de Curitiba, llegar a la playa a la mañana/mediodía. Coordenadas: -26.9906, -48.6348</div>
   </div>
 
@@ -495,18 +514,20 @@ if(mapEl && typeof L !== 'undefined'){
     return '<strong style="font-size:13px">'+w.name+'</strong><br><span style="font-size:12px;line-height:1.5">'+w.info+'</span>';
   }
 
+  /* Rutas reales obtenidas de OSRM/OpenStreetMap */
+  var ROUTE_IDA = [[-34.7667,-58.20969],[-34.58293,-58.38083],[-34.31757,-58.86727],[-34.09722,-59.02765],[-33.89948,-58.87149],[-33.45113,-58.80245],[-32.78751,-58.51446],[-32.42802,-58.28359],[-32.17773,-58.23457],[-31.73434,-58.30226],[-31.49685,-58.17599],[-31.39277,-58.02061],[-31.34468,-58.09101],[-30.32649,-57.94951],[-30.0773,-58.00363],[-30.05287,-57.79182],[-29.77476,-57.38732],[-29.70183,-57.09057],[-29.75475,-57.0883],[-29.99969,-56.5147],[-30.02421,-56.26863],[-29.74778,-55.56993],[-29.57349,-55.46594],[-29.59406,-55.10324],[-29.72404,-54.8015],[-29.63678,-54.18546],[-29.53259,-54.13802],[-29.51988,-54.00289],[-29.51614,-53.85945],[-29.6886,-53.82142],[-29.73647,-53.49109],[-29.7476,-52.98266],[-29.66771,-52.76383],[-29.69651,-52.36155],[-29.63904,-52.15957],[-29.69149,-51.70683],[-29.84944,-51.26824],[-30.03466,-51.21766],[-29.7308,-51.14928],[-29.60608,-51.35327],[-29.25085,-51.34448],[-29.02545,-50.91904],[-28.71949,-51.08736],[-28.59814,-51.0371],[-28.19723,-50.75933],[-27.81001,-50.31995],[-27.16135,-50.46682],[-26.98427,-50.39298],[-26.91593,-50.44579],[-26.60311,-50.22662],[-26.389,-50.22485],[-26.31338,-49.96459],[-25.91614,-49.61006],[-25.86833,-49.36529],[-25.42838,-49.27325],[-25.30268,-48.94189],[-25.10955,-48.84345],[-25.08778,-48.60495],[-24.976,-48.50338],[-24.92377,-48.26226],[-24.78051,-48.20369],[-24.64678,-47.9211],[-24.42338,-47.77853],[-24.26287,-47.3796],[-23.97625,-47.14342],[-23.92943,-46.99617],[-23.60269,-46.75745],[-23.55007,-46.63288]];
+  var ROUTE_VUELTA = [[-23.55007,-46.63288],[-23.59059,-46.81142],[-23.92932,-46.99638],[-23.97597,-47.14336],[-24.26259,-47.37953],[-24.42328,-47.77875],[-24.64668,-47.9213],[-24.7771,-48.21108],[-24.92364,-48.26236],[-24.97095,-48.50026],[-25.08731,-48.60484],[-25.1063,-48.84843],[-25.30389,-48.94444],[-25.42838,-49.27325],[-25.821,-49.12816],[-25.86444,-48.93428],[-26.04107,-48.85966],[-26.2329,-48.91666],[-26.30068,-48.84621],[-26.5226,-48.71667],[-26.86893,-48.73008],[-26.99075,-48.63467],[-27.49652,-48.65708],[-27.59692,-48.54952],[-27.65549,-48.67836],[-27.83172,-48.62986],[-28.34452,-48.73412],[-28.4399,-48.81252],[-28.47818,-49.03278],[-28.66603,-49.11489],[-28.84424,-49.43163],[-29.87853,-50.2605],[-29.89088,-50.71647],[-29.97122,-51.19357],[-30.03466,-51.21766],[-29.98536,-51.25008],[-30.10756,-51.67601],[-30.25008,-53.05998],[-30.37707,-53.41153],[-30.3686,-54.23029],[-30.23117,-54.64981],[-30.23793,-55.01781],[-29.80537,-55.77408],[-30.01297,-56.20993],[-30.01947,-56.41721],[-29.82966,-56.97494],[-29.72622,-57.08802],[-29.74797,-57.32977],[-30.05223,-57.79085],[-30.07602,-58.00499],[-30.32236,-57.94996],[-30.75645,-58.00775],[-31.41981,-58.10324],[-31.79282,-58.31741],[-32.17733,-58.23479],[-32.42836,-58.28391],[-33.44977,-58.80253],[-33.89901,-58.87139],[-34.12174,-59.01834],[-34.46939,-58.68363],[-34.5831,-58.38097],[-34.7667,-58.20969]];
+
   /* Capa IDA */
   var groupIda = L.layerGroup();
-  L.polyline(WAYPOINTS_IDA.map(function(w){return[w.lat,w.lon];}),
-    {color:'#e10600',weight:3,dashArray:'8 4',opacity:.85}).addTo(groupIda);
+  L.polyline(ROUTE_IDA,{color:'#e10600',weight:3,dashArray:'8 4',opacity:.85}).addTo(groupIda);
   WAYPOINTS_IDA.forEach(function(w){
     L.marker([w.lat,w.lon],{icon:mkIcon(w.kind)}).bindPopup(popupHtml(w),{maxWidth:240}).addTo(groupIda);
   });
 
   /* Capa VUELTA */
   var groupVuelta = L.layerGroup();
-  L.polyline(WAYPOINTS_VUELTA.map(function(w){return[w.lat,w.lon];}),
-    {color:'#2563eb',weight:3,opacity:.8}).addTo(groupVuelta);
+  L.polyline(ROUTE_VUELTA,{color:'#2563eb',weight:3,opacity:.8}).addTo(groupVuelta);
   WAYPOINTS_VUELTA.forEach(function(w){
     L.marker([w.lat,w.lon],{icon:mkIcon(w.kind)}).bindPopup(popupHtml(w),{maxWidth:240}).addTo(groupVuelta);
   });
