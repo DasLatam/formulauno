@@ -579,8 +579,8 @@ if(grid){
 
 /* Waypoints IDA */
 var WAYPOINTS_IDA = [
-  {id:'berazategui',name:'Juan Mª Gutiérrez (salida)',kind:'start',lat:-34.7666,lon:-58.2095,
-   info:'Punto de partida — Juan María Gutiérrez, Berazategui.'},
+  {id:'berazategui',name:'Shell — salida 🏎️',kind:'start',lat:-34.83641,lon:-58.16661,
+   info:'Punto de partida — Shell Camino General Belgrano y Calle 415, Juan María Gutiérrez. Primera carga de diésel antes de partir.'},
   {id:'zarate',name:'Zárate',kind:'city',lat:-34.0973,lon:-59.0278,
    info:'Acceso a la RN14 — ruta del Mercosur.'},
   {id:'concordia',name:'Carga 1 — Concordia/Chajarí (RN14)',kind:'fuel',lat:-31.3927,lon:-58.0206,
@@ -617,8 +617,8 @@ var WAYPOINTS_VUELTA = [
    info:'Cruce de vuelta — documentación igual que a la ida. Cargar combustible en Brasil antes de cruzar si es conveniente.'},
   {id:'rn14-v',name:'RN14 — vuelta a casa',kind:'city',lat:-30.7565,lon:-58.0078,
    info:'De vuelta en Argentina. RN14 directo a Juan María Gutiérrez.'},
-  {id:'berazategui-v',name:'Juan Mª Gutiérrez — llegada 🏠',kind:'finish',lat:-34.7666,lon:-58.2095,
-   info:'¡Llegada! Después de ~4.800 km de ida y vuelta.'}
+  {id:'berazategui-v',name:'Juan Mª Gutiérrez — llegada 🏠',kind:'finish',lat:-34.83641,lon:-58.16661,
+   info:'¡Llegada! Después de ~4.800 km de ida y vuelta. Shell Camino General Belgrano y Calle 415.'}
 ];
 
 /* Mapa Leaflet */
@@ -655,10 +655,10 @@ if(mapEl && typeof L !== 'undefined'){
      Fallback sparse si el archivo externo no carga. */
   var ROUTE_IDA = (window.ROUTE_IDA && window.ROUTE_IDA.length > 100)
     ? window.ROUTE_IDA
-    : [[-34.7667,-58.20969],[-34.09722,-59.02765],[-31.39277,-58.02061],[-29.70183,-57.09057],[-28.26307,-52.40596],[-26.52654,-51.35787],[-23.55007,-46.63288]];
+    : [[-34.83641,-58.16661],[-34.09722,-59.02765],[-31.39277,-58.02061],[-29.70183,-57.09057],[-28.26307,-52.40596],[-25.42838,-49.27325],[-23.55007,-46.63288]];
   var ROUTE_VUELTA = (window.ROUTE_VUELTA && window.ROUTE_VUELTA.length > 100)
     ? window.ROUTE_VUELTA
-    : [[-23.55007,-46.63288],[-25.42838,-49.27325],[-26.99075,-48.63467],[-29.72622,-57.08802],[-34.7667,-58.20969]];
+    : [[-23.55007,-46.63288],[-25.42838,-49.27325],[-26.99075,-48.63467],[-29.72622,-57.08802],[-34.83641,-58.16661]];
 
   /* Capa IDA */
   var groupIda = L.layerGroup();
