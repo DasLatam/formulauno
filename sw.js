@@ -1,9 +1,10 @@
-const CACHE_SHELL = 'f1-shell-v2';
+const CACHE_SHELL = 'f1-shell-v3';
 const CACHE_TILES = 'f1-tiles-v1';
 
 const SHELL_ASSETS = [
   '/',
   '/index.html',
+  '/routes.js',
   'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
   'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
 ];
