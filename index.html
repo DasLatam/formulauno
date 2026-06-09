@@ -181,6 +181,33 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:700;colo
 footer{text-align:center;color:var(--muted);font-size:12px;padding:24px 16px 50px}
 a{color:var(--red-dark)}
 
+/* ── Clima ── */
+.wx-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.wx-tab{border:1px solid var(--border);background:var(--bg);border-radius:999px;padding:7px 16px;font-size:12.5px;font-weight:700;cursor:pointer;color:var(--muted);transition:all .15s}
+.wx-tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.wx-loading{text-align:center;padding:20px;color:var(--muted);font-size:13px}
+.wx-days{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:16px}
+@media(max-width:540px){.wx-days{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:360px){.wx-days{grid-template-columns:repeat(3,1fr)}}
+.wx-day{background:var(--bg);border-radius:10px;padding:8px 5px;text-align:center;border:1.5px solid transparent}
+.wx-day.wx-rain{border-color:#bfdbfe;background:#eff6ff}
+.wx-day.wx-storm{border-color:#e9d5ff;background:#faf5ff}
+.wx-day .wd-name{font-size:10px;text-transform:uppercase;color:var(--muted);font-weight:700;letter-spacing:.04em}
+.wx-day .wd-ico{font-size:20px;margin:4px 0 2px;line-height:1.1}
+.wx-day .wd-max{font-size:14px;font-weight:800;color:var(--navy)}
+.wx-day .wd-min{font-size:11px;color:var(--muted)}
+.wx-day .wd-rain{font-size:10px;color:#2563eb;margin-top:2px;font-weight:700}
+.wx-hist{background:var(--bg);border-radius:10px;padding:14px;margin-top:4px}
+.wx-hist-title{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;margin-bottom:10px}
+.wx-hist-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:500px){.wx-hist-cols{grid-template-columns:1fr}}
+.wx-loc-title{font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:6px}
+.wx-stat-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px dashed var(--border);font-size:12px}
+.wx-stat-row:last-child{border-bottom:none}
+.wx-stat-row .ws-lbl{color:var(--muted)}
+.wx-stat-row .ws-val{font-weight:700;color:var(--navy)}
+.wx-alert{background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:9px 12px;font-size:12px;color:#9a3412;margin-top:10px}
+
 /* Galería de fotos */
 .fotos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:4px}
 .foto-item{border-radius:12px;overflow:hidden;background:#f0f0f5;border:1px solid var(--border)}
@@ -227,6 +254,41 @@ a{color:var(--red-dark)}
       <div class="stat"><div class="label">Check-in hotel</div><div class="value">5 nov</div></div>
       <div class="stat"><div class="label">GP (3 días)</div><div class="value">6–8 nov</div></div>
       <div class="stat"><div class="label">Vuelta</div><div class="value">9 nov</div></div>
+    </div>
+  </div>
+
+  <!-- CLIMA -->
+  <div class="card" id="weather-card">
+    <h2><span class="ico">🌦️</span> Clima en ruta <span class="conf-tag">📡 pronóstico 7 días</span></h2>
+    <p style="font-size:12.5px;color:var(--muted);margin:0 0 12px">Pronóstico para São Paulo y la parada de playa en Bombinhas. Se actualiza cada vez que se abre la app con señal.</p>
+    <div class="wx-tabs">
+      <button class="wx-tab active" id="wx-tab-sp" type="button">🏙️ São Paulo / Interlagos</button>
+      <button class="wx-tab" id="wx-tab-bomb" type="button">⛱️ Bombinhas / Mariscal</button>
+    </div>
+    <div id="wx-forecast"><div class="wx-loading">Cargando pronóstico...</div></div>
+    <div class="wx-hist">
+      <div class="wx-hist-title">📊 Historial primeros días de noviembre — promedio 2015–2024</div>
+      <div class="wx-hist-cols">
+        <div>
+          <div class="wx-loc-title">🏙️ São Paulo / Interlagos</div>
+          <div class="wx-stat-row"><span class="ws-lbl">Temp. máx. promedio</span><span class="ws-val">27 °C</span></div>
+          <div class="wx-stat-row"><span class="ws-lbl">Temp. mín. promedio</span><span class="ws-val">18 °C</span></div>
+          <div class="wx-stat-row"><span class="ws-lbl">Prob. lluvia diaria</span><span class="ws-val">~46 %</span></div>
+          <div class="wx-stat-row"><span class="ws-lbl">Días lluvia / 8 días</span><span class="ws-val">4–5 días</span></div>
+          <div class="wx-stat-row"><span class="ws-lbl">Precipitación acum.</span><span class="ws-val">~65 mm</span></div>
+          <div class="wx-stat-row"><span class="ws-lbl">Tormentas vespertinas</span><span class="ws-val">frecuentes</span></div>
+        </div>
+        <div>
+          <div class="wx-loc-title">⛱️ Bombinhas · Costa SC</div>
+          <div class="wx-stat-row"><span class="ws-lbl">Temp. máx. promedio</span><span class="ws-val">24 °C</span></div>
+          <div class="wx-stat-row"><span class="ws-lbl">Temp. mín. promedio</span><span class="ws-val">17 °C</span></div>
+          <div class="wx-stat-row"><span class="ws-lbl">Prob. lluvia diaria</span><span class="ws-val">~38 %</span></div>
+          <div class="wx-stat-row"><span class="ws-lbl">Días lluvia / 4 días</span><span class="ws-val">1–2 días</span></div>
+          <div class="wx-stat-row"><span class="ws-lbl">Precipitación acum.</span><span class="ws-val">~35 mm</span></div>
+          <div class="wx-stat-row"><span class="ws-lbl">Agua del mar (nov)</span><span class="ws-val">~24–25 °C</span></div>
+        </div>
+      </div>
+      <div class="wx-alert">⚠️ <strong>Noviembre es inicio de temporada de lluvias en SP.</strong> Las tormentas suelen ser cortas pero intensas, generalmente por la tarde. El GP históricamente tuvo lluvia fuerte en 2021, 2022 y 2023. Llevar rompevientos impermeable para el autódromo.</div>
     </div>
   </div>
 
@@ -294,12 +356,12 @@ a{color:var(--red-dark)}
 
   <div class="card">
     <h2><span class="ico">🔄</span> Ruta VUELTA <span class="route-tag-vuelta">Dom 9 nov → Lun 10 nov</span></h2>
-    <p>La vuelta va por la costa sur de Brasil (BR-101) en vez de la BR-116 interior — unos 100 km más pero pasa por <strong>Balneário Camboriú</strong>, la mejor playa de arena blanca y agua cálida del sur.</p>
+    <p>La vuelta va por la costa sur de Brasil (BR-101) en vez de la BR-116 interior — unos 100 km más pero pasa por <strong>Bombinhas · Praia do Mariscal</strong>, arena blanca fina y agua cálida transparente (~24°C en noviembre).</p>
     <div class="route-flow">
       <span>São Paulo</span><span class="arrow">→</span>
       <span>Curitiba</span><span class="arrow">→</span>
       <span>BR-376 (costa)</span><span class="arrow">→</span>
-      <span>⛱️ Balneário Camboriú</span><span class="arrow">→</span>
+      <span>⛱️ Bombinhas</span><span class="arrow">→</span>
       <span>Florianópolis</span><span class="arrow">→</span>
       <span>Porto Alegre</span><span class="arrow">→</span>
       <span>BR-290</span><span class="arrow">→</span>
@@ -312,8 +374,8 @@ a{color:var(--red-dark)}
       <tbody>
         <tr><td>São Paulo → Curitiba</td><td>BR-116 Régis Bittencourt</td><td class="num">~410</td><td class="num">~4h30</td></tr>
         <tr><td>Curitiba → Joinville</td><td>BR-376 (costa)</td><td class="num">~130</td><td class="num">~1h30</td></tr>
-        <tr><td>⛱️ Joinville → <strong>Balneário Camboriú</strong></td><td>BR-101</td><td class="num">~100</td><td class="num">~1h + 2h playa</td></tr>
-        <tr><td>Balneário Camboriú → Porto Alegre</td><td>BR-101</td><td class="num">~510</td><td class="num">~5h30</td></tr>
+        <tr><td>⛱️ Joinville → <strong>Bombinhas · Mariscal</strong> <span style="font-size:11px;color:var(--muted)">(SC-412, 25km desvío)</span></td><td>BR-101 + SC-412</td><td class="num">~120</td><td class="num">~1h30 + 2h playa</td></tr>
+        <tr><td>Bombinhas → Florianópolis → Porto Alegre</td><td>SC-412 → BR-101</td><td class="num">~490</td><td class="num">~5h30</td></tr>
         <tr><td>Porto Alegre → Uruguaiana</td><td>BR-290</td><td class="num">~630</td><td class="num">~7h</td></tr>
         <tr><td>🌎 Cruce de frontera + RN14</td><td>RN14</td><td class="num">~980</td><td class="num">~11h</td></tr>
       </tbody>
@@ -327,7 +389,7 @@ a{color:var(--red-dark)}
         </tbody>
       </table>
     </div>
-    <div class="beach-box">🏖️ <strong>Balneário Camboriú (SC)</strong> — playa de arena blanca, agua cálida (~24°C en noviembre), sin rocas. La calle principal ("Avenida Atlântica") está a 100m del estacionamiento. Ideal parar en el tramo diurno después de Curitiba, llegar a la playa a la mañana/mediodía. Coordenadas: -26.9906, -48.6348</div>
+    <div class="beach-box">🏖️ <strong>Bombinhas · Praia do Mariscal (SC)</strong> — arena blanca y fina, agua cristalina (~24–25°C en noviembre), sin rocas, sin edificios en la orilla. Desvío de 25 km por SC-412 desde Porto Belo. Amplia, menos masificada que Camboriú. Ideal llegar a la mañana/mediodía. Coordenadas: -27.1905, -48.4892</div>
   </div>
 
   <div class="card">
@@ -503,7 +565,7 @@ a{color:var(--red-dark)}
       <div class="timeline-item"><div class="when">Vie 6 — Dom 8/11</div><div class="what">🏁 GP de São Paulo · Interlagos — traslados hotel ↔ circuito incluidos</div></div>
       <div class="timeline-item"><div class="when">Dom 8/11 · noche</div><div class="what">Última noche en el hotel</div></div>
       <div class="timeline-item"><div class="when">Lun 9/11 · check-out</div><div class="what">Salida de vuelta — São Paulo → Curitiba → coast</div></div>
-      <div class="timeline-item"><div class="when">Lun 9/11 · mañana/mediodía</div><div class="what">⛱️ Parada 2h en Balneário Camboriú — playa de arena blanca y agua cálida</div></div>
+      <div class="timeline-item"><div class="when">Lun 9/11 · mañana/mediodía</div><div class="what">⛱️ Parada 2h en Bombinhas · Praia do Mariscal — arena blanca fina, agua transparente ~24°C</div></div>
       <div class="timeline-item"><div class="when">Lun 9/11 → Mar 10/11</div><div class="what">BR-101 → Porto Alegre → BR-290 → Uruguaiana → frontera → RN14</div></div>
       <div class="timeline-item"><div class="when">Mar 10/11 · tarde/noche</div><div class="what">🏠 Llegada a Juan María Gutiérrez</div></div>
     </div>
@@ -742,8 +804,8 @@ var WAYPOINTS_VUELTA = [
    info:'Empalme hacia la BR-376 costera.'},
   {id:'joinville',name:'Joinville (SC)',kind:'city',lat:-26.3005,lon:-48.8462,
    info:'Empalme BR-376 → BR-101 costera hacia el sur.'},
-  {id:'balneario',name:'⛱️ Balneário Camboriú — parada playa',kind:'beach',lat:-26.9906,lon:-48.6348,
-   info:'Parada obligada de 2h+ — arena blanca, agua cálida (~24°C en noviembre). Avenida Atlântica, a 100m del estacionamiento. Llegar de día.'},
+  {id:'balneario',name:'⛱️ Bombinhas · Praia do Mariscal — parada playa',kind:'beach',lat:-27.1905,lon:-48.4892,
+   info:'Parada 2h+ — arena blanca fina, agua cristalina (~24–25°C en noviembre). Desvío 25km por SC-412 desde Porto Belo. Sin edificios en la orilla. Llegar de día.'},
   {id:'floripa',name:'Florianópolis',kind:'city',lat:-27.5969,lon:-48.5495,
    info:'Paso por Florianópolis — si hay tiempo se puede dar una vuelta, sino seguir por BR-101 sur.'},
   {id:'poa-v',name:'Porto Alegre',kind:'city',lat:-30.0346,lon:-51.2177,
@@ -1012,6 +1074,74 @@ var FOTOS = [
     item.appendChild(cap);
     grid.appendChild(item);
   });
+})();
+
+/* ── Clima (Open-Meteo) ── */
+(function(){
+  var WX_LOCS = {
+    sp:  {lat:-23.7014,lon:-46.6974},
+    bomb:{lat:-27.1905,lon:-48.4892}
+  };
+  var WMO_ICO = {0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌦️',61:'🌧️',63:'🌧️',65:'🌧️',71:'❄️',73:'❄️',75:'❄️',77:'❄️',80:'🌧️',81:'🌧️',82:'🌧️',85:'❄️',86:'❄️',95:'⛈️',96:'⛈️',99:'⛈️'};
+  var DIAS = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+  var currentLoc = 'sp';
+  var wxData = {};
+
+  function renderForecast(locKey){
+    var el = document.getElementById('wx-forecast');
+    if(!el) return;
+    var d = wxData[locKey];
+    if(!d){el.innerHTML='<div class="wx-loading">Sin conexión — pronóstico no disponible</div>';return;}
+    var days = d.daily;
+    var html = '<div class="wx-days">';
+    for(var i=0;i<Math.min(7,days.time.length);i++){
+      var date = new Date(days.time[i]+'T12:00:00');
+      var code = days.weathercode[i];
+      var precip = days.precipitation_probability_max ? (days.precipitation_probability_max[i]||0) : 0;
+      var isStorm = code >= 95;
+      var isRain = !isStorm && precip >= 50;
+      var cls = 'wx-day'+(isStorm?' wx-storm':isRain?' wx-rain':'');
+      html += '<div class="'+cls+'">';
+      html += '<div class="wd-name">'+DIAS[date.getDay()]+'</div>';
+      html += '<div class="wd-ico">'+(WMO_ICO[code]||'🌡️')+'</div>';
+      html += '<div class="wd-max">'+Math.round(days.temperature_2m_max[i])+'°</div>';
+      html += '<div class="wd-min">'+Math.round(days.temperature_2m_min[i])+'°</div>';
+      if(precip > 0) html += '<div class="wd-rain">'+precip+'%</div>';
+      html += '</div>';
+    }
+    html += '</div>';
+    el.innerHTML = html;
+  }
+
+  function fetchLoc(locKey){
+    var loc = WX_LOCS[locKey];
+    var url = 'https://api.open-meteo.com/v1/forecast?latitude='+loc.lat+'&longitude='+loc.lon+
+      '&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max'+
+      '&timezone=America%2FSao_Paulo&forecast_days=7';
+    fetch(url,{cache:'no-store'}).then(function(r){return r.json();}).then(function(data){
+      wxData[locKey]=data;
+      if(currentLoc===locKey) renderForecast(locKey);
+    }).catch(function(){
+      if(currentLoc===locKey){var el=document.getElementById('wx-forecast');if(el)el.innerHTML='<div class="wx-loading">Sin conexión — pronóstico no disponible</div>';}
+    });
+  }
+
+  function switchTab(locKey){
+    currentLoc=locKey;
+    document.querySelectorAll('.wx-tab').forEach(function(b){b.classList.remove('active');});
+    var btn=document.getElementById('wx-tab-'+locKey);
+    if(btn) btn.classList.add('active');
+    if(wxData[locKey]){renderForecast(locKey);}
+    else{var el=document.getElementById('wx-forecast');if(el)el.innerHTML='<div class="wx-loading">Cargando...</div>';fetchLoc(locKey);}
+  }
+
+  var tabSp=document.getElementById('wx-tab-sp');
+  var tabBomb=document.getElementById('wx-tab-bomb');
+  if(tabSp) tabSp.addEventListener('click',function(){switchTab('sp');});
+  if(tabBomb) tabBomb.addEventListener('click',function(){switchTab('bomb');});
+
+  fetchLoc('sp');
+  fetchLoc('bomb');
 })();
 
 /* Service Worker */

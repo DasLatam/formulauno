@@ -1,4 +1,4 @@
-const CACHE_SHELL = 'f1-shell-v6';
+const CACHE_SHELL = 'f1-shell-v7';
 const CACHE_TILES = 'f1-tiles-v1';
 
 const SHELL_ASSETS = [
@@ -28,6 +28,9 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
   const url = new URL(event.request.url);
+
+  // Weather API — always fetch fresh, never cache
+  if (url.hostname === 'api.open-meteo.com') return;
 
   if (url.hostname === 'tile.openstreetmap.org') {
     event.respondWith(
